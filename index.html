@@ -22,20 +22,20 @@
             align-items: center;
             justify-content: center;
             background-color: #ffffff;
-            padding: 10px;
+            padding: 5px;
             border-bottom: 1px solid #ddd;
-            height: 100px; /* ヘッダー全体の高さ */
+            height: 70px; /* ヘッダーの高さを小さめに設定 */
         }
 
         header img {
-            max-height: 100%; /* ヘッダーの高さに収まるよう最大化 */
-            max-width: 100%; /* 幅も調整して歪み防止 */
+            max-height: 100%; /* ヘッダー内で最大限大きく */
+            max-width: 100%; /* 幅を調整して歪み防止 */
         }
 
         /* メインコンテンツ */
         main {
             display: flex;
-            height: calc(100vh - 100px); /* ヘッダーを引いた高さ */
+            height: calc(100vh - 70px); /* ヘッダーを引いた高さ */
         }
 
         aside {
@@ -66,3 +66,4 @@
     </main>
 </body>
 </html>
+
