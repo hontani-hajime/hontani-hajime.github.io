@@ -16,11 +16,11 @@
       background-color: #a0522d;
       color: #ffffff;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       padding: 5px 20px;
-      height: 40px;
+      height: 25px; /* ヘッダーの高さを小さく設定 */
       box-sizing: border-box;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -31,7 +31,7 @@
     /* コンテナ */
     .container {
       display: flex;
-      height: calc(100vh - 40px); /* ヘッダー分を除外 */
+      height: calc(100vh - 25px); /* ヘッダー分を除外 */
     }
     /* 左側のコンテンツ */
     .left-content {
@@ -51,6 +51,8 @@
       user-select: none;
       transition: 0.3s ease;
       text-transform: uppercase;
+      margin-bottom: 10px;
+      height: 40px; /* 高さを調整 */
     }
     .upload-button:hover {
       background-color: #ffffff;
@@ -97,6 +99,7 @@
       border: 1px solid #555;
       border-radius: 5px;
       font-size: 14px;
+      height: 40px; /* 入力欄の高さを調整 */
     }
     .search-section input::placeholder {
       color: #777;
@@ -111,6 +114,7 @@
       font-size: 14px;
       transition: 0.3s ease;
       text-transform: uppercase;
+      height: 40px; /* ボタンの高さを調整 */
     }
     .search-section button:hover {
       background-color: #8b3e22;
@@ -141,6 +145,7 @@
       font-size: 16px;
       transition: 0.3s ease;
       text-transform: uppercase;
+      height: 40px; /* ボタンの高さを調整 */
     }
     .download-button:hover {
       background-color: #8b3e22;
