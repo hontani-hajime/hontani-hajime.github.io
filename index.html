@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共通サーバー</title>
+    <!-- PWA設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="共通サーバー">
+    <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/server/logo.JPG">
+    <link rel="icon" type="image/jpeg" href="https://hontani-hajime.github.io/server/logo.JPG">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ヘッダー */
+        header {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header img {
+            max-height: 50px; /* はみ出さないギリギリの大きさ */
+            margin-right: 10px;
+        }
+
+        header h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        /* メインコンテンツ */
+        main {
+            display: flex;
+            height: 100vh;
+        }
+
+        aside {
+            flex: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+
+        section {
+            flex: 5;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://hontani-hajime.github.io/server/%E6%AC%A1%E4%B8%96%E4%BB%A3%E3%82%A4%E3%83%B3%E3%83%86%E3%83%AA%E3%82%B7%E3%82%99%E3%82%A7%E3%83%B3%E3%82%B9.JPG" alt="ロゴ">
+        <h1>共通サーバー</h1>
+    </header>
+    <main>
+        <aside>
+            <!-- 左側のコンテンツ -->
+            <p>サイドメニュー</p>
+        </aside>
+        <section>
+            <!-- メインコンテンツ -->
+            <p>ここにメインコンテンツが表示されます。</p>
+        </section>
+    </main>
+</body>
+</html>
