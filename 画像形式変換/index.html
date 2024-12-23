@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像形式変換</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+    /* ヘッダー */
+    header {
+      background-color: #a0522d;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      height: 30px;
+      box-sizing: border-box;
+    }
+    header span {
+      margin-left: 10px;
+    }
+    /* コンテンツ全体 */
+    .container {
+      display: flex;
+      height: calc(100vh - 30px); /* ヘッダー分を除外 */
+    }
+    /* 左コンテンツ */
+    .left-content {
+      flex: 1;
+      border-right: 1px solid #444;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+    .upload-button {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid white;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .upload-button:hover {
+      background-color: white;
+      color: black;
+    }
+    .image-list {
+      margin-top: 20px;
+      overflow-y: scroll;
+      flex-grow: 1;
+      border: 1px solid #444;
+    }
+    .image-list img {
+      width: 100%;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+    /* 右コンテンツ */
+    .right-content {
+      flex: 4;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .search-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .search-section input {
+      flex-grow: 1;
+      padding: 5px;
+      background-color: #333;
+      color: #999;
+      border: 1px solid #444;
+    }
+    .search-section button,
+    .search-section select {
+      padding: 8px;
+      background-color: #a0522d;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .search-section button:hover,
+    .search-section select:hover {
+      background-color: #8b3e22;
+    }
+    .image-preview {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #444;
+      background-color: #222;
+    }
+    .image-preview img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .download-button {
+      padding: 10px;
+      text-align: center;
+      background-color: #a0522d;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    .download-button:hover {
+      background-color: #8b3e22;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>■ 画像形式変換 / 画像名統一</span>
+  </header>
+  <div class="container">
+    <!-- 左側のコンテンツ -->
+    <div class="left-content">
+      <div class="upload-button" onclick="document.getElementById('file-upload').click();">
+        画像をアップロード
+      </div>
+      <input type="file" id="file-upload" multiple style="display: none;" onchange="handleFileUpload(event)">
+      <div class="image-list" id="image-list">
+        <!-- アップロードした画像がここに表示されます -->
+      </div>
+    </div>
+    <!-- 右側のコンテンツ -->
+    <div class="right-content">
+      <div class="search-section">
+        <input type="text" placeholder="統一する画像の名前" id="file-name-input">
+        <select id="format-select">
+          <option value="jpg">JPG</option>
+          <option value="png">PNG</option>
+          <option value="webp">WEBP</option>
+        </select>
+        <button class="download-button" onclick="downloadImages()">ダウンロード</button>
+      </div>
+      <div class="image-preview" id="image-preview">
+        <!-- 選択された画像を表示 -->
+        <span style="color: #999;">画像を選択してください</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const imageListElement = document.getElementById('image-list');
+    const imagePreviewElement = document.getElementById('image-preview');
+    const uploadedImages = [];
+    
+    function handleFileUpload(event) {
+      const files = event.target.files;
+      for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.onclick = () => displayImage(e.target.result);
+          imageListElement.appendChild(img);
+          uploadedImages.push({ name: file.name, data: e.target.result });
+          if (uploadedImages.length === 1) displayImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function displayImage(src) {
+      imagePreviewElement.innerHTML = `<img src="${src}" alt="Preview">`;
+    }
+
+    function downloadImages() {
+      const format = document.getElementById('format-select').value;
+      const baseName = document.getElementById('file-name-input').value.trim();
+      if (!baseName) {
+        alert('ファイル名を入力してください。');
+        return;
+      }
+      const zip = new JSZip();
+      uploadedImages.forEach((img, index) => {
+        const fileName = `${baseName}_${String(index + 1).padStart(2, '0')}.${format}`;
+        zip.file(fileName, img.data.split(',')[1], { base64: true });
+      });
+      zip.generateAsync({ type: 'blob' }).then((content) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = `${baseName}.zip`;
+        link.click();
+      });
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</body>
+</html>
