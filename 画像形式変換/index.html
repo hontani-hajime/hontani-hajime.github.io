@@ -8,64 +8,77 @@
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background-color: #000;
-      color: white;
+      background-color: #121212;
+      color: #ffffff;
     }
     /* ヘッダー */
     header {
       background-color: #a0522d;
-      color: white;
+      color: #ffffff;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 16px;
       display: flex;
       align-items: center;
-      padding: 5px;
-      height: 30px;
+      padding: 5px 20px;
+      height: 40px;
       box-sizing: border-box;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     header span {
-      margin-left: 10px;
+      display: inline-block;
     }
-    /* コンテンツ全体 */
+    /* コンテナ */
     .container {
       display: flex;
-      height: calc(100vh - 30px); /* ヘッダー分を除外 */
+      height: calc(100vh - 40px); /* ヘッダー分を除外 */
     }
-    /* 左コンテンツ */
+    /* 左側のコンテンツ */
     .left-content {
       flex: 1;
       border-right: 1px solid #444;
       display: flex;
       flex-direction: column;
-      padding: 10px;
+      padding: 15px;
     }
     .upload-button {
-      display: inline-block;
-      padding: 10px 20px;
-      border: 2px solid white;
+      padding: 12px 24px;
+      border: 2px solid #ffffff;
+      border-radius: 5px;
+      font-size: 16px;
       text-align: center;
       cursor: pointer;
       user-select: none;
+      transition: 0.3s ease;
+      text-transform: uppercase;
     }
     .upload-button:hover {
-      background-color: white;
-      color: black;
+      background-color: #ffffff;
+      color: #000;
     }
     .image-list {
       margin-top: 20px;
       overflow-y: scroll;
       flex-grow: 1;
       border: 1px solid #444;
+      padding: 10px;
+      background-color: #1f1f1f;
+      border-radius: 5px;
     }
     .image-list img {
       width: 100%;
       cursor: pointer;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: 0.3s ease;
     }
-    /* 右コンテンツ */
+    .image-list img:hover {
+      transform: scale(1.05);
+    }
+    /* 右側のコンテンツ */
     .right-content {
       flex: 4;
-      padding: 10px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -78,21 +91,28 @@
     }
     .search-section input {
       flex-grow: 1;
-      padding: 5px;
+      padding: 10px;
       background-color: #333;
-      color: #999;
-      border: 1px solid #444;
+      color: #ccc;
+      border: 1px solid #555;
+      border-radius: 5px;
+      font-size: 14px;
     }
-    .search-section button,
-    .search-section select {
-      padding: 8px;
+    .search-section input::placeholder {
+      color: #777;
+    }
+    .search-section button {
+      padding: 12px 24px;
       background-color: #a0522d;
-      color: white;
+      color: #ffffff;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s ease;
+      text-transform: uppercase;
     }
-    .search-section button:hover,
-    .search-section select:hover {
+    .search-section button:hover {
       background-color: #8b3e22;
     }
     .image-preview {
@@ -101,19 +121,26 @@
       justify-content: center;
       align-items: center;
       border: 1px solid #444;
-      background-color: #222;
+      background-color: #1f1f1f;
+      border-radius: 5px;
+      overflow: hidden;
     }
     .image-preview img {
       max-width: 100%;
       max-height: 100%;
+      object-fit: contain;
     }
     .download-button {
-      padding: 10px;
+      padding: 12px 24px;
       text-align: center;
       background-color: #a0522d;
-      color: white;
-      cursor: pointer;
+      color: #ffffff;
       border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease;
+      text-transform: uppercase;
     }
     .download-button:hover {
       background-color: #8b3e22;
@@ -130,7 +157,7 @@
       <div class="upload-button" onclick="document.getElementById('file-upload').click();">
         画像をアップロード
       </div>
-      <input type="file" id="file-upload" multiple style="display: none;" onchange="handleFileUpload(event)">
+      <input type="file" id="file-upload" multiple style="display: none;" accept="image/*" onchange="handleFileUpload(event)">
       <div class="image-list" id="image-list">
         <!-- アップロードした画像がここに表示されます -->
       </div>
@@ -138,17 +165,11 @@
     <!-- 右側のコンテンツ -->
     <div class="right-content">
       <div class="search-section">
-        <input type="text" placeholder="統一する画像の名前" id="file-name-input">
-        <select id="format-select">
-          <option value="jpg">JPG</option>
-          <option value="png">PNG</option>
-          <option value="webp">WEBP</option>
-        </select>
+        <input type="text" id="file-name-input" placeholder="統一する画像の名前">
         <button class="download-button" onclick="downloadImages()">ダウンロード</button>
       </div>
       <div class="image-preview" id="image-preview">
-        <!-- 選択された画像を表示 -->
-        <span style="color: #999;">画像を選択してください</span>
+        <span style="color: #777;">画像を選択してください</span>
       </div>
     </div>
   </div>
@@ -157,7 +178,7 @@
     const imageListElement = document.getElementById('image-list');
     const imagePreviewElement = document.getElementById('image-preview');
     const uploadedImages = [];
-    
+
     function handleFileUpload(event) {
       const files = event.target.files;
       for (let file of files) {
@@ -179,7 +200,6 @@
     }
 
     function downloadImages() {
-      const format = document.getElementById('format-select').value;
       const baseName = document.getElementById('file-name-input').value.trim();
       if (!baseName) {
         alert('ファイル名を入力してください。');
@@ -187,7 +207,7 @@
       }
       const zip = new JSZip();
       uploadedImages.forEach((img, index) => {
-        const fileName = `${baseName}_${String(index + 1).padStart(2, '0')}.${format}`;
+        const fileName = `${baseName}_${String(index + 1).padStart(2, '0')}.jpg`;
         zip.file(fileName, img.data.split(',')[1], { base64: true });
       });
       zip.generateAsync({ type: 'blob' }).then((content) => {
