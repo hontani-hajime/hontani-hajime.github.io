@@ -31,7 +31,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 10px; /* 間隔を10pxに変更 */
+      gap: 20px;
     }
     .form-container, .calendar-container {
       border: 2px solid #483d8b;
@@ -59,7 +59,7 @@
     <h1>カレンダー</h1>
 
     <!-- プルダウンメニュー -->
-    <select class="dropdown">
+    <select class="dropdown" id="calendarSelect" onchange="updateContent()">
       <option value="">▼カレンダーを選択</option>
       <option value="001">001 国語</option>
       <option value="002">002 数学</option>
@@ -77,16 +77,37 @@
     <!-- フォームとカレンダーのコンテナ -->
     <div class="content">
       <!-- Googleフォーム埋め込み -->
-      <div class="form-container">
-        <p>ここにGoogleフォームを埋め込みます（縦450px、横300px）</p>
+      <div class="form-container" id="formContainer">
+        <p>フォームを表示</p>
       </div>
 
       <!-- Googleカレンダー埋め込み -->
-      <div class="calendar-container">
-        <p>ここにGoogleカレンダーを埋め込みます（縦450px、横600px）</p>
+      <div class="calendar-container" id="calendarContainer">
+        <iframe src="https://calendar.google.com/calendar/embed?height=450&wkst=2&ctz=Asia%2FTokyo&showPrint=0&showTz=0&showTitle=0&src=aG9udGFuaWhhamltZTIyMDMxMkBnbWFpbC5jb20&src=ODY5NzMyNDg1OGNjMTcxZGZjODA3MTczMDY4NTFmY2EzYTZkODAyN2Q2MjJkOWQwZGQ2OGNkZjA3YzEwYmRmMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=Y2RhYmE3MjhkODI3ZDA4MzFiMTY4MTJkYjhjZTU2YjdmYWYxZWRiMGZiZDU0ODZmNzQyNWQ3NWYxY2RkYWEwZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NmVhNTcxMTllYWJjOGM0ZTBiYTUzNzZhMGE0MDYxZTlmYjM2ZmI0MWVmYjRlNGYzMzZhN2RkMzBlNDU5ZmU2MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=N2E1YTFlNDc4ZjkxMjA5OGU5YzBkMWZhNTc4NDAyMTA2NDU2MjRjODVjMTc3OTgzMmUwOTVkYzUzNzgwMDIwM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MjE4YThmZjdjY2NlNjdkMzc0ODVmMmQyYzMzZmYxOTIwMWQyYTUxZjc4YmRjNjE1NDMyMTRlNTEwZTc2ODdkOUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NGE3ZmE3MDRjMTZhZTAzZmRiMTlmYzgzN2QxYzA5ZjM3NWVhZGVlNGMzYmRiYzM0YzBjOTEzMGJmYWIwMzQ2YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MWFmYWE1ZWRiMjE5YzRhOTI3ZGQ4NWE0MTE4N2Y4Zjc2YjAwZDQ0YjQ2MTE0MzFkNTE4N2YzNGI4NGJlZTc5NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MGVlNjFiYWJmMmJkMDE3ODVlNzFhZjYyYTc0OWIxZjRiMTdhOTg4YTFjNTdkNDQ3YjE0ZjQ3Yjc3NGY3YWU2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZjdiNzA3ZjNlZTc2YjZhY2MwZTlkMDc2Y2EyZWQ1ZDc5NGQyMzgzOTM4MDk4MjFlNzQ3ZWExOWRiOWMzNTcxYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ODA2MGRhNmNlMmFjNmJlMmE0NjYzNzI4MTRhY2M4Y2MzZDBlYmNkN2Y0MGE4MTc1ZTFjOWZmMDlhMDE1NzM2M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NzhmOWExZWMyY2EyZGM1YTkwODdmMDM0M2NjYmU0Zjg3NTlkMzQzZGNlZjRmY2Y2ZjA4MjZiNjIxMmNhY2UzM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233F51B5&color=%23D81B60&color=%234285F4&color=%23009688&color=%23F6BF26&color=%238E24AA&color=%23C0CA33&color=%23795548&color=%23EF6C00&color=%23A79B8E&color=%23E67C73&color=%23F09300&color=%230B8043" style="border-width:0" width="600" height="450" frameborder="0" scrolling="no"></iframe>
       </div>
     </div>
   </div>
+
+  <script>
+    function updateContent() {
+      const select = document.getElementById("calendarSelect");
+      const formContainer = document.getElementById("formContainer");
+      const calendarContainer = document.getElementById("calendarContainer");
+
+      const selectedValue = select.value;
+      
+      if (selectedValue === "") {
+        formContainer.innerHTML = "<p>フォームを表示</p>";
+      } else if (selectedValue === "001") {
+        formContainer.innerHTML = '<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSev4W8eL-agZeqfvXrxxzmaYQOHkvd0wvajsUg-orkD1tg2QA/viewform?embedded=true" width="300" height="450" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>';
+      } else {
+        formContainer.innerHTML = "<p>フォームを表示</p>";
+      }
+    }
+
+    // 初期状態の設定
+    updateContent();
+  </script>
 
 </body>
 </html>
