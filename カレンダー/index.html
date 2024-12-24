@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カレンダー</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .dropdown {
+      width: 100%;
+      max-width: 300px;
+      margin: 20px 0;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #483d8b;
+      border: none;
+      border-radius: 5px;
+    }
+    .form-container, .calendar-container {
+      border: 2px solid #483d8b;
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-container {
+      width: 100%;
+      height: 400px; /* ピクセルサイズ（縦400px 横600px） */
+      background-color: #f9f9f9;
+    }
+    .calendar-container {
+      width: 100%;
+      height: 400px; /* ピクセルサイズ（縦400px 横600px） */
+      background-color: #f9f9f9;
+    }
+    .form-container p, .calendar-container p {
+      font-size: 18px;
+      color: #483d8b;
+    }
+  </style>
+</head>
+<body>
 
+  <div class="container">
+    <h1>カレンダー</h1>
+
+    <!-- プルダウンメニュー -->
+    <select class="dropdown">
+      <option value="">▼カレンダーを選択</option>
+      <option value="001">001 国語</option>
+      <option value="002">002 数学</option>
+      <option value="003">003 理科</option>
+      <option value="004">004 社会</option>
+      <option value="005">005 英語</option>
+      <option value="006">006 芸術</option>
+      <option value="007">007 実技</option>
+      <option value="008">008 部活</option>
+      <option value="009">009 習い事</option>
+      <option value="010">010 趣味等</option>
+      <option value="011">011 その他</option>
+    </select>
+
+    <!-- Googleフォーム埋め込み -->
+    <div class="form-container">
+      <p>ここにGoogleフォームを埋め込みます（縦400px、横600px）</p>
+    </div>
+
+    <!-- Googleカレンダー埋め込み -->
+    <div class="calendar-container">
+      <p>ここにGoogleカレンダーを埋め込みます（縦400px、横600px）</p>
+    </div>
+  </div>
+
+</body>
+</html>
