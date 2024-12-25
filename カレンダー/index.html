@@ -11,6 +11,15 @@
       margin: 0;
       padding: 0;
     }
+    .header {
+      text-align: center;
+      background-color: white;
+      color: #483d8b;
+      padding: 20px 0;
+      border-bottom: 2px solid #483d8b;
+      font-size: 28px;
+      font-weight: bold;
+    }
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -40,12 +49,12 @@
       background-color: #f9f9f9;
     }
     .form-container {
-      width: 300px; /* プルダウンと同じ幅 */
-      height: 450px; /* 縦450px */
+      width: 300px;
+      height: 450px;
     }
     .calendar-container {
-      width: 460px; /* 横をほどよく設定（少し広め） */
-      height: 450px; /* 縦450px */
+      width: 460px;
+      height: 450px;
     }
     .form-container p, .calendar-container p {
       font-size: 18px;
@@ -55,9 +64,10 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>カレンダー</h1>
+  <!-- 見出し部分 -->
+  <div class="header">カレンダー</div>
 
+  <div class="container">
     <!-- プルダウンメニュー -->
     <select class="dropdown" id="calendarSelect" onchange="updateContent()">
       <option value="">▼カレンダーを選択</option>
