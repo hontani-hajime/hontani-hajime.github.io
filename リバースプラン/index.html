@@ -3,100 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>リバースプラン</title>
+    <title>共通サーバー</title>
+    <!-- PWA設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="共通サーバー">
+    <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/server/logo.JPG">
+    <link rel="icon" type="image/jpeg" href="https://hontani-hajime.github.io/server/logo.JPG">
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
         }
+
+        /* ヘッダー */
         header {
-            background-color: #fff;
-            color: #000;
-            padding: 10px 20px;
-            text-align: left;
-            font-size: 24px;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            height: 70px; /* ヘッダーの高さ */
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+
+        header img {
+            max-height: 100%; /* ヘッダー内で最大限大きく */
+            max-width: auto; /* 幅は自動調整 */
         }
-        td {
-            border: 1px solid #ddd;
+
+        /* メインコンテンツ */
+        main {
+            display: flex;
+            height: calc(100vh - 70px); /* ヘッダーを引いた高さ */
+        }
+
+        aside {
+            flex: 1;
+            background-color: #f5f5f5;
             padding: 10px;
         }
-        td:first-child {
-            background-color: #f5f5f5;
-            font-size: 14px;
-            text-align: left;
-            width: 30%;
+
+        aside img {
+            max-width: 100%; /* 横幅いっぱいに広げる */
+            height: auto; /* 縦横比を維持 */
+            margin-bottom: 10px; /* 画像下に余白 */
+            cursor: pointer; /* クリック可能なカーソル */
         }
-        td:last-child {
-            font-size: 16px;
-            text-align: left;
+
+        section {
+            flex: 5;
+            padding: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <header>リバースプラン</header>
-    <table>
-        <tr>
-            <td>■ 家庭学習</td>
-            <td>家庭学習の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 神大附属小関係</td>
-            <td>神大附属小関係の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 神戸龍谷中高</td>
-            <td>神戸龍谷中高の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 神戸龍谷保健室</td>
-            <td>神戸龍谷保健室の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 神戸龍谷図書室</td>
-            <td>神戸龍谷図書室の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 茶道同好会</td>
-            <td>茶道同好会の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 鉄道研究会</td>
-            <td>鉄道研究会の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 図書委員会</td>
-            <td>図書委員会の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ カードゲーム同好会</td>
-            <td>カードゲーム同好会の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 井ノ岡デザインセミナー</td>
-            <td>井ノ岡デザインセミナーの詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ たのわくそろばん教室</td>
-            <td>たのわくそろばん教室の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ クレッシェンドピアノ教室</td>
-            <td>クレッシェンドピアノ教室の詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 個別指導塾キャリア</td>
-            <td>個別指導塾キャリアの詳細を記入</td>
-        </tr>
-        <tr>
-            <td>■ 神戸市青少年会館</td>
-            <td>神戸市青少年会館の詳細を記入</td>
-        </tr>
-    </table>
+    <header>
+        <img src="https://hontani-hajime.github.io/server/%E6%AC%A1%E4%B8%96%E4%BB%A3%E3%82%A4%E3%83%B3%E3%83%86%E3%83%AA%E3%82%B7%E3%82%99%E3%82%A7%E3%83%B3%E3%82%B9.JPG" alt="ロゴ">
+    </header>
+    <main>
+        <aside>
+            <!-- 左側の画像（クリック可能） -->
+            <img src="https://hontani-hajime.github.io/server/%E3%83%88%E3%83%83%E3%83%97/%E3%83%88%E3%83%83%E3%83%95%E3%82%9A.jpg" alt="トップ">
+            <img src="https://hontani-hajime.github.io/server/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.jpg" alt="ファイル">
+            <img src="https://hontani-hajime.github.io/server/%E3%82%A2%E3%83%97%E3%83%AA/%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA.jpg" alt="アプリ">
+            <img src="https://hontani-hajime.github.io/server/%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/%E3%82%AB%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%99%E3%83%BC.jpg" alt="カレンダー" id="calendarBtn">
+            <img src="https://hontani-hajime.github.io/server/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9.jpg" alt="データベース">
+            <img src="https://hontani-hajime.github.io/server/%E8%87%AA%E5%88%86%E8%BF%BD%E8%B7%A1/%E8%87%AA%E5%88%86%E8%BF%BD%E8%B7%A1.jpg" alt="自分追跡">
+            <img src="https://hontani-hajime.github.io/server/%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2%E8%A1%A8/%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2%E8%A1%A8.jpg" alt="学習記録表">
+            <img src="https://hontani-hajime.github.io/server/%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%88%E3%82%99/%E3%83%8F%E3%82%9A%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%88%E3%82%99.jpg" alt="パスワード">
+            <img src="https://hontani-hajime.github.io/server/%E8%AA%AD%E6%9B%B8%E9%80%9A%E5%B8%B3/%E8%AA%AD%E6%9B%B8%E9%80%9A%E5%B8%B3.jpg" alt="読書通帳">
+            <img src="https://hontani-hajime.github.io/server/%E4%BA%88%E7%AE%97%E7%AE%A1%E7%90%86/%E4%BA%88%E7%AE%97%E7%AE%A1%E7%90%86.jpg" alt="予算管理">
+            <img src="https://hontani-hajime.github.io/server/%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%A2%E3%83%83%E3%83%97/%E3%82%AF%E3%82%99%E3%83%AC%E3%83%BC%E3%83%88%E3%82%99%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A.jpg" alt="グレードアップ">
+            <img src="https://hontani-hajime.github.io/server/%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97%E3%83%A9%E3%83%B3/%E3%83%AA%E3%83%8F%E3%82%99%E3%83%BC%E3%82%B9%E3%83%95%E3%82%9A%E3%83%A9%E3%83%B3.jpg" alt="リバースプラン" id="reversePlanBtn">
+        </aside>
+        <section>
+            <!-- メインコンテンツ -->
+            <iframe id="contentFrame" src="" frameborder="0"></iframe>
+        </section>
+    </main>
+
+    <script>
+        // カレンダーのボタンをクリックした時に表示するURL
+        document.getElementById('calendarBtn').addEventListener('click', function() {
+            document.getElementById('contentFrame').src = "https://hontani-hajime.github.io/server/%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/";
+        });
+
+        // リバースプランのボタンをクリックした時に表示するURL
+        document.getElementById('reversePlanBtn').addEventListener('click', function() {
+            document.getElementById('contentFrame').src = "https://hontani-hajime.github.io/server/%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97%E3%83%A9%E3%83%B3/index.html";
+        });
+    </script>
 </body>
 </html>
