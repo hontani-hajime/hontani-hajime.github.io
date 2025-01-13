@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>保護されたページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #483d8b;
+        }
+    </style>
+</head>
+<body>
+    <h1>ようこそ！このページはログイン成功者のみアクセスできます。</h1>
+    <p>このページは保護されています。</p>
+    <button onclick="logout()">ログアウト</button>
+    <script>
+        function logout() {
+            localStorage.removeItem("authenticated"); // ログイン情報を削除
+            window.location.href = "index.html"; // ログインページに戻る
+        }
+    </script>
+</body>
+</html>
