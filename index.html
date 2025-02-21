@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今日のスケジュール</title>
+    <title>データ取得</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
         }
-        #schedule {
-            font-size: 20px;
+        #content {
+            font-size: 18px;
             font-weight: bold;
             margin-top: 20px;
             padding: 10px;
@@ -26,13 +26,13 @@
     </style>
 </head>
 <body>
-    <h1>今日のスケジュール</h1>
-    <div id="schedule">読み込み中...</div>
+    <h1>取得したデータ</h1>
+    <div id="content">読み込み中...</div>
     <div id="error"></div>
 
     <script>
-        async function fetchSchedule() {
-            const url = "https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec";
+        async function fetchData() {
+            const url = "https://script.googleusercontent.com/macros/echo?user_content_key=MeIAonYyqo6MCxFINiKtckWi6uLBKGLc7veZ6jNfdm9BJ1awstG2XwNvP2X2yX1s5VD0otRUxycFRSeB5_-B0tlPfus04NEUm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnI8NKuM7SpO69n9YpNzDAO0IAtJQw5VByCQF4_K1adZZnxZhVct6j6CoOqV_-UpVAlbAFMc9yQFOXGnwOM9lVkLr4AjXevZRxA&lib=MfAzvpzTWsAsJ5JsNFeY3Fa6t_ZkxQVm5";
 
             try {
                 let response = await fetch(url);
@@ -42,13 +42,13 @@
                 }
 
                 let text = await response.text();
-                document.getElementById("schedule").textContent = text;
+                document.getElementById("content").textContent = text;
             } catch (error) {
                 document.getElementById("error").textContent = "エラー: " + error.message;
             }
         }
 
-        window.onload = fetchSchedule;
+        window.onload = fetchData;
     </script>
 </body>
 </html>
