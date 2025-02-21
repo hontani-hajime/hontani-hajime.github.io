@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日の予定</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #schedule { margin-top: 20px; font-size: 1.5em; white-space: pre-line; }
+    </style>
+</head>
+<body>
+    <h1>今日の予定</h1>
+    <div id="schedule">読み込み中...</div>
 
+    <script>
+        async function fetchSchedule() {
+            const apiUrl = "https://script.google.com/macros/s/AKfycbzH05C0eDGBBsSnXD8XyFTdHuzj7NIp2FwqFqz2QsELyGcbhEw5SuFvEE0DvkSwb2IUuA/exec"; 
+            try {
+                let response = await fetch(apiUrl);
+                let data = await response.json();
+                document.getElementById("schedule").innerText = data.schedule || "予定なし";
+            } catch (error) {
+                document.getElementById("schedule").innerText = "エラーが発生しました";
+            }
+        }
+        fetchSchedule();
+    </script>
+</body>
+</html>
