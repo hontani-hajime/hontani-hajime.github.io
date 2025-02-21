@@ -21,21 +21,24 @@
         }
     </style>
     <script>
-    async function fetchSchedule() {
-        try {
-            let response = await fetch("https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec");
-            if (!response.ok) {
-                throw new Error(`HTTPエラー: ${response.status}`);
+        async function fetchSchedule() {
+            try {
+                let response = await fetch("https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec");
+                
+                if (!response.ok) {
+                    throw new Error(`HTTPエラー: ${response.status}`);
+                }
+                
+                let text = await response.text();
+                document.getElementById("schedule").innerHTML = text;
+            } catch (error) {
+                console.error("エラー:", error);
+                document.getElementById("schedule").innerHTML = "取得に失敗しました: " + error.message;
             }
-            let text = await response.text();
-            document.getElementById("schedule").innerHTML = text;
-        } catch (error) {
-            console.error("エラー:", error);
-            document.getElementById("schedule").innerHTML = "取得に失敗しました: " + error.message;
         }
-    }
-    window.onload = fetchSchedule;
-</script>
+        
+        window.onload = fetchSchedule;
+    </script>
 </head>
 <body>
     <h1>今日のスケジュール</h1>
