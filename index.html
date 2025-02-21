@@ -19,6 +19,10 @@
             display: inline-block;
             background-color: #f9f9f9;
         }
+        #error {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
     <script>
         async function fetchSchedule() {
@@ -32,8 +36,7 @@
                 let text = await response.text();
                 document.getElementById("schedule").innerHTML = text;
             } catch (error) {
-                console.error("エラー:", error);
-                document.getElementById("schedule").innerHTML = "取得に失敗しました: " + error.message;
+                document.getElementById("error").innerHTML = "エラー: " + error.message;
             }
         }
         
@@ -43,5 +46,6 @@
 <body>
     <h1>今日のスケジュール</h1>
     <div id="schedule">読み込み中...</div>
+    <div id="error"></div>
 </body>
 </html>
