@@ -1,9 +1,41 @@
-<div id="schedule"></div>
-<script>
-  fetch("https://script.google.com/macros/s/【デプロイURL】/exec")
-    .then(response => response.text())  // .json() にするとデータ型違いでエラーになることも
-    .then(data => {
-      document.getElementById("schedule").innerHTML = data;
-    })
-    .catch(error => console.error("Error:", error));
-</script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #schedule {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ホーム</h1>
+    <h2>今日のスケジュール</h2>
+    <div id="schedule">読み込み中...</div>
+
+    <script>
+        fetch("https://script.google.com/macros/s/【デプロイURL】/exec")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("schedule").innerHTML = data;
+            })
+            .catch(error => {
+                console.error("データ取得エラー:", error);
+                document.getElementById("schedule").innerHTML = "スケジュールを取得できませんでした。";
+            });
+    </script>
+
+</body>
+</html>
