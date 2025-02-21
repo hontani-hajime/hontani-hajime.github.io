@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ホーム</title>
+    <title>今日のスケジュール</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            margin: 20px;
         }
         #schedule {
+            font-size: 20px;
+            font-weight: bold;
             margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
             background-color: #f9f9f9;
         }
     </style>
+    <script>
+        async function fetchSchedule() {
+            try {
+                let response = await fetch("https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec");
+                let text = await response.text();
+                document.getElementById("schedule").innerHTML = text;
+            } catch (error) {
+                console.error("データの取得に失敗しました:", error);
+                document.getElementById("schedule").innerHTML = "取得に失敗しました";
+            }
+        }
+        window.onload = fetchSchedule;
+    </script>
 </head>
 <body>
-
-    <h1>ホーム</h1>
-    <h2>今日のスケジュール</h2>
+    <h1>今日のスケジュール</h1>
     <div id="schedule">読み込み中...</div>
-
-    <script>
-        fetch("https://script.google.com/macros/s/【デプロイURL】/exec")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("schedule").innerHTML = data;
-            })
-            .catch(error => {
-                console.error("データ取得エラー:", error);
-                document.getElementById("schedule").innerHTML = "スケジュールを取得できませんでした。";
-            });
-    </script>
-
 </body>
 </html>
