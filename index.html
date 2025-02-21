@@ -24,28 +24,31 @@
             margin-top: 10px;
         }
     </style>
+</head>
+<body>
+    <h1>今日のスケジュール</h1>
+    <div id="schedule">読み込み中...</div>
+    <div id="error"></div>
+
     <script>
         async function fetchSchedule() {
+            const url = "https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec";
+
             try {
-                let response = await fetch("https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec");
+                let response = await fetch(url);
 
                 if (!response.ok) {
                     throw new Error("HTTPエラー: " + response.status);
                 }
 
                 let text = await response.text();
-                document.getElementById("schedule").innerHTML = text;
+                document.getElementById("schedule").textContent = text;
             } catch (error) {
-                document.getElementById("error").innerHTML = "エラー: " + error.message;
+                document.getElementById("error").textContent = "エラー: " + error.message;
             }
         }
-        
+
         window.onload = fetchSchedule;
     </script>
-</head>
-<body>
-    <h1>今日のスケジュール</h1>
-    <div id="schedule">読み込み中...</div>
-    <div id="error"></div>
 </body>
 </html>
