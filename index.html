@@ -1,8 +1,9 @@
 <div id="schedule"></div>
 <script>
   fetch("https://script.google.com/macros/s/【デプロイURL】/exec")
-    .then(response => response.text())
+    .then(response => response.text())  // .json() にするとデータ型違いでエラーになることも
     .then(data => {
       document.getElementById("schedule").innerHTML = data;
-    });
+    })
+    .catch(error => console.error("Error:", error));
 </script>
