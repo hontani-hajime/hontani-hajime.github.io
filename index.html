@@ -28,11 +28,11 @@
         async function fetchSchedule() {
             try {
                 let response = await fetch("https://script.google.com/macros/s/AKfycbw8psDF0pxWeKr1HOLUxWIeD1pCM4GEJW-ONCBxZIxSMZGSvq63lJHjVSuIFE_r7SYn/exec");
-                
+
                 if (!response.ok) {
-                    throw new Error(`HTTPエラー: ${response.status}`);
+                    throw new Error("HTTPエラー: " + response.status);
                 }
-                
+
                 let text = await response.text();
                 document.getElementById("schedule").innerHTML = text;
             } catch (error) {
