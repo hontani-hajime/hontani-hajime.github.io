@@ -55,6 +55,7 @@ main {
     text-align: center;
     font-size: 14px;
     margin-bottom: 5px;
+    display: block;
 }
 
 .spacer {
@@ -67,14 +68,18 @@ main {
     margin-top: 5px;
 }
 
-.right section {
-    margin-bottom: 20px;
+.right h2 {
+    margin-bottom: 5px; /* 見出しの下の余白を縮める */
 }
 
 .right hr {
     border: none;
     border-top: 1px solid black;
     margin-bottom: 10px;
+}
+
+.right section {
+    margin-bottom: 20px;
 }
 
 .content {
