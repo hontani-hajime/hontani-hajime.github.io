@@ -69,7 +69,6 @@ main {
 
 .info-item {
     display: flex;
-    justify-content: space-between;
     font-size: 14px;
     margin-top: 5px;
 }
