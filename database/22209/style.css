@@ -62,14 +62,31 @@ main {
     height: 5px;
 }
 
-.id-number, .info {
-    text-align: left;
+.info-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
     font-size: 14px;
     margin-top: 5px;
 }
 
+.info-item strong {
+    font-weight: bold;
+    min-width: 100px; /* 太字のラベル部分の幅を固定 */
+    text-align: left;
+}
+
+.info-item span {
+    text-align: left;
+    flex-grow: 1;
+}
+
 .right h2 {
-    margin-bottom: 5px; /* 見出しの下の余白を縮める */
+    margin-bottom: 5px;
 }
 
 .right hr {
