@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>チャットgptサーバープロンプト20250409</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-family: sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    h1, h2 {
+      color: #66ccff;
+    }
+    code, pre {
+      background-color: #333;
+      padding: 0.5em;
+      display: block;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>やりたいことまとめます！</h1>
+
+<p>自分専用のウェブアプリを作りたいです。  
+用途は日記・メモ・生活ログ（起床時間、就寝時間、食事内容など）を記録するだけのものです。  
+スプレッドシートで管理してたけど、もっと楽に管理したいのでウェブアプリ化したいです。</p>
+
+<h2>絶対条件</h2>
+<ul>
+  <li>完全無料で運用したい（サーバー代とか払いたくない）</li>
+  <li>GitHub Pagesで公開したい（GitHubアカウントはある）</li>
+  <li>データは他の端末からも見たいし編集したい</li>
+  <li>GoogleアカウントでFirebaseはOK（無料プラン）</li>
+  <li>ログインとかパスワード入力はしたくない</li>
+  <li>URLを知ってる自分だけがアクセスできればOK</li>
+  <li>ネカフェとか別端末でもURLだけ覚えてれば使えるようにしたい</li>
+</ul>
+
+<h2>構成イメージ</h2>
+<ul>
+  <li>フロントエンド（HTML/CSS/JavaScript）</li>
+  <li>データ保存（Firebase Firestore）</li>
+  <li>セキュリティ（FirestoreのルールでURLに秘密キーがある人だけアクセスOKにする）</li>
+  <li>GitHub Pagesでサイト公開</li>
+</ul>
+
+<h2>欲しい機能</h2>
+<ul>
+  <li>日記入力欄</li>
+  <li>メモ欄（自由にメモ書ける）</li>
+  <li>生活ログ欄（起床時間・就寝時間・食事）</li>
+  <li>データ保存＆読み込み</li>
+  <li>デザインはシンプルでOK（黒背景 or メモ帳風）</li>
+</ul>
+
+<hr>
+
+<p>この条件で、何を準備すればいいか、何から始めればいいか、全体設計と必要な作業リストを教えてください。  
+コードも必要に応じて書いてほしいです。</p>
+
+</body>
+</html>
