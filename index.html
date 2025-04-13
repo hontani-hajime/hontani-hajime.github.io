@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="元共通サーバー" />
 
-  <!-- スタイル -->
+  <!-- CSS読み込み -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -35,14 +35,10 @@
           <div class="menu-item">トップ</div>
           <div class="menu-item">カレンダー</div>
           <div class="menu-item">生活記録表</div>
-          <div class="menu-item">貸し借りの記録</div>
-          <div class="menu-item">データベース</div>
-          <div class="menu-item">成績管理</div>
-          <div class="menu-item">パスワード一覧</div>
         </div>
       </div>
 
-      <!-- 便利機能集 -->
+      <!-- 便利機能集（今回は動かさない） -->
       <div class="sidebar-box">
         <div class="sidebar-header">便利機能集</div>
         <div class="menu">
@@ -58,12 +54,12 @@
     <div class="content-area">
       <div class="content-header" id="content-title">トップ</div>
       <div class="content-inner">
-        <p>ここに表示したい内容を書いていきます。</p>
+        <iframe id="content-frame" src="/top" frameborder="0"></iframe>
       </div>
     </div>
   </main>
 
-  <!-- JavaScript -->
+  <!-- JS読み込み -->
   <script src="script.js"></script>
 </body>
 </html>
