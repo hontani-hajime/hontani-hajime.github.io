@@ -1,114 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>共通サーバー</title>
-    <!-- PWA設定 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="共通サーバー">
-    <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/logo.JPG">
-    <link rel="icon" type="image/jpeg" href="https://hontani-hajime.github.io/logo.JPG">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>本谷元共通サーバー</title>
 
-        /* ヘッダー */
-        header {
-            display: flex;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-            height: 70px; /* ヘッダーの高さ */
-        }
+  <!-- ファビコン -->
+  <link rel="icon" href="/file/hajime.jpg" type="image/jpeg" />
 
-        header img {
-            max-height: 100%; /* ヘッダー内で最大限大きく */
-            max-width: auto; /* 幅は自動調整 */
-        }
+  <!-- iOS ホーム画面追加用 -->
+  <link rel="apple-touch-icon" href="/file/hajime.jpg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="共通サーバー" />
 
-        /* メインコンテンツ */
-        main {
-            display: flex;
-            height: calc(100vh - 70px); /* ヘッダーを引いた高さ */
-        }
-
-        aside {
-            flex: 1;
-            background-color: #f5f5f5;
-            padding: 10px;
-        }
-
-        aside img {
-            max-width: 100%; /* 横幅いっぱいに広げる */
-            height: auto; /* 縦横比を維持 */
-            margin-bottom: 10px; /* 画像下に余白 */
-            cursor: pointer; /* クリック可能なカーソル */
-        }
-
-        aside img#logo {            
-            max-width: 60%; /* logoのサイズを調整 */
-            display: block; /* 中央揃えのため */
-            margin: 0 auto 10px auto; /* 上下左右中央に配置 */
-        }
-
-
-        section {
-            flex: 5;
-            padding: 10px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-    <header>
-        <img src="https://hontani-hajime.github.io/%E6%AC%A1%E4%B8%96%E4%BB%A3%E3%82%A4%E3%83%B3%E3%83%86%E3%83%AA%E3%82%B7%E3%82%99%E3%82%A7%E3%83%B3%E3%82%B9.JPG" alt="ロゴ">
-    </header>
-    <main>
-        <aside>
-            <!-- 左側の画像（クリック可能） -->
-            <img src="https://hontani-hajime.github.io/%E3%83%88%E3%83%83%E3%83%97/%E3%83%88%E3%83%83%E3%83%95%E3%82%9A.jpg" alt="トップ">
-            <img src="https://hontani-hajime.github.io/%E3%82%A2%E3%83%97%E3%83%AA/%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA.jpg" alt="アプリ">
-            <img src="https://hontani-hajime.github.io/%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/%E3%82%AB%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%99%E3%83%BC.jpg" alt="カレンダー" id="calendarBtn">
-            <img src="https://hontani-hajime.github.io/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%83%98%E3%82%99%E3%83%BC%E3%82%B9.jpg" alt="データベース">
-            <img src="https://hontani-hajime.github.io/%E8%87%AA%E5%88%86%E8%BF%BD%E8%B7%A1/%E8%87%AA%E5%88%86%E8%BF%BD%E8%B7%A1.jpg" alt="自分追跡">
-            <img src="https://hontani-hajime.github.io/%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89/%E3%83%8F%E3%82%9A%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%88%E3%82%99.jpg" alt="パスワード">
-            <img src="https://hontani-hajime.github.io/%E8%AA%AD%E6%9B%B8%E9%80%9A%E5%B8%B3/%E8%AA%AD%E6%9B%B8%E9%80%9A%E5%B8%B3.jpg" alt="読書通帳">
-            <img src="https://hontani-hajime.github.io/%E4%BA%88%E7%AE%97%E7%AE%A1%E7%90%86/%E4%BA%88%E7%AE%97%E7%AE%A1%E7%90%86.jpg" alt="予算管理">
-            <img src="https://hontani-hajime.github.io/%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%A2%E3%83%83%E3%83%97/%E3%82%AF%E3%82%99%E3%83%AC%E3%83%BC%E3%83%88%E3%82%99%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A.jpg" alt="グレードアップ" id="gradeBtn">
-            <img src="https://hontani-hajime.github.io/%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97%E3%83%A9%E3%83%B3/%E3%83%AA%E3%83%8F%E3%82%99%E3%83%BC%E3%82%B9%E3%83%95%E3%82%9A%E3%83%A9%E3%83%B3.jpg" alt="リバースプラン" id="reverseBtn">
-            <img src="https://hontani-hajime.github.io/logo.JPG" alt="ロゴ" id="logo">
-        </aside>
-        <section>
-            <!-- メインコンテンツ -->
-            <iframe id="contentFrame" src="" frameborder="0"></iframe>
-        </section>
-    </main>
-
-    <script>
-        // カレンダーのボタンをクリックした時に表示するURL
-        document.getElementById('calendarBtn').addEventListener('click', function() {
-            document.getElementById('contentFrame').src = "https://hontani-hajime.github.io/%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/";
-        });
-
-        // リバースプランのボタンをクリックした時に表示するURL
-        document.getElementById('reverseBtn').addEventListener('click', function() {
-            document.getElementById('contentFrame').src = "https://hontani-hajime.github.io/%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97%E3%83%A9%E3%83%B3/";
-        });
-
-        // カレンダーのボタンをクリックした時に表示するURL
-        document.getElementById('gradeBtn').addEventListener('click', function() {
-            document.getElementById('contentFrame').src = "https://hontani-hajime.github.io/%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%A2%E3%83%83%E3%83%97";
-        });
-    </script>
 </body>
 </html>
