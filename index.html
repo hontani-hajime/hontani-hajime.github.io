@@ -46,6 +46,55 @@
       height: 48px;
       margin-right: 12px;
     }
+
+    main {
+      display: flex;
+      padding: 16px;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #fffacd;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      background-color: #dbe887;
+      padding: 12px;
+      font-weight: bold;
+      color: black;
+      text-align: center;
+    }
+
+    .menu {
+      background-color: white;
+      padding: 8px 0;
+      margin: 0 auto;
+      width: 90%;
+      border-radius: 8px;
+    }
+
+    .menu-item {
+      padding: 10px 16px;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .content {
+      flex-grow: 1;
+      background-color: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    }
   </style>
 </head>
 <body>
@@ -54,12 +103,26 @@
     <div class="top-border"></div>
     <div class="header-content">
       <img src="/file/hajime.jpg" alt="ロゴ" />
-      <img src="/file/hajime.jpg" alt="ロゴ2" />
+      <img src="/file/logo.png" alt="ロゴ2" />
     </div>
   </header>
 
-  <!-- コンテンツ部分（今は空） -->
   <main>
+    <div class="sidebar">
+      <div class="sidebar-header">基本メニュー</div>
+      <div class="menu">
+        <div class="menu-item">カレンダー</div>
+        <div class="menu-item">生活記録表</div>
+        <div class="menu-item">貸し借りの記録</div>
+        <div class="menu-item">データベース</div>
+        <div class="menu-item">成績管理</div>
+        <div class="menu-item">パスワード一覧</div>
+        <div class="menu-item">マニュアル</div>
+      </div>
+    </div>
+    <div class="content">
+      <!-- コンテンツ表示部分（今は空） -->
+    </div>
   </main>
 
 </body>
