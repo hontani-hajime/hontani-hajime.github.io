@@ -3,26 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentHeader = document.getElementById('content-title');
   const contentFrame = document.getElementById('content-frame');
 
-  const routeMap = {
-    "トップ": "/top",
-    "カレンダー": "/calendar",
-    "生活記録表": "/life"
+  const pathMap = {
+    'トップ': '/top',
+    'カレンダー': '/calendar',
+    '生活記録表': '/life',
+    '貸し借りの記録': '/companionship',
+    'データベース': '/database',
+    '成績管理': '/grades',
+    'パスワード一覧': '/password',
+    'アプリ一覧': '/app',
+    'メモ帳': '/memo',
+    'マニュアル': '/manual'
   };
 
   menuItems.forEach(item => {
     item.addEventListener('click', () => {
       const text = item.textContent.trim();
       contentHeader.textContent = text;
-
-      if (routeMap[text]) {
-        contentFrame.src = routeMap[text];
-      } else {
-        contentFrame.src = "/top"; // 未定義ならトップ
-      }
+      contentFrame.src = pathMap[text] || '/top';
     });
   });
-
-  // 初期表示設定
-  contentHeader.textContent = "トップ";
-  contentFrame.src = "/top";
 });
