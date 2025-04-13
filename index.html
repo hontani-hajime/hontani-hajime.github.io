@@ -5,108 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>元共通サーバー</title>
 
-  <!-- ファビコン -->
-  <link rel="icon" href="/file/hajime.jpg" type="image/jpeg" />
-
-  <!-- iOS ホーム画面追加用 -->
-  <link rel="apple-touch-icon" href="/file/hajime.jpg" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="元共通サーバー" />
-
-  <!-- Web App Manifest -->
-  <link rel="manifest" href="manifest.json" />
-
-  <!-- スタイル -->
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #f9f9f9;
-    }
-
-    header {
-      background-color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .top-border {
-      height: 8px;
-      background-color: #c4b169;
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      padding: 12px 16px;
-    }
-
-    .header-content img:first-child {
-      width: 48px;
-      height: 48px;
-      margin-right: 12px;
-    }
-
-    .header-content img:last-child {
-      width: 144px;
-      height: 48px;
-    }
-
-    main {
-      display: flex;
-      padding: 16px;
-    }
-
-    .sidebar {
-      width: 220px;
-      flex-shrink: 0;
-      margin-right: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .sidebar-box {
-      background-color: #fffacd;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .sidebar-header {
-      background-color: #e9e2b2;
-      padding: 12px;
-      font-weight: bold;
-      color: black;
-      text-align: center;
-    }
-
-    .menu {
-      background-color: white;
-      padding: 8px 0;
-      margin: 14px auto 20px auto;
-      width: 88%;
-      border-radius: 8px;
-    }
-
-    .menu-item {
-      padding: 10px 16px;
-      border-bottom: 1px solid #e0e0e0;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .menu-item:last-child {
-      border-bottom: none;
-    }
-
-    .content {
-      flex-grow: 1;
-      background-color: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-    }
-  </style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -147,10 +47,16 @@
 
     </div>
 
-    <div class="content">
-      <!-- コンテンツ表示部分 -->
+    <!-- コンテンツエリア -->
+    <div class="content-area">
+      <div class="content-header">コンテンツエリア</div>
+      <div class="content-inner">
+        <p>ここに表示したい内容を書いていきます。</p>
+      </div>
     </div>
   </main>
 
+  <!-- JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
