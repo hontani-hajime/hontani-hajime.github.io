@@ -78,6 +78,7 @@ main {
   border-bottom: none;
 }
 
+/* コンテンツ部分 */
 .content-area {
   flex-grow: 1;
   display: flex;
