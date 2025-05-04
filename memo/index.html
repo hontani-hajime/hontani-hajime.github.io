@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>メモアプリ</title>
+  <title>メモ</title>
   <style>
     body {
       background-color: #ffffff;
@@ -21,6 +21,8 @@
       background-color: #fffacd;
       padding: 2rem;
       box-sizing: border-box;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
     }
 
     .right-panel {
@@ -29,6 +31,7 @@
       overflow-y: auto;
       box-sizing: border-box;
       background-color: #f9f9f9;
+      border-left: 2px solid #fffacd;
     }
 
     textarea, input[type="text"], select {
@@ -36,7 +39,7 @@
       padding: 0.75rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 1rem;
       box-sizing: border-box;
     }
@@ -63,10 +66,11 @@
     }
 
     .memo-card {
-      background-color: #fffacd;
+      background-color: #ffffff;
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px solid #fffacd;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       width: calc(50% - 1rem);
       white-space: pre-wrap;
     }
@@ -86,14 +90,21 @@
 
     .edit-area {
       margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
     }
 
-    .edit-area button {
-      margin-right: 0.5rem;
+    .edit-area textarea {
+      margin-bottom: 0.5rem;
+    }
+
+    .edit-buttons {
+      display: flex;
+      gap: 0.5rem;
     }
 
     .filter-area {
-      margin-bottom: 1rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -172,9 +183,11 @@
           <div class="memo-label">${data.label}</div>
           <div class="memo-text" id="text-${docSnap.id}">${data.text}</div>
           <div class="edit-area" id="edit-${docSnap.id}" style="display:none;">
-            <textarea id="editInput-${docSnap.id}" rows="4" style="width:100%; margin-top:0.5rem;">${data.text}</textarea>
-            <button onclick="updateMemo('${docSnap.id}')">更新</button>
-            <button onclick="toggleEdit('${docSnap.id}')">キャンセル</button>
+            <textarea id="editInput-${docSnap.id}" rows="4">${data.text}</textarea>
+            <div class="edit-buttons">
+              <button onclick="updateMemo('${docSnap.id}')">更新</button>
+              <button onclick="toggleEdit('${docSnap.id}')">キャンセル</button>
+            </div>
           </div>
           <div class="memo-buttons">
             <button onclick="toggleEdit('${docSnap.id}')">編集</button>
