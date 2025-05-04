@@ -2,31 +2,75 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>トップ</title>
+  <title>今日の予定</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      margin: 20px;
-      color: #333;
-    }
-    iframe {
-      border: none;
-      width: 90%;
-      height: 600px;
-      max-width: 1200px;
-    }
+    body { font-family: sans-serif; padding: 20px; }
+    input, textarea { display: block; margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <h1>トップ</h1>
-  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQfzufpNI0SYDqHTjk3J4zJVyuYpTZai81fVpRfs5I4wlk3qFMAOjhBKLRf-18jS-FYk6DSheQ0tjud/pubhtml?gid=311661140&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+  <h1>今日の予定</h1>
+
+  <form id="scheduleForm">
+    <label>日付: <input type="date" id="dateInput" required></label>
+    <label>終日: <input type="checkbox" id="alldayInput"></label>
+    <label>内容: <textarea id="contentInput" required></textarea></label>
+    <button type="submit">追加</button>
+  </form>
+
+  <h2>今日の予定一覧</h2>
+  <ul id="todayScheduleList"></ul>
+
+  <script type="module">
+    // Firebase SDKをインポート
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Firebase構成
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
+      authDomain: "hontani-hajime.firebaseapp.com",
+      projectId: "hontani-hajime",
+      storageBucket: "hontani-hajime.appspot.com",
+      messagingSenderId: "101204510454",
+      appId: "1:101204510454:web:d09ec25cc566bc00534ed7",
+      measurementId: "G-Z0GJL9GKFE"
+    };
+
+    // Firebase初期化
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('scheduleForm');
+    const list = document.getElementById('todayScheduleList');
+
+    // 今日の予定を読み込む
+    async function loadSchedules() {
+      const today = new Date().toISOString().split('T')[0];
+      const q = query(collection(db, "schedules"), where("date", "==", today));
+      const querySnapshot = await getDocs(q);
+      list.innerHTML = '';
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const li = document.createElement('li');
+        li.textContent = `[${data.allday ? '終日' : data.date}] ${data.content}`;
+        list.appendChild(li);
+      });
+    }
+
+    // 予定を追加する
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const date = document.getElementById('dateInput').value;
+      const allday = document.getElementById('alldayInput').checked;
+      const content = document.getElementById('contentInput').value;
+
+      await addDoc(collection(db, "schedules"), { date, allday, content });
+      form.reset();
+      loadSchedules();
+    });
+
+    loadSchedules();
+  </script>
 </body>
 </html>
