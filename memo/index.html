@@ -1,96 +1,62 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メモアプリ</title>
+  <title>メモアプリ</title>
 </head>
 <body>
-    <h1>メモアプリ</h1>
-    
-    <input type="text" id="memoInput" placeholder="新しいメモを入力">
-    <button onclick="addMemo()">メモを追加</button>
-    
-    <ul id="memoList"></ul>
+  <h1>メモアプリ</h1>
+  <textarea id="memo" placeholder="ここにメモを書いて保存してください" rows="10" cols="30"></textarea><br>
+  <button onclick="saveMemo()">保存</button>
+  <h2>保存されたメモ</h2>
+  <div id="savedMemo"></div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+  <!-- Firebase SDKの読み込み -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
-    <!-- Firebase 設定 -->
-    <script>
-      // Firebase 設定情報
-      const firebaseConfig = {
-        apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
-        authDomain: "hontani-hajime.firebaseapp.com",
-        projectId: "hontani-hajime",
-        storageBucket: "hontani-hajime.firebasestorage.app",
-        messagingSenderId: "101204510454",
-        appId: "1:101204510454:web:a6c5fe8482a7af69534ed7",
-        measurementId: "G-V4Y6B7EBRC"
-      };
+  <script>
+    // ① Firebaseの設定（自分のプロジェクトに合わせて変更）
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-      // Firebase の初期化
-      const app = firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore(app);
+    // ② Firebase初期化とFirestoreの取得
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-      // メモを追加する関数
-      function addMemo() {
-        const memoInput = document.getElementById('memoInput');
-        const memoText = memoInput.value.trim();
+    // ③ メモ保存関数
+    function saveMemo() {
+      const text = document.getElementById("memo").value;
+      db.collection("memos").add({
+        content: text,
+        timestamp: new Date()
+      }).then(() => {
+        alert("メモを保存しました");
+        loadMemos();
+      });
+    }
 
-        if (memoText !== "") {
-          // Firestore にメモを追加
-          db.collection("memos").add({
-            text: memoText,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          }).then(() => {
-            memoInput.value = ""; // 入力欄をクリア
-            fetchMemos(); // メモを再表示
-          }).catch((error) => {
-            console.error("Error adding memo: ", error);
-          });
-        }
-      }
-
-      // Firestore からメモを取得して表示する関数
-      function fetchMemos() {
-        const memoList = document.getElementById('memoList');
-        memoList.innerHTML = ""; // 一度リストを空にする
-
-        // Firestore からメモを取得
-        db.collection("memos")
-          .orderBy("timestamp", "desc")
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              const memo = doc.data();
-              const li = document.createElement("li");
-              li.textContent = memo.text;
-
-              // メモ削除機能
-              const deleteButton = document.createElement("button");
-              deleteButton.textContent = "削除";
-              deleteButton.onclick = () => deleteMemo(doc.id);
-              li.appendChild(deleteButton);
-
-              memoList.appendChild(li);
-            });
-          });
-      }
-
-      // メモを削除する関数
-      function deleteMemo(id) {
-        db.collection("memos").doc(id).delete().then(() => {
-          fetchMemos(); // 削除後にメモを再表示
-        }).catch((error) => {
-          console.error("Error deleting memo: ", error);
+    // ④ メモ読み込み関数
+    function loadMemos() {
+      db.collection("memos").orderBy("timestamp", "desc").get().then((querySnapshot) => {
+        const output = document.getElementById("savedMemo");
+        output.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const div = document.createElement("div");
+          div.textContent = data.content;
+          output.appendChild(div);
         });
-      }
+      });
+    }
 
-      // ページが読み込まれた時にメモを表示
-      window.onload = fetchMemos;
-    </script>
+    // ⑤ 初回読み込み時に呼び出し
+    loadMemos();
+  </script>
 </body>
 </html>
