@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>学習記録アプリ</title>
+  <title>学習記録</title>
   <script type="module">
-    // Firebase SDK のインポート
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import {
+      getFirestore, collection, addDoc, getDocs,
+      deleteDoc, doc, updateDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    // Firebase 設定（あなたのプロジェクトに合わせて）
     const firebaseConfig = {
       apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
       authDomain: "hontani-hajime.firebaseapp.com",
@@ -18,49 +19,112 @@
       appId: "1:101204510454:web:acf52c9593a09819534ed7"
     };
 
-    // 初期化
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // 保存処理
     async function saveRecord() {
-      const label = document.getElementById("label").value;
-      const subject = document.getElementById("subject").value;
-      const start = document.getElementById("start").value;
-      const end = document.getElementById("end").value;
-      const description = document.getElementById("description").value;
-      const date = document.getElementById("date").value;
+      const data = getFormData();
+      if (!data) return;
 
       await addDoc(collection(db, "records"), {
-        label,
-        subject,
-        start,
-        end,
-        description,
-        date,
+        ...data,
         createdAt: serverTimestamp()
       });
 
       alert("保存しました！");
-      loadRecords(); // 表示を更新
+      clearForm();
+      loadRecords();
     }
 
-    // 表示処理
+    function getFormData() {
+      const date = document.getElementById("date").value;
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      const label = document.getElementById("label").value;
+      const subject = document.getElementById("subject").value;
+      const description = document.getElementById("description").value;
+
+      if (!date || !start || !end || !label || !subject || !description) {
+        alert("すべての項目を入力してください");
+        return null;
+      }
+
+      return { date, start, end, label, subject, description };
+    }
+
+    function clearForm() {
+      document.getElementById("date").value = "";
+      document.getElementById("start").value = "";
+      document.getElementById("end").value = "";
+      document.getElementById("label").value = "国語";
+      document.getElementById("subject").value = "";
+      document.getElementById("description").value = "";
+    }
+
+    async function deleteRecord(id) {
+      if (confirm("本当に削除しますか？")) {
+        await deleteDoc(doc(db, "records", id));
+        loadRecords();
+      }
+    }
+
+    async function editRecord(id, data) {
+      document.getElementById("date").value = data.date;
+      document.getElementById("start").value = data.start;
+      document.getElementById("end").value = data.end;
+      document.getElementById("label").value = data.label;
+      document.getElementById("subject").value = data.subject;
+      document.getElementById("description").value = data.description;
+
+      document.getElementById("saveBtn").style.display = "none";
+      const updateBtn = document.getElementById("updateBtn");
+      updateBtn.style.display = "inline";
+
+      updateBtn.onclick = async () => {
+        const updatedData = getFormData();
+        if (!updatedData) return;
+
+        await updateDoc(doc(db, "records", id), updatedData);
+        clearForm();
+        updateBtn.style.display = "none";
+        document.getElementById("saveBtn").style.display = "inline";
+        loadRecords();
+      };
+    }
+
     async function loadRecords() {
       const recordsDiv = document.getElementById("records");
       recordsDiv.innerHTML = "";
 
       const querySnapshot = await getDocs(collection(db, "records"));
+      const records = [];
       querySnapshot.forEach((doc) => {
-        const data = doc.data();
+        records.push({ id: doc.id, ...doc.data() });
+      });
+
+      // 日付順に並び替え
+      records.sort((a, b) => a.date.localeCompare(b.date));
+
+      records.forEach((data) => {
         const el = document.createElement("div");
-        el.innerHTML = `<b>${data.date}</b>：${data.label}「${data.subject}」<br>
-        ${data.start}〜${data.end}：${data.description}<hr>`;
+        el.className = "card";
+        el.innerHTML = `
+          <div><b>${data.date}</b>｜${data.start}～${data.end}</div>
+          <div><b>教科：</b>${data.label}</div>
+          <div><b>単元：</b>${data.subject}</div>
+          <div><b>内容：</b>${data.description}</div>
+          <div class="btn-group">
+            <button onclick="deleteRecord('${data.id}')">削除</button>
+            <button onclick='editRecord("${data.id}", ${JSON.stringify(data)})'>編集</button>
+          </div>
+        `;
         recordsDiv.appendChild(el);
       });
     }
 
-    // ページ読み込み時に表示
+    window.deleteRecord = deleteRecord;
+    window.editRecord = editRecord;
+
     window.addEventListener("DOMContentLoaded", () => {
       loadRecords();
       document.getElementById("saveBtn").addEventListener("click", saveRecord);
@@ -70,47 +134,58 @@
   <style>
     body {
       background-color: white;
-      font-family: sans-serif;
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      margin: 0;
+      padding: 2em;
       color: #333;
-      padding: 20px;
     }
-    h1 {
-      background-color: #fffacd;
-      padding: 10px;
-      border-radius: 10px;
-    }
-    label, select, input, textarea {
-      display: block;
-      margin: 10px 0;
+
+    input, select, textarea {
       width: 100%;
       max-width: 400px;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
     }
+
     button {
+      padding: 10px 16px;
+      margin-right: 10px;
       background-color: #fffacd;
       border: none;
-      padding: 10px 20px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 8px;
       font-weight: bold;
     }
-    #records {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #ccc;
+
+    button:hover {
+      background-color: #ffe97d;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .btn-group {
+      margin-top: 10px;
+    }
+
+    h1 {
+      margin-bottom: 1em;
     }
   </style>
 </head>
 <body>
-  <h1>学習記録アプリ</h1>
-  <label>教科（プルダウン）</label>
-  <select id="label">
-    <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
-    <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
-    <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
-  </select>
 
-  <label>科目・単元など</label>
-  <input type="text" id="subject" placeholder="例：一次関数、英単語など">
+  <label>日付</label>
+  <input type="date" id="date">
 
   <label>開始時間</label>
   <input type="time" id="start">
@@ -118,14 +193,23 @@
   <label>終了時間</label>
   <input type="time" id="end">
 
-  <label>やったこと</label>
-  <textarea id="description" rows="3"></textarea>
+  <label>教科</label>
+  <select id="label">
+    <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
+    <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
+    <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
+  </select>
 
-  <label>日付</label>
-  <input type="date" id="date">
+  <label>科目・単元</label>
+  <input type="text" id="subject" placeholder="例：関数、発音練習など">
 
-  <button id="saveBtn">保存する</button>
+  <label>内容</label>
+  <textarea id="description" rows="3" placeholder="何をやったか書いてください"></textarea>
+
+  <button id="saveBtn">保存</button>
+  <button id="updateBtn" style="display: none;">更新</button>
 
   <div id="records"></div>
+
 </body>
 </html>
