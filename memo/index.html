@@ -2,18 +2,15 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>デザイン付きメモアプリ</title>
+  <title>メモアプリ</title>
   <style>
     body {
       background-color: #ffffff;
       font-family: "Arial", sans-serif;
       padding: 2rem;
       color: #333;
-    }
-
-    h1 {
-      text-align: center;
-      color: #444;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .input-area {
@@ -21,28 +18,28 @@
       padding: 1rem;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      margin: 0 auto 2rem;
+      margin-bottom: 2rem;
     }
 
-    textarea, input[type="text"] {
+    textarea, input[type="text"], select {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
+      box-sizing: border-box;
     }
 
     button {
       background-color: #fdd835;
       color: #333;
       border: none;
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      transition: background-color 0.3s;
+      margin-right: 0.5rem;
     }
 
     button:hover {
@@ -53,7 +50,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .memo-card {
@@ -61,8 +58,9 @@
       padding: 1rem;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 250px;
-      white-space: pre-wrap; /* 改行を表示 */
+      width: calc(50% - 1rem);
+      white-space: pre-wrap;
+      position: relative;
     }
 
     .memo-label {
@@ -71,22 +69,40 @@
       color: #666;
       margin-bottom: 0.5rem;
     }
+
+    .memo-buttons {
+      margin-top: 1rem;
+    }
+
+    .filter-area {
+      margin-bottom: 1rem;
+    }
+
+    .edit-area {
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-  <h1>メモアプリ</h1>
 
   <div class="input-area">
-    <input type="text" id="labelInput" placeholder="カテゴリ・タイトル" />
-    <textarea id="memoInput" rows="5" placeholder="メモを入力（改行OK）"></textarea>
+    <input type="text" id="labelInput" placeholder="カテゴリ（例：仕事、買い物など）" />
+    <textarea id="memoInput" rows="4" placeholder="メモを入力（改行OK）"></textarea>
     <button id="saveBtn">保存</button>
+  </div>
+
+  <div class="filter-area">
+    <label for="filter">カテゴリでフィルター：</label>
+    <select id="filter">
+      <option value="すべて">すべて</option>
+    </select>
   </div>
 
   <div class="memo-list" id="memoList"></div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
@@ -100,41 +116,91 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const memoRef = collection(db, "memo");
 
-    document.getElementById("saveBtn").addEventListener("click", async () => {
-      const text = document.getElementById("memoInput").value;
-      const label = document.getElementById("labelInput").value;
-      if (text.trim() === "") return;
+    const saveBtn = document.getElementById("saveBtn");
+    const memoInput = document.getElementById("memoInput");
+    const labelInput = document.getElementById("labelInput");
+    const filterSelect = document.getElementById("filter");
+    const memoList = document.getElementById("memoList");
 
-      try {
-        await addDoc(collection(db, "memo"), {
-          text: text,
-          label: label || "未分類"
-        });
-        alert("保存しました！");
-        document.getElementById("memoInput").value = "";
-        document.getElementById("labelInput").value = "";
-        loadMemos();
-      } catch (e) {
-        console.error("保存エラー:", e);
-        alert("保存できませんでした。");
-      }
+    saveBtn.addEventListener("click", async () => {
+      const text = memoInput.value.trim();
+      const label = labelInput.value.trim() || "未分類";
+      if (!text) return;
+
+      await addDoc(memoRef, { text, label });
+      memoInput.value = "";
+      labelInput.value = "";
+      loadMemos();
     });
 
-    async function loadMemos() {
-      const list = document.getElementById("memoList");
-      list.innerHTML = "";
-      const querySnapshot = await getDocs(collection(db, "memo"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.className = "memo-card";
-        div.innerHTML = `
-          <div class="memo-label">${data.label || "未分類"}</div>
-          <div>${data.text}</div>
+    filterSelect.addEventListener("change", () => {
+      loadMemos(filterSelect.value);
+    });
+
+    async function loadMemos(filter = "すべて") {
+      const snapshot = await getDocs(memoRef);
+      memoList.innerHTML = "";
+      const categories = new Set();
+
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        categories.add(data.label);
+        if (filter !== "すべて" && data.label !== filter) return;
+
+        const card = document.createElement("div");
+        card.className = "memo-card";
+        card.innerHTML = `
+          <div class="memo-label">${data.label}</div>
+          <div class="memo-text" id="text-${docSnap.id}">${data.text}</div>
+          <div class="edit-area" id="edit-${docSnap.id}" style="display:none;">
+            <textarea id="editInput-${docSnap.id}" rows="4" style="width:100%; margin-top:0.5rem;">${data.text}</textarea>
+            <button onclick="updateMemo('${docSnap.id}')">更新</button>
+            <button onclick="toggleEdit('${docSnap.id}')">キャンセル</button>
+          </div>
+          <div class="memo-buttons">
+            <button onclick="toggleEdit('${docSnap.id}')">編集</button>
+            <button onclick="deleteMemo('${docSnap.id}')">削除</button>
+          </div>
         `;
-        list.appendChild(div);
+        memoList.appendChild(card);
       });
+
+      updateFilterOptions(categories);
+    }
+
+    window.toggleEdit = function(id) {
+      const editArea = document.getElementById(`edit-${id}`);
+      const textEl = document.getElementById(`text-${id}`);
+      const isVisible = editArea.style.display === "block";
+      editArea.style.display = isVisible ? "none" : "block";
+      textEl.style.display = isVisible ? "block" : "none";
+    };
+
+    window.updateMemo = async function(id) {
+      const newText = document.getElementById(`editInput-${id}`).value;
+      const memoDoc = doc(db, "memo", id);
+      await updateDoc(memoDoc, { text: newText });
+      loadMemos(filterSelect.value);
+    };
+
+    window.deleteMemo = async function(id) {
+      const memoDoc = doc(db, "memo", id);
+      await deleteDoc(memoDoc);
+      loadMemos(filterSelect.value);
+    };
+
+    function updateFilterOptions(categories) {
+      const currentValue = filterSelect.value;
+      filterSelect.innerHTML = `<option value="すべて">すべて</option>`;
+      categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        filterSelect.appendChild(opt);
+      });
+      filterSelect.value = currentValue;
     }
 
     loadMemos();
