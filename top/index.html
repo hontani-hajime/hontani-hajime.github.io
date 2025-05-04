@@ -13,7 +13,7 @@
     }
 
     .container {
-      max-width: 600px;
+      max-width: 800px; /* ← ここ広げた！ */
       margin: 20px auto;
       padding: 0 20px;
     }
@@ -103,7 +103,6 @@
       margin-bottom: 10px;
     }
 
-    /* 編集モーダル */
     #editModal {
       display: none;
       position: fixed;
@@ -153,7 +152,6 @@
     </form>
   </div>
 
-  <!-- 編集用モーダル -->
   <div id="editModal">
     <h3>予定を編集</h3>
     <input type="text" id="editLabel" placeholder="ラベル" />
@@ -195,7 +193,6 @@
     document.getElementById("todayDate").textContent = `${new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}`;
 
     const list = document.getElementById("scheduleList");
-
     let currentEditId = null;
 
     async function loadSchedules() {
