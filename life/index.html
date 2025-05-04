@@ -1,11 +1,131 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>トップページ</title>
+  <title>学習記録アプリ</title>
+  <script type="module">
+    // Firebase SDK のインポート
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Firebase 設定（あなたのプロジェクトに合わせて）
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
+      authDomain: "hontani-hajime.firebaseapp.com",
+      projectId: "hontani-hajime",
+      storageBucket: "hontani-hajime.appspot.com",
+      messagingSenderId: "101204510454",
+      appId: "1:101204510454:web:acf52c9593a09819534ed7"
+    };
+
+    // 初期化
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 保存処理
+    async function saveRecord() {
+      const label = document.getElementById("label").value;
+      const subject = document.getElementById("subject").value;
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      const description = document.getElementById("description").value;
+      const date = document.getElementById("date").value;
+
+      await addDoc(collection(db, "records"), {
+        label,
+        subject,
+        start,
+        end,
+        description,
+        date,
+        createdAt: serverTimestamp()
+      });
+
+      alert("保存しました！");
+      loadRecords(); // 表示を更新
+    }
+
+    // 表示処理
+    async function loadRecords() {
+      const recordsDiv = document.getElementById("records");
+      recordsDiv.innerHTML = "";
+
+      const querySnapshot = await getDocs(collection(db, "records"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const el = document.createElement("div");
+        el.innerHTML = `<b>${data.date}</b>：${data.label}「${data.subject}」<br>
+        ${data.start}〜${data.end}：${data.description}<hr>`;
+        recordsDiv.appendChild(el);
+      });
+    }
+
+    // ページ読み込み時に表示
+    window.addEventListener("DOMContentLoaded", () => {
+      loadRecords();
+      document.getElementById("saveBtn").addEventListener("click", saveRecord);
+    });
+  </script>
+
+  <style>
+    body {
+      background-color: white;
+      font-family: sans-serif;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      background-color: #fffacd;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    label, select, input, textarea {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+    button {
+      background-color: #fffacd;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    #records {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-  <h1>あああああいうえ</h1>
+  <h1>学習記録アプリ</h1>
+  <label>教科（プルダウン）</label>
+  <select id="label">
+    <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
+    <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
+    <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
+  </select>
+
+  <label>科目・単元など</label>
+  <input type="text" id="subject" placeholder="例：一次関数、英単語など">
+
+  <label>開始時間</label>
+  <input type="time" id="start">
+
+  <label>終了時間</label>
+  <input type="time" id="end">
+
+  <label>やったこと</label>
+  <textarea id="description" rows="3"></textarea>
+
+  <label>日付</label>
+  <input type="date" id="date">
+
+  <button id="saveBtn">保存する</button>
+
+  <div id="records"></div>
 </body>
 </html>
