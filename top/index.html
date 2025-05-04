@@ -1,32 +1,125 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>今日の予定</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>今日の予定リスト</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    input, textarea { display: block; margin-bottom: 10px; }
+    body {
+      background-color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .schedule-box {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .schedule-header {
+      background-color: #fffacd;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .schedule-content {
+      background-color: white;
+      padding: 10px;
+    }
+
+    .schedule-item {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .schedule-item:not(:last-child) {
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .schedule-label {
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+
+    .schedule-text {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .buttons {
+      margin-top: 5px;
+    }
+
+    .buttons button {
+      margin-right: 5px;
+    }
+
+    form {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #fffacd;
+      border-radius: 10px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      padding: 8px 16px;
+      background-color: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>今日の予定</h1>
+  <div class="container">
+    <div class="schedule-box">
+      <div class="schedule-header" id="todayDate"></div>
+      <div class="schedule-content" id="scheduleList"></div>
+    </div>
 
-  <form id="scheduleForm">
-    <label>日付: <input type="date" id="dateInput" required></label>
-    <label>終日: <input type="checkbox" id="alldayInput"></label>
-    <label>内容: <textarea id="contentInput" required></textarea></label>
-    <button type="submit">追加</button>
-  </form>
-
-  <h2>今日の予定一覧</h2>
-  <ul id="todayScheduleList"></ul>
+    <form id="scheduleForm">
+      <h2>今日の予定リスト送信</h2>
+      <input type="date" id="dateInput" required />
+      <input type="text" id="labelInput" placeholder="例：ひな祭り" required />
+      <textarea id="contentInput" placeholder="予定の内容" required></textarea>
+      <button type="submit">送信</button>
+    </form>
+  </div>
 
   <script type="module">
-    // Firebase SDKをインポート
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      where,
+      getDocs,
+      deleteDoc,
+      doc,
+      updateDoc
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Firebase構成
     const firebaseConfig = {
       apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
       authDomain: "hontani-hajime.firebaseapp.com",
@@ -37,40 +130,101 @@
       measurementId: "G-Z0GJL9GKFE"
     };
 
-    // Firebase初期化
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const form = document.getElementById('scheduleForm');
-    const list = document.getElementById('todayScheduleList');
+    const todayDate = new Date().toISOString().split("T")[0];
+    document.getElementById("todayDate").textContent = `${new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}`;
 
-    // 今日の予定を読み込む
+    const list = document.getElementById("scheduleList");
+
     async function loadSchedules() {
-      const today = new Date().toISOString().split('T')[0];
-      const q = query(collection(db, "schedules"), where("date", "==", today));
-      const querySnapshot = await getDocs(q);
-      list.innerHTML = '';
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const li = document.createElement('li');
-        li.textContent = `[${data.allday ? '終日' : data.date}] ${data.content}`;
-        list.appendChild(li);
+      const q = query(collection(db, "schedules"), where("date", "==", todayDate));
+      const snapshot = await getDocs(q);
+      list.innerHTML = "";
+
+      if (snapshot.empty) {
+        list.innerHTML = "<p>今日の予定はありません。</p>";
+        return;
+      }
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const item = document.createElement("div");
+        item.className = "schedule-item";
+
+        const label = document.createElement("div");
+        label.className = "schedule-label";
+        label.textContent = `[${data.label}]`;
+
+        const content = document.createElement("div");
+        content.className = "schedule-text";
+        content.textContent = data.content;
+
+        const buttons = document.createElement("div");
+        buttons.className = "buttons";
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "編集";
+        editBtn.onclick = async () => {
+          const newLabel = prompt("ラベルを変更:", data.label);
+          const newContent = prompt("内容を変更:", data.content);
+          if (newLabel && newContent) {
+            await updateDoc(doc(db, "schedules", docSnap.id), {
+              label: newLabel,
+              content: newContent
+            });
+            loadSchedules();
+          }
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "削除";
+        deleteBtn.onclick = async () => {
+          await deleteDoc(doc(db, "schedules", docSnap.id));
+          loadSchedules();
+        };
+
+        buttons.appendChild(editBtn);
+        buttons.appendChild(deleteBtn);
+
+        item.appendChild(label);
+        item.appendChild(content);
+        item.appendChild(buttons);
+        list.appendChild(item);
       });
     }
 
-    // 予定を追加する
-    form.addEventListener('submit', async (e) => {
+    document.getElementById("scheduleForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const date = document.getElementById('dateInput').value;
-      const allday = document.getElementById('alldayInput').checked;
-      const content = document.getElementById('contentInput').value;
+      const date = document.getElementById("dateInput").value;
+      const label = document.getElementById("labelInput").value;
+      const content = document.getElementById("contentInput").value;
 
-      await addDoc(collection(db, "schedules"), { date, allday, content });
-      form.reset();
+      await addDoc(collection(db, "schedules"), {
+        date,
+        label,
+        content
+      });
+
+      e.target.reset();
       loadSchedules();
     });
 
-    loadSchedules();
+    // 今日以外のデータは削除（オプション）
+    async function deleteOldSchedules() {
+      const q = query(collection(db, "schedules"));
+      const snapshot = await getDocs(q);
+      for (const docSnap of snapshot.docs) {
+        const data = docSnap.data();
+        if (data.date < todayDate) {
+          await deleteDoc(doc(db, "schedules", docSnap.id));
+        }
+      }
+    }
+
+    await deleteOldSchedules();
+    await loadSchedules();
   </script>
 </body>
 </html>
