@@ -2,23 +2,92 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>メモアプリ</title>
+  <title>デザイン付きメモアプリ</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: "Arial", sans-serif;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    .input-area {
+      background-color: #fffacd;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #fdd835;
+      color: #333;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffeb3b;
+    }
+
+    .memo-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .memo-card {
+      background-color: #fffacd;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      white-space: pre-wrap; /* 改行を表示 */
+    }
+
+    .memo-label {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+  </style>
 </head>
 <body>
   <h1>メモアプリ</h1>
 
-  <input type="text" id="memoInput" placeholder="メモを入力" />
-  <button id="saveBtn">保存</button>
+  <div class="input-area">
+    <input type="text" id="labelInput" placeholder="カテゴリ・タイトル" />
+    <textarea id="memoInput" rows="5" placeholder="メモを入力（改行OK）"></textarea>
+    <button id="saveBtn">保存</button>
+  </div>
 
-  <ul id="memoList"></ul>
+  <div class="memo-list" id="memoList"></div>
 
-  <!-- Firebase SDK -->
   <script type="module">
-    // Firebaseのインポート（CDN）
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Firebase設定
     const firebaseConfig = {
       apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
       authDomain: "hontani-hajime.firebaseapp.com",
@@ -29,19 +98,22 @@
       measurementId: "G-F1QB1KG7MW"
     };
 
-    // Firebase初期化
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // 保存ボタンの処理
     document.getElementById("saveBtn").addEventListener("click", async () => {
       const text = document.getElementById("memoInput").value;
+      const label = document.getElementById("labelInput").value;
       if (text.trim() === "") return;
 
       try {
-        await addDoc(collection(db, "memo"), { text: text }); // ←ここが"memo"
+        await addDoc(collection(db, "memo"), {
+          text: text,
+          label: label || "未分類"
+        });
         alert("保存しました！");
         document.getElementById("memoInput").value = "";
+        document.getElementById("labelInput").value = "";
         loadMemos();
       } catch (e) {
         console.error("保存エラー:", e);
@@ -49,19 +121,22 @@
       }
     });
 
-    // メモを読み込む関数
     async function loadMemos() {
       const list = document.getElementById("memoList");
       list.innerHTML = "";
-      const querySnapshot = await getDocs(collection(db, "memo")); // ←ここが"memo"
+      const querySnapshot = await getDocs(collection(db, "memo"));
       querySnapshot.forEach((doc) => {
-        const li = document.createElement("li");
-        li.textContent = doc.data().text;
-        list.appendChild(li);
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "memo-card";
+        div.innerHTML = `
+          <div class="memo-label">${data.label || "未分類"}</div>
+          <div>${data.text}</div>
+        `;
+        list.appendChild(div);
       });
     }
 
-    // ページ読み込み時にメモ表示
     loadMemos();
   </script>
 </body>
