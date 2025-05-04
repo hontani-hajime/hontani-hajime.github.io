@@ -102,6 +102,39 @@
     h2 {
       margin-bottom: 10px;
     }
+
+    /* 編集モーダル */
+    #editModal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #editModal input, #editModal textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    #editModal button {
+      padding: 8px 12px;
+      margin-left: 5px;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      background-color: #fffacd;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -118,6 +151,17 @@
       <textarea id="contentInput" placeholder="予定の内容（改行OK）" rows="4" required></textarea>
       <button type="submit">送信する</button>
     </form>
+  </div>
+
+  <!-- 編集用モーダル -->
+  <div id="editModal">
+    <h3>予定を編集</h3>
+    <input type="text" id="editLabel" placeholder="ラベル" />
+    <textarea id="editContent" rows="4" placeholder="内容（改行OK）"></textarea>
+    <div style="text-align: right;">
+      <button id="saveEdit">保存</button>
+      <button onclick="document.getElementById('editModal').style.display='none'">キャンセル</button>
+    </div>
   </div>
 
   <script type="module">
@@ -152,6 +196,8 @@
 
     const list = document.getElementById("scheduleList");
 
+    let currentEditId = null;
+
     async function loadSchedules() {
       const q = query(collection(db, "schedules"), where("date", "==", todayDate));
       const snapshot = await getDocs(q);
@@ -180,17 +226,11 @@
 
         const editBtn = document.createElement("button");
         editBtn.textContent = "編集";
-        editBtn.onclick = async () => {
-          const newLabel = prompt("ラベルを編集:", data.label);
-          if (newLabel === null) return;
-          const newContent = prompt("内容を編集:", data.content);
-          if (newContent === null) return;
-
-          await updateDoc(doc(db, "schedules", docSnap.id), {
-            label: newLabel,
-            content: newContent
-          });
-          loadSchedules();
+        editBtn.onclick = () => {
+          currentEditId = docSnap.id;
+          document.getElementById("editLabel").value = data.label;
+          document.getElementById("editContent").value = data.content;
+          document.getElementById("editModal").style.display = "block";
         };
 
         const deleteBtn = document.createElement("button");
@@ -226,7 +266,21 @@
       loadSchedules();
     });
 
-    // 自動削除（前日以前）
+    document.getElementById("saveEdit").addEventListener("click", async () => {
+      const newLabel = document.getElementById("editLabel").value;
+      const newContent = document.getElementById("editContent").value;
+      if (!currentEditId) return;
+
+      await updateDoc(doc(db, "schedules", currentEditId), {
+        label: newLabel,
+        content: newContent
+      });
+
+      currentEditId = null;
+      document.getElementById("editModal").style.display = "none";
+      loadSchedules();
+    });
+
     async function deleteOldSchedules() {
       const q = query(collection(db, "schedules"));
       const snapshot = await getDocs(q);
