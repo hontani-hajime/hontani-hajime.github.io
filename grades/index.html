@@ -2,102 +2,158 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>学習記録</title>
+  <title>学習記録アプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { background: white; font-family: sans-serif; padding: 20px; background-color: #fffacd; }
-    select, input, button { display: block; margin: 10px 0; padding: 8px; width: 100%; max-width: 400px; }
-    .record { background: #fff; margin: 10px 0; padding: 10px; border-radius: 8px; }
+    body {
+      background-color: #ffffff;
+      font-family: sans-serif;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      background-color: #fffacd;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 10px;
+      background-color: #fffacd;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .record {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+    }
   </style>
 </head>
 <body>
   <h1>学習記録アプリ</h1>
+
+  <label for="subject">教科</label>
   <select id="subject">
-    <option value="">教科を選ぶ</option>
-    <option>国語</option><option>数学</option><option>理科</option><option>社会</option>
-    <option>英語</option><option>音楽</option><option>情報</option><option>保健</option>
-    <option>宗教</option><option>算盤</option><option>ピアノ</option>
-    <option>演劇部</option><option>美術部</option><option>図書委員会</option>
+    <option>国語</option>
+    <option>数学</option>
+    <option>理科</option>
+    <option>社会</option>
+    <option>英語</option>
+    <option>音楽</option>
+    <option>情報</option>
+    <option>保健</option>
+    <option>宗教</option>
+    <option>算盤</option>
+    <option>ピアノ</option>
+    <option>演劇部</option>
+    <option>美術部</option>
+    <option>図書委員会</option>
   </select>
-  <input type="text" id="detail" placeholder="何をしたか">
-  <input type="time" id="from">
-  <input type="time" id="to">
+
+  <label for="start">開始時間</label>
+  <input type="time" id="start">
+
+  <label for="end">終了時間</label>
+  <input type="time" id="end">
+
+  <label for="description">内容</label>
+  <textarea id="description" rows="3"></textarea>
+
   <button onclick="saveRecord()">記録する</button>
 
   <h2>記録一覧</h2>
   <div id="records"></div>
 
-  <h2>期間指定して集計</h2>
-  <input type="date" id="startDate">
-  <input type="date" id="endDate">
-  <button onclick="calcTotal()">合計を表示</button>
-  <div id="totalTime"></div>
-
   <script type="module">
+    // Firebase SDK 読み込み
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+    // 🔥 ←ここをあなたのプロジェクトに合わせて修正済み！
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
+      authDomain: "hontani-hajime.firebaseapp.com",
+      projectId: "hontani-hajime",
+      storageBucket: "hontani-hajime.appspot.com",
+      messagingSenderId: "101204510454",
+      appId: "1:101204510454:web:acf52c9593a09819534ed7",
+      measurementId: "G-6ZWL99YYM0"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     async function saveRecord() {
-      const subject = document.getElementById('subject').value;
-      const detail = document.getElementById('detail').value;
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value;
-      const now = new Date();
+      const subject = document.getElementById("subject").value;
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      const description = document.getElementById("description").value;
+      const date = new Date().toISOString().split("T")[0]; // 今日の日付
 
-      await addDoc(collection(db, "records"), {
-        subject, detail, from, to, date: now.toISOString().slice(0,10),
-        timestamp: Timestamp.now()
-      });
+      if (!start || !end || !description) {
+        alert("すべての項目を入力してください。");
+        return;
+      }
 
-      alert("記録しました！");
-      showRecords();
+      try {
+        await addDoc(collection(db, "records"), {
+          subject,
+          start,
+          end,
+          description,
+          date,
+          timestamp: Timestamp.now()
+        });
+        alert("保存しました！");
+        document.getElementById("description").value = "";
+        loadRecords();
+      } catch (e) {
+        console.error("エラー:", e);
+        alert("保存に失敗しました。");
+      }
     }
 
-    async function showRecords() {
-      const querySnapshot = await getDocs(collection(db, "records"));
-      const recordsDiv = document.getElementById('records');
+    async function loadRecords() {
+      const recordsDiv = document.getElementById("records");
       recordsDiv.innerHTML = "";
-      querySnapshot.forEach(doc => {
-        const r = doc.data();
+      const querySnapshot = await getDocs(collection(db, "records"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
         const div = document.createElement("div");
         div.className = "record";
-        div.innerText = `${r.date} ${r.subject} ${r.from}〜${r.to}：${r.detail}`;
+        div.innerHTML = `
+          <strong>${data.date}</strong><br>
+          <strong>${data.subject}</strong>：${data.start}〜${data.end}<br>
+          ${data.description}
+        `;
         recordsDiv.appendChild(div);
       });
     }
 
-    async function calcTotal() {
-      const start = document.getElementById("startDate").value;
-      const end = document.getElementById("endDate").value;
-      const querySnapshot = await getDocs(collection(db, "records"));
-      let totalMinutes = 0;
-
-      querySnapshot.forEach(doc => {
-        const r = doc.data();
-        if (r.date >= start && r.date <= end) {
-          const t1 = new Date("1970-01-01T" + r.from + ":00");
-          const t2 = new Date("1970-01-01T" + r.to + ":00");
-          const mins = (t2 - t1) / (1000 * 60);
-          totalMinutes += mins;
-        }
-      });
-
-      const hours = (totalMinutes / 60).toFixed(2);
-      document.getElementById("totalTime").innerText = `合計学習時間：${hours} 時間`;
-    }
-
-    showRecords();
+    loadRecords(); // 初回読み込み
   </script>
 </body>
 </html>
