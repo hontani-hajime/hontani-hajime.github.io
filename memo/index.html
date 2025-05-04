@@ -7,18 +7,28 @@
     body {
       background-color: #ffffff;
       font-family: "Arial", sans-serif;
-      padding: 2rem;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
+      margin: 0;
+      padding: 0;
     }
 
-    .input-area {
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .left-panel {
+      width: 35%;
       background-color: #fffacd;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .right-panel {
+      width: 65%;
+      padding: 2rem;
+      overflow-y: auto;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
     }
 
     textarea, input[type="text"], select {
@@ -35,7 +45,7 @@
       background-color: #fdd835;
       color: #333;
       border: none;
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1rem;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
@@ -50,7 +60,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      justify-content: flex-start;
     }
 
     .memo-card {
@@ -60,7 +69,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       width: calc(50% - 1rem);
       white-space: pre-wrap;
-      position: relative;
     }
 
     .memo-label {
@@ -72,6 +80,8 @@
 
     .memo-buttons {
       margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
     }
 
     .filter-area {
@@ -81,24 +91,28 @@
     .edit-area {
       margin-top: 0.5rem;
     }
+
   </style>
 </head>
 <body>
 
-  <div class="input-area">
-    <input type="text" id="labelInput" placeholder="カテゴリ（例：仕事、買い物など）" />
-    <textarea id="memoInput" rows="4" placeholder="メモを入力（改行OK）"></textarea>
-    <button id="saveBtn">保存</button>
-  </div>
+  <div class="container">
+    <div class="left-panel">
+      <input type="text" id="labelInput" placeholder="カテゴリ（例：仕事、買い物など）" />
+      <textarea id="memoInput" rows="6" placeholder="メモを入力（改行OK）"></textarea>
+      <button id="saveBtn">保存</button>
+      <div class="filter-area">
+        <label for="filter">カテゴリでフィルター：</label>
+        <select id="filter">
+          <option value="すべて">すべて</option>
+        </select>
+      </div>
+    </div>
 
-  <div class="filter-area">
-    <label for="filter">カテゴリでフィルター：</label>
-    <select id="filter">
-      <option value="すべて">すべて</option>
-    </select>
+    <div class="right-panel">
+      <div class="memo-list" id="memoList"></div>
+    </div>
   </div>
-
-  <div class="memo-list" id="memoList"></div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
