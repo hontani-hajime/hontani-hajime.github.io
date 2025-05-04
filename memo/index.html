@@ -1,67 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>メモアプリ</title>
+  <meta charset="UTF-8" />
+  <title>Firebase メモアプリ</title>
 </head>
 <body>
   <h1>メモアプリ</h1>
-  <textarea id="memo" placeholder="ここにメモを書く" rows="10" cols="30"></textarea><br>
-  <button onclick="saveMemo()">保存</button>
 
-  <h2>保存されたメモ</h2>
-  <div id="savedMemo"></div>
+  <input type="text" id="memoInput" placeholder="メモを入力" />
+  <button id="saveBtn">保存</button>
 
-  <!-- Firebase SDKの読み込み -->
+  <ul id="memoList"></ul>
+
+  <!-- Firebase SDK -->
   <script type="module">
+    // Firebaseのインポート（CDN版）
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+    // Firebase設定（あなたのプロジェクト情報）
     const firebaseConfig = {
       apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
       authDomain: "hontani-hajime.firebaseapp.com",
       projectId: "hontani-hajime",
-      storageBucket: "hontani-hajime.firebasestorage.app",
+      storageBucket: "hontani-hajime.appspot.com",
       messagingSenderId: "101204510454",
       appId: "1:101204510454:web:8ec5f953baa2101e534ed7",
       measurementId: "G-F1QB1KG7MW"
     };
 
+    // 初期化
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    async function saveMemo() {
-      const text = document.getElementById("memo").value;
-      if (text.trim() === "") {
-        alert("メモが空です");
-        return;
+    // メモを保存する処理
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const text = document.getElementById("memoInput").value;
+      if (text.trim() === "") return;
+
+      try {
+        await addDoc(collection(db, "memos"), { text: text });
+        alert("保存しました！");
+        document.getElementById("memoInput").value = "";
+        loadMemos(); // 保存後に再読み込み
+      } catch (e) {
+        console.error("保存エラー:", e);
+        alert("保存できませんでした。");
       }
+    });
 
-      await addDoc(collection(db, "memos"), {
-        content: text,
-        timestamp: new Date()
-      });
-
-      alert("メモを保存しました！");
-      document.getElementById("memo").value = "";
-      loadMemos();
-    }
-
+    // メモ一覧を読み込む
     async function loadMemos() {
-      const memosCol = collection(db, "memos");
-      const q = query(memosCol, orderBy("timestamp", "desc"));
-      const memosSnapshot = await getDocs(q);
-
-      const output = document.getElementById("savedMemo");
-      output.innerHTML = "";
-      memosSnapshot.forEach((doc) => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.textContent = data.content;
-        output.appendChild(div);
+      const list = document.getElementById("memoList");
+      list.innerHTML = "";
+      const querySnapshot = await getDocs(collection(db, "memos"));
+      querySnapshot.forEach((doc) => {
+        const li = document.createElement("li");
+        li.textContent = doc.data().text;
+        list.appendChild(li);
       });
     }
 
-    // ページ読み込み時にメモを取得
+    // ページ読み込み時に表示
     loadMemos();
   </script>
 </body>
