@@ -2,8 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>学習記録</title>
+  <title>学習記録アプリ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -152,39 +153,42 @@
       background: #ffffff;
       font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
       color: #333;
-      padding: 20px;
+      padding: 40px 10px;
       line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .form-container {
       background: #ffffff;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      max-width: 600px;
-      margin: 0 auto 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     label {
       display: block;
-      margin-top: 15px;
+      margin-top: 20px;
       font-weight: bold;
     }
 
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 6px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 8px;
       box-sizing: border-box;
-      transition: 0.2s border ease-in-out;
-      background-color: #fff;
+      background: #fff;
+      transition: border 0.2s;
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: #aaa;
+      border-color: #999;
       outline: none;
     }
 
@@ -192,7 +196,7 @@
       margin-top: 20px;
       padding: 10px 20px;
       border: none;
-      background: #fffacd; /* レモン色 */
+      background: #fffacd;
       font-weight: bold;
       border-radius: 25px;
       cursor: pointer;
@@ -207,20 +211,20 @@
     #updateBtn {
       background: #32cd32;
       color: #fff;
+      margin-left: 10px;
     }
 
     #updateBtn:hover {
-      background: #228b22;
+      background: #2e8b57;
     }
 
     .record-card {
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       border-radius: 12px;
       padding: 15px;
-      margin: 10px auto;
-      max-width: 600px;
-      background: #ffffff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin: 20px 0;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .record-header {
@@ -235,8 +239,8 @@
       border: none;
       font-size: 18px;
       cursor: pointer;
-      margin-left: 5px;
       color: #888;
+      margin-left: 5px;
     }
 
     .record-actions button:hover {
@@ -246,34 +250,36 @@
 </head>
 <body>
 
-  <div class="form-container">
-    <label>日付</label>
-    <input type="date" id="date">
+  <div class="container">
+    <div class="form-container">
+      <label>日付</label>
+      <input type="date" id="date">
 
-    <label>開始時間</label>
-    <input type="time" id="start">
+      <label>開始時間</label>
+      <input type="time" id="start">
 
-    <label>終了時間</label>
-    <input type="time" id="end">
+      <label>終了時間</label>
+      <input type="time" id="end">
 
-    <label>教科</label>
-    <select id="label">
-      <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
-      <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
-      <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
-    </select>
+      <label>教科</label>
+      <select id="label">
+        <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
+        <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
+        <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
+      </select>
 
-    <label>科目・単元</label>
-    <input type="text" id="subject" placeholder="例：関数、発音練習など">
+      <label>科目・単元</label>
+      <input type="text" id="subject" placeholder="例：歴史の江戸時代、連立方程式など">
 
-    <label>内容</label>
-    <textarea id="description" rows="3" placeholder="何をやったか書いてください"></textarea>
+      <label>内容</label>
+      <textarea id="description" rows="3" placeholder="例：教科書を読んだ、問題を解いた など"></textarea>
 
-    <button id="saveBtn">保存</button>
-    <button id="updateBtn" style="display: none;">更新</button>
+      <button id="saveBtn">保存</button>
+      <button id="updateBtn" style="display: none;">更新</button>
+    </div>
+
+    <div id="records"></div>
   </div>
-
-  <div id="records"></div>
 
 </body>
 </html>
