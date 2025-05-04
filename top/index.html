@@ -1,3 +1,4 @@
+<!-- （前のコードをまるごとこのコードに置き換えてOK） -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -80,7 +81,8 @@
 
     form input[type="text"],
     form input[type="date"],
-    form textarea {
+    form textarea,
+    form select {
       width: 100%;
       margin-bottom: 10px;
       padding: 10px;
@@ -99,10 +101,6 @@
       font-weight: bold;
     }
 
-    h2 {
-      margin-bottom: 10px;
-    }
-
     #editModal {
       display: none;
       position: fixed;
@@ -119,7 +117,7 @@
       max-width: 400px;
     }
 
-    #editModal input, #editModal textarea {
+    #editModal input, #editModal textarea, #editSender {
       width: 100%;
       margin-bottom: 10px;
       padding: 8px;
@@ -146,6 +144,25 @@
     <form id="scheduleForm">
       <h2>今日の予定リスト送信</h2>
       <input type="date" id="dateInput" required />
+      <select id="senderInput" required>
+        <option disabled selected>▶︎送信者を選択</option>
+        <option disabled>ーー顧問の先生ーーーー</option>
+        <option>顧問 赤井峰子</option>
+        <option>顧問 大坪志那都</option>
+        <option>顧問 高橋利光</option>
+        <option>顧問 高橋佳子</option>
+        <option>顧問 武内悠祐</option>
+        <option>顧問 橋本温子</option>
+        <option>顧問 山岸周平</option>
+        <option>顧問 山本剛史</option>
+        <option>事務 吉田千佳</option>
+        <option disabled>ーー正副部長ーーーー</option>
+        <option>2101 赤池はるひ</option>
+        <option disabled>ーー部員ーーーー</option>
+        <option>2201 本谷元</option>
+        <option>2202 森悠成</option>
+        <option>2203 小泉耕平</option>
+      </select>
       <input type="text" id="labelInput" placeholder="例：通常活動日" required />
       <textarea id="contentInput" placeholder="予定の内容（改行OK）" rows="4" required></textarea>
       <button type="submit">送信する</button>
@@ -154,6 +171,25 @@
 
   <div id="editModal">
     <h3>予定を編集</h3>
+    <select id="editSender">
+      <option disabled>▶︎送信者を選択</option>
+      <option disabled>ーー顧問の先生ーーーー</option>
+      <option>顧問 赤井峰子</option>
+      <option>顧問 大坪志那都</option>
+      <option>顧問 高橋利光</option>
+      <option>顧問 高橋佳子</option>
+      <option>顧問 武内悠祐</option>
+      <option>顧問 橋本温子</option>
+      <option>顧問 山岸周平</option>
+      <option>顧問 山本剛史</option>
+      <option>事務 吉田千佳</option>
+      <option disabled>ーー正副部長ーーーー</option>
+      <option>2101 赤池はるひ</option>
+      <option disabled>ーー部員ーーーー</option>
+      <option>2201 本谷元</option>
+      <option>2202 森悠成</option>
+      <option>2203 小泉耕平</option>
+    </select>
     <input type="text" id="editLabel" placeholder="ラベル" />
     <textarea id="editContent" rows="4" placeholder="内容（改行OK）"></textarea>
     <div style="text-align: right;">
@@ -212,7 +248,7 @@
 
         const label = document.createElement("div");
         label.className = "schedule-label";
-        label.textContent = `[${data.label}]`;
+        label.textContent = `[${data.label}] ${data.sender}`;
 
         const content = document.createElement("div");
         content.className = "schedule-text";
@@ -227,6 +263,7 @@
           currentEditId = docSnap.id;
           document.getElementById("editLabel").value = data.label;
           document.getElementById("editContent").value = data.content;
+          document.getElementById("editSender").value = data.sender;
           document.getElementById("editModal").style.display = "block";
         };
 
@@ -255,11 +292,13 @@
       const date = document.getElementById("dateInput").value;
       const label = document.getElementById("labelInput").value;
       const content = document.getElementById("contentInput").value;
+      const sender = document.getElementById("senderInput").value;
 
       await addDoc(collection(db, "schedules"), {
         date,
         label,
-        content
+        content,
+        sender
       });
 
       e.target.reset();
@@ -269,11 +308,13 @@
     document.getElementById("saveEdit").addEventListener("click", async () => {
       const newLabel = document.getElementById("editLabel").value;
       const newContent = document.getElementById("editContent").value;
+      const newSender = document.getElementById("editSender").value;
       if (!currentEditId) return;
 
       await updateDoc(doc(db, "schedules", currentEditId), {
         label: newLabel,
-        content: newContent
+        content: newContent,
+        sender: newSender
       });
 
       currentEditId = null;
