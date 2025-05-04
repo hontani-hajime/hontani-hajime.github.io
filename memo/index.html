@@ -84,14 +84,17 @@
       gap: 0.5rem;
     }
 
-    .filter-area {
-      margin-bottom: 1rem;
-    }
-
     .edit-area {
       margin-top: 0.5rem;
     }
 
+    .edit-area button {
+      margin-right: 0.5rem;
+    }
+
+    .filter-area {
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -200,6 +203,8 @@
     };
 
     window.deleteMemo = async function(id) {
+      const confirmed = confirm("本当に削除しますか？");
+      if (!confirmed) return;
       const memoDoc = doc(db, "memo", id);
       await deleteDoc(memoDoc);
       loadMemos(filterSelect.value);
