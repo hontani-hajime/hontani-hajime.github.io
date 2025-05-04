@@ -1,0 +1,340 @@
+<!-- （前のコードをまるごとこのコードに置き換えてOK） -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>今日の予定リスト</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .schedule-box {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .schedule-header {
+      background-color: #fffacd;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .schedule-content {
+      background-color: white;
+      padding: 10px;
+    }
+
+    .schedule-item {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .schedule-item:not(:last-child) {
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .schedule-label {
+      font-weight: bold;
+      margin-bottom: 3px;
+      white-space: pre-wrap;
+    }
+
+    .schedule-text {
+      font-size: 14px;
+      color: #555;
+      white-space: pre-wrap;
+    }
+
+    .buttons {
+      margin-top: 5px;
+    }
+
+    .buttons button {
+      margin-right: 5px;
+      background-color: #fffacd;
+      border: 1px solid #ccc;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    form {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #fffacd;
+      border-radius: 10px;
+    }
+
+    form input[type="text"],
+    form input[type="date"],
+    form textarea,
+    form select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background-color: #f7e98b;
+      border: 1px solid #999;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #editModal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #editModal input, #editModal textarea, #editSender {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    #editModal button {
+      padding: 8px 12px;
+      margin-left: 5px;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      background-color: #fffacd;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="schedule-box">
+      <div class="schedule-header" id="todayDate"></div>
+      <div class="schedule-content" id="scheduleList"></div>
+    </div>
+
+    <form id="scheduleForm">
+      <h2>今日の予定リスト送信</h2>
+      <input type="date" id="dateInput" required />
+      <select id="senderInput" required>
+        <option disabled selected>▶︎送信者を選択</option>
+        <option disabled>ーー顧問の先生ーーーー</option>
+        <option>顧問 赤井峰子</option>
+        <option>顧問 大坪志那都</option>
+        <option>顧問 高橋利光</option>
+        <option>顧問 高橋佳子</option>
+        <option>顧問 武内悠祐</option>
+        <option>顧問 橋本温子</option>
+        <option>顧問 山岸周平</option>
+        <option>顧問 山本剛史</option>
+        <option>事務 吉田千佳</option>
+        <option disabled>ーー正副部長ーーーー</option>
+        <option>2101 赤池はるひ</option>
+        <option disabled>ーー部員ーーーー</option>
+        <option>2201 本谷元</option>
+        <option>2202 森悠成</option>
+        <option>2203 小泉耕平</option>
+      </select>
+      <input type="text" id="labelInput" placeholder="例：通常活動日" required />
+      <textarea id="contentInput" placeholder="予定の内容（改行OK）" rows="4" required></textarea>
+      <button type="submit">送信する</button>
+    </form>
+  </div>
+
+  <div id="editModal">
+    <h3>予定を編集</h3>
+    <select id="editSender">
+      <option disabled>▶︎送信者を選択</option>
+      <option disabled>ーー顧問の先生ーーーー</option>
+      <option>顧問 赤井峰子</option>
+      <option>顧問 大坪志那都</option>
+      <option>顧問 高橋利光</option>
+      <option>顧問 高橋佳子</option>
+      <option>顧問 武内悠祐</option>
+      <option>顧問 橋本温子</option>
+      <option>顧問 山岸周平</option>
+      <option>顧問 山本剛史</option>
+      <option>事務 吉田千佳</option>
+      <option disabled>ーー正副部長ーーーー</option>
+      <option>2101 赤池はるひ</option>
+      <option disabled>ーー部員ーーーー</option>
+      <option>2201 本谷元</option>
+      <option>2202 森悠成</option>
+      <option>2203 小泉耕平</option>
+    </select>
+    <input type="text" id="editLabel" placeholder="ラベル" />
+    <textarea id="editContent" rows="4" placeholder="内容（改行OK）"></textarea>
+    <div style="text-align: right;">
+      <button id="saveEdit">保存</button>
+      <button onclick="document.getElementById('editModal').style.display='none'">キャンセル</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      where,
+      getDocs,
+      deleteDoc,
+      doc,
+      updateDoc
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtqi9l_tX008yxnz2PUe-Q2pUJ2G8w_-8",
+      authDomain: "hontani-hajime.firebaseapp.com",
+      projectId: "hontani-hajime",
+      storageBucket: "hontani-hajime.appspot.com",
+      messagingSenderId: "101204510454",
+      appId: "1:101204510454:web:d09ec25cc566bc00534ed7",
+      measurementId: "G-Z0GJL9GKFE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const todayDate = new Date().toISOString().split("T")[0];
+    document.getElementById("todayDate").textContent = `${new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}`;
+
+    const list = document.getElementById("scheduleList");
+    let currentEditId = null;
+
+    async function loadSchedules() {
+      const q = query(collection(db, "schedules"), where("date", "==", todayDate));
+      const snapshot = await getDocs(q);
+      list.innerHTML = "";
+
+      if (snapshot.empty) {
+        list.innerHTML = "<p>今日の予定はありません。</p>";
+        return;
+      }
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const item = document.createElement("div");
+        item.className = "schedule-item";
+
+        const label = document.createElement("div");
+        label.className = "schedule-label";
+        label.textContent = `[${data.label}] ${data.sender}`;
+
+        const content = document.createElement("div");
+        content.className = "schedule-text";
+        content.textContent = data.content;
+
+        const buttons = document.createElement("div");
+        buttons.className = "buttons";
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "編集";
+        editBtn.onclick = () => {
+          currentEditId = docSnap.id;
+          document.getElementById("editLabel").value = data.label;
+          document.getElementById("editContent").value = data.content;
+          document.getElementById("editSender").value = data.sender;
+          document.getElementById("editModal").style.display = "block";
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "削除";
+        deleteBtn.onclick = async () => {
+          const confirmDelete = confirm("本当にこの予定を削除しますか？");
+          if (confirmDelete) {
+            await deleteDoc(doc(db, "schedules", docSnap.id));
+            loadSchedules();
+          }
+        };
+
+        buttons.appendChild(editBtn);
+        buttons.appendChild(deleteBtn);
+
+        item.appendChild(label);
+        item.appendChild(content);
+        item.appendChild(buttons);
+        list.appendChild(item);
+      });
+    }
+
+    document.getElementById("scheduleForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const date = document.getElementById("dateInput").value;
+      const label = document.getElementById("labelInput").value;
+      const content = document.getElementById("contentInput").value;
+      const sender = document.getElementById("senderInput").value;
+
+      await addDoc(collection(db, "schedules"), {
+        date,
+        label,
+        content,
+        sender
+      });
+
+      e.target.reset();
+      loadSchedules();
+    });
+
+    document.getElementById("saveEdit").addEventListener("click", async () => {
+      const newLabel = document.getElementById("editLabel").value;
+      const newContent = document.getElementById("editContent").value;
+      const newSender = document.getElementById("editSender").value;
+      if (!currentEditId) return;
+
+      await updateDoc(doc(db, "schedules", currentEditId), {
+        label: newLabel,
+        content: newContent,
+        sender: newSender
+      });
+
+      currentEditId = null;
+      document.getElementById("editModal").style.display = "none";
+      loadSchedules();
+    });
+
+    async function deleteOldSchedules() {
+      const q = query(collection(db, "schedules"));
+      const snapshot = await getDocs(q);
+      for (const docSnap of snapshot.docs) {
+        const data = docSnap.data();
+        if (data.date < todayDate) {
+          await deleteDoc(doc(db, "schedules", docSnap.id));
+        }
+      }
+    }
+
+    await deleteOldSchedules();
+    await loadSchedules();
+  </script>
+</body>
+</html>
