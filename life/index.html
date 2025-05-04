@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>学習記録</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -102,21 +103,22 @@
         records.push({ id: doc.id, ...doc.data() });
       });
 
-      // 日付順に並び替え
       records.sort((a, b) => a.date.localeCompare(b.date));
 
       records.forEach((data) => {
         const el = document.createElement("div");
-        el.className = "card";
+        el.className = "record-card";
         el.innerHTML = `
-          <div><b>${data.date}</b>｜${data.start}～${data.end}</div>
+          <div class="record-header">
+            <span><b>${data.date}</b>｜${data.start}～${data.end}</span>
+            <div class="record-actions">
+              <button onclick="editRecord('${data.id}', ${JSON.stringify(data)})">✏️</button>
+              <button onclick="deleteRecord('${data.id}')">🗑️</button>
+            </div>
+          </div>
           <div><b>教科：</b>${data.label}</div>
           <div><b>単元：</b>${data.subject}</div>
           <div><b>内容：</b>${data.description}</div>
-          <div class="btn-group">
-            <button onclick="deleteRecord('${data.id}')">削除</button>
-            <button onclick='editRecord("${data.id}", ${JSON.stringify(data)})'>編集</button>
-          </div>
         `;
         recordsDiv.appendChild(el);
       });
@@ -133,81 +135,125 @@
 
   <style>
     body {
-      background-color: white;
-      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
-      margin: 0;
-      padding: 2em;
+      background: white;
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
       color: #333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .form-container {
+      background: #fffacd;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
     }
 
     input, select, textarea {
       width: 100%;
-      max-width: 400px;
       padding: 10px;
-      margin-bottom: 12px;
+      margin-top: 5px;
+      font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 16px;
+      box-sizing: border-box;
+      transition: 0.2s border ease-in-out;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #ffa;
+      outline: none;
     }
 
     button {
-      padding: 10px 16px;
-      margin-right: 10px;
-      background-color: #fffacd;
+      margin-top: 20px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      background: #ffd700;
       font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #ffe97d;
+      background: #ffcd00;
     }
 
-    .card {
+    #updateBtn {
+      background: #87ceeb;
+    }
+
+    #updateBtn:hover {
+      background: #00bfff;
+    }
+
+    .record-card {
       border: 1px solid #ddd;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 15px;
-      margin: 15px 0;
-      background-color: #f9f9f9;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin: 10px auto;
+      max-width: 600px;
+      background: #fdfdfd;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
     }
 
-    .btn-group {
-      margin-top: 10px;
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    h1 {
-      margin-bottom: 1em;
+    .record-actions button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .record-actions button:hover {
+      color: crimson;
     }
   </style>
 </head>
 <body>
 
-  <label>日付</label>
-  <input type="date" id="date">
+  <div class="form-container">
+    <label>日付</label>
+    <input type="date" id="date">
 
-  <label>開始時間</label>
-  <input type="time" id="start">
+    <label>開始時間</label>
+    <input type="time" id="start">
 
-  <label>終了時間</label>
-  <input type="time" id="end">
+    <label>終了時間</label>
+    <input type="time" id="end">
 
-  <label>教科</label>
-  <select id="label">
-    <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
-    <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
-    <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
-  </select>
+    <label>教科</label>
+    <select id="label">
+      <option>国語</option><option>数学</option><option>理科</option><option>社会</option><option>英語</option>
+      <option>音楽</option><option>情報</option><option>保健</option><option>宗教</option><option>算盤</option>
+      <option>ピアノ</option><option>演劇部</option><option>美術部</option><option>図書委員会</option>
+    </select>
 
-  <label>科目・単元</label>
-  <input type="text" id="subject" placeholder="例：関数、発音練習など">
+    <label>科目・単元</label>
+    <input type="text" id="subject" placeholder="例：関数、発音練習など">
 
-  <label>内容</label>
-  <textarea id="description" rows="3" placeholder="何をやったか書いてください"></textarea>
+    <label>内容</label>
+    <textarea id="description" rows="3" placeholder="何をやったか書いてください"></textarea>
 
-  <button id="saveBtn">保存</button>
-  <button id="updateBtn" style="display: none;">更新</button>
+    <button id="saveBtn">保存</button>
+    <button id="updateBtn" style="display: none;">更新</button>
+  </div>
 
   <div id="records"></div>
 
