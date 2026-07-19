@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | 作成ツール一覧</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 50px auto; padding: 20px; }
+        h1 { text-align: center; color: #003067; margin-bottom: 40px; }
+        
+        /* カードのデザイン */
+        .work-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h2 { margin-top: 0; color: #003067; }
+        .card p { font-size: 14px; color: #666; }
+        
+        /* リンクボタン */
+        .btn { display: inline-block; padding: 10px 20px; background: #6bb6ff; color: #003067; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; border: 2px solid #000; }
+        .btn:hover { background: #5a9ce0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>My Projects</h1>
+    
+    <div class="work-list">
+        <!-- ツール1 -->
+        <div class="card">
+            <h2>文字数カウンター</h2>
+            <p>文章の文字数、改行、原稿用紙枚数をリアルタイムで測定。さらに全角・半角変換や検索・置換機能を搭載したテキスト最適化ツール。</p>
+            <a href="char-counter.html" class="btn">ツールを使う</a>
+        </div>
+
+        <!-- ツール2 (今後ここを増やしていく) -->
+        <div class="card" style="border: 2px dashed #ccc; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #999;">
+            <h2>Coming Soon...</h2>
+            <p>新しいツールを鋭意開発中です！</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
