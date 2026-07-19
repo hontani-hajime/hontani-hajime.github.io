@@ -1,24 +1,572 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- サイトのタイトル -->
-    <title>はじめの部屋</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 通常のブラウザのタブ用ファビコン（すべて小文字） -->
-    <link rel="icon" href="favicon.jpg" type="image/jpeg">
+<!-- サイトタイトル -->
+<title>文字数カウンター&テキストツール</title>
 
-    <!-- iOS (iPhone/iPad) ホーム画面追加時・お気に入り用のアイコン -->
-    <link rel="apple-touch-icon" href="favicon.jpg">
+<!-- ファビコン・スマホ用アイコンの設定 (iOS / Android 対応) -->
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+<link rel="apple-touch-icon" href="/favicon.jpg">
+<!-- Androidホーム画面追加時用のウェブアプリマニフェスト設定の代用メタタグ -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="テキストツール">
+
+<style>
+    /* ------------------------------
+       ベーススタイル・レイアウト
+    ------------------------------ */
+    :root {
+        --primary-color: #003067;
+        --bg-color: #f5f7fa;
+    }
     
-    <!-- AndroidやChrome用の高解像度アイコン指定 -->
-    <link rel="icon" type="image/jpeg" sizes="192x192" href="favicon.jpg">
+    body {
+        font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        background-color: var(--bg-color);
+        color: #333;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ヘッダー（左上にタイトル表示） */
+    .app-header {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 20px 5px;
+    }
+
+    .app-header h1 {
+        margin: 0;
+        font-size: 22px;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .app-container {
+        display: flex;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 20px 20px;
+        height: calc(100vh - 80px);
+    }
+
+    /* 左側：入力エリア */
+    .left-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* ハイライト用の重ね合わせテクニック */
+    .editor-wrapper {
+        position: relative;
+        flex: 1;
+        background: #fff;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .backdrop, #mainText {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        font-family: inherit;
+        font-size: 16px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        box-sizing: border-box;
+    }
+
+    .backdrop {
+        z-index: 1;
+        overflow: auto;
+        background-color: #fff;
+        color: transparent; 
+    }
+
+    .backdrop mark {
+        background-color: #ffeb3b; 
+        color: transparent;
+        border-radius: 2px;
+    }
+
+    #mainText {
+        z-index: 2;
+        background-color: transparent;
+        color: #333;
+        resize: none;
+        border: none;
+        outline: none;
+    }
+
+    /* 右側：ツールエリア */
+    .right-panel {
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    .panel-section {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .panel-section h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: var(--primary-color);
+        border-bottom: 2px solid #e1f3ff;
+        padding-bottom: 5px;
+    }
+
+    /* 統計表示 */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .stat-box {
+        background: #f8fafc;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .stat-box span {
+        display: block;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .stat-box strong {
+        font-size: 20px;
+        color: var(--primary-color);
+        line-height: 1.2;
+        margin: 4px 0;
+    }
+
+    /* 追加：空白数の内訳テキスト */
+    .sub-stat {
+        font-size: 10px;
+        color: #888;
+        margin-top: 2px;
+    }
+
+    /* 入力フォーム類 */
+    .input-group {
+        margin-bottom: 15px;
+    }
+    
+    .input-group label {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .input-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .search-result {
+        font-size: 13px;
+        color: #e53935;
+        font-weight: bold;
+        margin-top: 5px;
+        min-height: 18px;
+    }
+
+    /* ボタングリッド */
+    .btn-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .btn-full {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* ボタンデザイン */
+    .button_solid016 {
+        appearance: none;
+        background: #6bb6ff;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 10px 15px;
+        color: #003067;
+        transition: 0.3s ease-in-out;
+        font-weight: 600;
+        border: 2px solid #000;
+        z-index: 1;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 13px;
+        box-sizing: border-box;
+    }
+    .button_solid016:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 3px;
+        background: #e1f3ff;
+        background-image:
+        linear-gradient(45deg, #c8e4ff 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #c8e4ff 0),
+        linear-gradient(45deg, #c8e4ff 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #c8e4ff 0);
+        background-position: 0 0, 15px 15px, 15px 15px, 30px 30px;
+        background-size: 30px 30px;
+    }
+    .button_solid016:after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -2px;
+        width: calc(100% + 4px);
+        height: 100%;
+        content: '';
+        transition: all .3s;
+        transform: translate3d(0,0.40rem,-1rem);
+        border: 2px solid #000;
+        border-radius: inherit;
+        background: #2b7fde;
+        box-shadow: 0 0.4rem 0 0 rgb(0 0 0 / 20%);
+        z-index: -2;
+    }
+    .button_solid016:hover {
+        transform: translate3d(0,0.2rem,-1rem);
+    }
+    .button_solid016:hover:after {
+        transform: translate3d(0,0.2rem,-1rem);
+        box-shadow: 0 0.2rem 0 0 rgb(0 0 0 / 20%);
+    }
+    .button_solid016.btn-danger {
+        color: #5a0000;
+        background: #ff8e8e;
+    }
+    .button_solid016.btn-danger:before {
+        background: #ffe3e3;
+        background-image:
+        linear-gradient(45deg, #ffc4c4 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #ffc4c4 0),
+        linear-gradient(45deg, #ffc4c4 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #ffc4c4 0);
+    }
+    .button_solid016.btn-danger:after {
+        background: #de2b2b;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 800px) {
+        .app-container {
+            flex-direction: column;
+            height: auto;
+        }
+        .right-panel {
+            width: 100%;
+        }
+        .editor-wrapper {
+            min-height: 400px;
+        }
+    }
+</style>
 </head>
 <body>
-    <h1>はじめの部屋へようこそ！</h1>
-    <p>本谷元（ホンタニハジメ）のポートフォリオサイトです。</p>
-    <p>これからカメラの写真や、架空のWebサイトなどを追加していく予定です！</p>
+
+<header class="app-header">
+    <h1>文字数カウンター&テキストツール</h1>
+</header>
+
+<div class="app-container">
+    <!-- 左側：テキスト入力＆ハイライト表示 -->
+    <div class="left-panel">
+        <div class="editor-wrapper">
+            <div class="backdrop" id="backdrop"></div>
+            <textarea id="mainText" placeholder="ここにテキストを入力またはペーストしてください..."></textarea>
+        </div>
+    </div>
+
+    <!-- 右側：ツールパネル -->
+    <div class="right-panel">
+        
+        <!-- 文字数カウントエリア -->
+        <div class="panel-section">
+            <h3>集計情報</h3>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span>総文字数</span>
+                    <strong id="charCount">0</strong>
+                </div>
+                <div class="stat-box">
+                    <span>原稿用紙(400字)</span>
+                    <strong id="paperCount">0.0</strong> <span style="display:inline; font-size:12px;">枚</span>
+                </div>
+                <div class="stat-box">
+                    <span>空白数</span>
+                    <strong id="spaceCount">0</strong>
+                    <div class="sub-stat">（半角:<span id="halfSpaceCount">0</span> 全角:<span id="fullSpaceCount">0</span>）</div>
+                </div>
+                <div class="stat-box">
+                    <span>改行数</span>
+                    <strong id="lineCount">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 検索・置換エリア -->
+        <div class="panel-section">
+            <h3>検索 & 置換</h3>
+            <div class="input-group">
+                <label>検索ワード (リアルタイム)</label>
+                <input type="text" id="searchInput" class="input-control" placeholder="検索したい文字...">
+                <div class="search-result" id="searchResult"></div>
+            </div>
+            
+            <div class="input-group">
+                <label>置換後のワード</label>
+                <input type="text" id="replaceInput" class="input-control" placeholder="変換後の文字...">
+            </div>
+            <button class="button_solid016 btn-full" id="replaceBtn">一発変換する</button>
+        </div>
+
+        <!-- 全角・半角変換エリア -->
+        <div class="panel-section">
+            <h3>全角・半角変換</h3>
+            <div class="btn-grid">
+                <button class="button_solid016" onclick="convertWidth('eng', 'half')">英語を半角に</button>
+                <button class="button_solid016" onclick="convertWidth('eng', 'full')">英語を全角に</button>
+                <button class="button_solid016" onclick="convertWidth('num', 'half')">数字を半角に</button>
+                <button class="button_solid016" onclick="convertWidth('num', 'full')">数字を全角に</button>
+            </div>
+            <button class="button_solid016 btn-full" onclick="convertWidth('both', 'half')">英数字をすべて半角に</button>
+            <button class="button_solid016 btn-full" onclick="convertWidth('both', 'full')">英数字をすべて全角に</button>
+        </div>
+
+        <!-- ユーティリティエリア -->
+        <div class="panel-section">
+            <h3>ツール</h3>
+            <div class="btn-grid">
+                <button class="button_solid016" id="copyBtn">全文コピー</button>
+                <button class="button_solid016 btn-danger" id="clearBtn">すべてクリア</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    // DOM要素の取得
+    const mainText = document.getElementById('mainText');
+    const backdrop = document.getElementById('backdrop');
+    
+    // 集計系要素
+    const charCount = document.getElementById('charCount');
+    const paperCount = document.getElementById('paperCount');
+    const spaceCount = document.getElementById('spaceCount');
+    const halfSpaceCount = document.getElementById('halfSpaceCount');
+    const fullSpaceCount = document.getElementById('fullSpaceCount');
+    const lineCount = document.getElementById('lineCount');
+    
+    // 検索・置換系要素
+    const searchInput = document.getElementById('searchInput');
+    const replaceInput = document.getElementById('replaceInput');
+    const searchResult = document.getElementById('searchResult');
+    const replaceBtn = document.getElementById('replaceBtn');
+    
+    // 各種イベントリスナーの設定
+    mainText.addEventListener('input', handleTextUpdate);
+    mainText.addEventListener('scroll', syncScroll); 
+    searchInput.addEventListener('input', handleTextUpdate); 
+
+    // ユーティリティ系ボタン
+    document.getElementById('copyBtn').addEventListener('click', copyAllText);
+    document.getElementById('clearBtn').addEventListener('click', clearAllText);
+    replaceBtn.addEventListener('click', executeReplace);
+
+    function handleTextUpdate() {
+        const text = mainText.value;
+        const searchWord = searchInput.value;
+        updateStats(text);
+        applyHighlights(text, searchWord);
+    }
+
+    function updateStats(text) {
+        // 全文字数
+        const textWithoutLines = text.replace(/\n/g, '');
+        charCount.textContent = textWithoutLines.length;
+
+        // 原稿用紙換算
+        const paperCalc = (textWithoutLines.length / 400).toFixed(1);
+        paperCount.textContent = paperCalc;
+
+        // 【修正】半角スペースと全角スペースを個別にカウント
+        const halfSpacesMatch = text.match(/ /g);
+        const halfSpaces = halfSpacesMatch ? halfSpacesMatch.length : 0;
+
+        const fullSpacesMatch = text.match(/ /g);
+        const fullSpaces = fullSpacesMatch ? fullSpacesMatch.length : 0;
+
+        // 合計と内訳を画面に反映
+        spaceCount.textContent = halfSpaces + fullSpaces;
+        halfSpaceCount.textContent = halfSpaces;
+        fullSpaceCount.textContent = fullSpaces;
+
+        // 改行数
+        const newLines = text.match(/\n/g);
+        lineCount.textContent = newLines ? newLines.length : 0;
+    }
+
+    function applyHighlights(text, searchWord) {
+        let highlightedText = escapeHTML(text);
+
+        if (searchWord) {
+            const escapedSearch = escapeHTML(searchWord);
+            const regex = new RegExp(`(${escapeRegExp(escapedSearch)})`, 'g');
+            
+            const matchCount = (highlightedText.match(regex) || []).length;
+            searchResult.textContent = matchCount > 0 ? `${matchCount}件 見つかりました` : '見つかりませんでした';
+
+            highlightedText = highlightedText.replace(regex, '<mark>$1</mark>');
+        } else {
+            searchResult.textContent = '';
+        }
+
+        if (highlightedText.endsWith('\n')) {
+            highlightedText += ' '; 
+        }
+
+        backdrop.innerHTML = highlightedText;
+    }
+
+    function executeReplace() {
+        const searchWord = searchInput.value;
+        const replaceWord = replaceInput.value;
+        
+        if (!searchWord) {
+            alert('検索ワードを入力してください。');
+            return;
+        }
+
+        const text = mainText.value;
+        const newText = text.split(searchWord).join(replaceWord);
+        
+        if (text !== newText) {
+            mainText.value = newText;
+            searchInput.value = replaceWord;
+            replaceInput.value = '';
+            handleTextUpdate();
+        }
+    }
+
+    function convertWidth(target, toType) {
+        let text = mainText.value;
+        if (!text) return;
+
+        text = text.replace(/./g, function(char) {
+            const code = char.charCodeAt(0);
+            const isAsciiNum = (code >= 0x0030 && code <= 0x0039);
+            const isAsciiEng = (code >= 0x0041 && code <= 0x005A) || (code >= 0x0061 && code <= 0x007A);
+            const isFullNum  = (code >= 0xFF10 && code <= 0xFF19);
+            const isFullEng  = (code >= 0xFF21 && code <= 0xFF3A) || (code >= 0xFF41 && code <= 0xFF5A);
+
+            const matchTarget = 
+                (target === 'num' && (isAsciiNum || isFullNum)) ||
+                (target === 'eng' && (isAsciiEng || isFullEng)) ||
+                (target === 'both' && (isAsciiNum || isFullNum || isAsciiEng || isFullEng));
+
+            if (matchTarget) {
+                if (toType === 'full' && (isAsciiNum || isAsciiEng)) {
+                    return String.fromCharCode(code + 0xFEE0);
+                } else if (toType === 'half' && (isFullNum || isFullEng)) {
+                    return String.fromCharCode(code - 0xFEE0);
+                }
+            }
+            return char;
+        });
+
+        mainText.value = text;
+        handleTextUpdate();
+    }
+
+    function copyAllText() {
+        mainText.select();
+        document.execCommand('copy');
+        
+        const btn = document.getElementById('copyBtn');
+        const originalText = btn.textContent;
+        btn.textContent = 'コピーしました！';
+        setTimeout(() => { btn.textContent = originalText; }, 2000);
+    }
+
+    function clearAllText() {
+        if(confirm('テキストをすべて消去しますか？')) {
+            mainText.value = '';
+            searchInput.value = '';
+            replaceInput.value = '';
+            handleTextUpdate();
+            mainText.focus();
+        }
+    }
+
+    function syncScroll() {
+        backdrop.scrollTop = mainText.scrollTop;
+        backdrop.scrollLeft = mainText.scrollLeft;
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/[&<>'"]/g, function(tag) {
+            const charsToEscape = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            };
+            return charsToEscape[tag] || tag;
+        });
+    }
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+</script>
 </body>
 </html>
