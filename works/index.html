@@ -1,46 +1,90 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio | 作成ツール一覧</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f7f6; color: #333; line-height: 1.6; }
-        .container { max-width: 900px; margin: 50px auto; padding: 20px; }
-        h1 { text-align: center; color: #003067; margin-bottom: 40px; }
-        
-        /* カードのデザイン */
-        .work-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h2 { margin-top: 0; color: #003067; }
-        .card p { font-size: 14px; color: #666; }
-        
-        /* リンクボタン */
-        .btn { display: inline-block; padding: 10px 20px; background: #6bb6ff; color: #003067; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; border: 2px solid #000; }
-        .btn:hover { background: #5a9ce0; }
-    </style>
+<meta charset="UTF-8">
+<title>文字数カウンター&テキストツール</title>
+<link rel="icon" href="/favicon.jpg">
+<style>
+    :root { --bg: #f8f9fa; --card: #ffffff; --text: #2d3436; --accent: #6bb6ff; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+
+    /* ヘッダー */
+    .header { padding: 20px 40px; background: #fff; border-bottom: 2px solid #000; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; }
+
+    /* コンテナ */
+    .app-container { display: flex; gap: 30px; max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+    
+    /* エディタ */
+    .editor-wrapper { flex: 1; border: 2px solid #000; height: 70vh; position: relative; border-radius: 8px; overflow: hidden; background: #fff; }
+    .backdrop, #mainText { position: absolute; top:0; left:0; width:100%; height:100%; padding: 20px; box-sizing: border-box; font-size: 16px; line-height: 1.8; white-space: pre-wrap; word-wrap: break-word; outline: none; }
+    #mainText { z-index: 2; background: transparent; }
+    .backdrop mark { background: #ffeb3b; color: transparent; border-radius: 2px; }
+
+    /* サイドパネル */
+    .side-panel { width: 320px; display: flex; flex-direction: column; gap: 20px; }
+    .card { background: #fff; border: 2px solid #000; padding: 20px; border-radius: 8px; box-shadow: 4px 4px 0px #000; }
+    h3 { font-size: 14px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid #000; display: inline-block; }
+
+    /* 指定のデザインボタン */
+    .button_solid016 { margin-top: 10px; }
+    .button_solid016 a {
+        background: #6bb6ff; border-radius: 5px; position: relative; display: flex;
+        justify-content: center; align-items: center; margin: 0 auto;
+        padding: 10px 20px; color: #003067; transition: 0.3s; font-weight: 800;
+        border: 2px solid #000; text-decoration: none; z-index: 1;
+    }
+    .button_solid016 a:before {
+        content: ""; width: 100%; height: 100%; position: absolute; z-index: -1;
+        border: 2px solid #000; border-radius: 5px; background: #e1f3ff;
+        background-image: linear-gradient(45deg, #c8e4ff 25%, transparent 0), linear-gradient(45deg, transparent 75%, #c8e4ff 0);
+        background-size: 30px 30px;
+    }
+    .button_solid016 a:after {
+        position: absolute; top: 0; bottom: 0; width: 100%; height: 100%; content: '';
+        transition: all .3s; transform: translate3d(0, 0.40rem, -1rem);
+        border: 2px solid #000; border-radius: 5px; background: #2b7fde;
+        box-shadow: 0 0.4rem 0 0 rgb(0 0 0 / 20%); z-index: -2;
+    }
+    .button_solid016 a:hover { transform: translate3d(0, 0.2rem, -1rem); }
+    .button_solid016 a:hover:after { transform: translate3d(0, 0.2rem, -1rem); box-shadow: 0 0.2rem 0 0 rgb(0 0 0 / 20%); }
+
+    /* その他パーツ */
+    .stat-val { font-size: 24px; font-weight: 800; }
+    input { width: 100%; padding: 10px; border: 2px solid #000; border-radius: 4px; box-sizing: border-box; }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>My Projects</h1>
-    
-    <div class="work-list">
-        <!-- ツール1 -->
-        <div class="card">
-            <h2>文字数カウンター</h2>
-            <p>文章の文字数、改行、原稿用紙枚数をリアルタイムで測定。さらに全角・半角変換や検索・置換機能を搭載したテキスト最適化ツール。</p>
-            <a href="char-counter.html" class="btn">ツールを使う</a>
-        </div>
+<header class="header">文字数カウンター&テキストツール</header>
 
-        <!-- ツール2 (今後ここを増やしていく) -->
-        <div class="card" style="border: 2px dashed #ccc; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #999;">
-            <h2>Coming Soon...</h2>
-            <p>新しいツールを鋭意開発中です！</p>
+<div class="app-container">
+    <div class="editor-wrapper">
+        <div class="backdrop" id="backdrop"></div>
+        <textarea id="mainText" placeholder="ここにテキストを入力..."></textarea>
+    </div>
+
+    <div class="side-panel">
+        <div class="card">
+            <h3>Stats</h3>
+            <div id="statBox">文字数: <span class="stat-val" id="charCount">0</span></div>
+        </div>
+        <div class="card">
+            <h3>Search</h3>
+            <input type="text" id="searchInput" placeholder="検索...">
+            <div class="button_solid016"><a href="#" id="copyBtn">コピーする<i></i></a></div>
         </div>
     </div>
 </div>
 
+<script>
+    // JSのロジック（基本は前のものを流用）
+    const mainText = document.getElementById('mainText');
+    const backdrop = document.getElementById('backdrop');
+    mainText.addEventListener('input', () => {
+        const text = mainText.value;
+        document.getElementById('charCount').textContent = text.length;
+        backdrop.innerHTML = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    });
+</script>
 </body>
 </html>
