@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Works | My Portfolio</title>
-    <!-- 一つ上の階層（../）にある style.css を読み込む -->
+    <title>Works | はじめサイ</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-    <!-- 共通ヘッダー -->
     <header class="site-header">
         <div class="header-container">
-            <a href="../index.html" class="site-title">My Portfolio</a>
+            <a href="../index.html" class="site-title">はじめサイ</a>
             <nav class="nav-links">
                 <a href="../index.html">Home</a>
                 <a href="./index.html" class="active">Works</a>
-                <!-- <a href="../blog/index.html">Blog</a> -->
             </nav>
         </div>
     </header>
@@ -25,17 +22,15 @@
         <h1 class="page-title">My Works</h1>
         <p style="text-align:center; margin-bottom: 40px; color: #666;">
             これまで作成した便利なウェブツールの一覧です。<br>
-            ボタンをクリックすると実際のアプリを動かすことができます。
+            ボタンをクリックすると別画面でツールを使用できます。
         </p>
 
-        <!-- 作品一覧グリッド -->
         <div class="works-grid">
 
             <!-- 1. ウェブ時計 -->
             <div class="work-card">
-                <div class="work-img-wrapper">
-                    <!-- ご自身でスクショを撮ってimagesフォルダに入れたらここを有効にします -->
-                    <!-- <img src="../images/timer.jpg" alt="ウェブ時計の画面"> -->
+                <div class="work-iframe-wrapper">
+                    <iframe src="https://hontani-hajime.github.io/web-timer/" title="ウェブ時計" loading="lazy"></iframe>
                 </div>
                 <div class="work-info">
                     <h3>ウェブ時計</h3>
@@ -46,8 +41,8 @@
 
             <!-- 2. 割り勘計算機 -->
             <div class="work-card">
-                <div class="work-img-wrapper">
-                    <!-- <img src="../images/accounting.jpg" alt="割り勘計算機の画面"> -->
+                <div class="work-iframe-wrapper">
+                    <iframe src="https://hontani-hajime.github.io/accounting/" title="割り勘計算機" loading="lazy"></iframe>
                 </div>
                 <div class="work-info">
                     <h3>割り勘計算機</h3>
@@ -58,8 +53,8 @@
 
             <!-- 3. 文字数カウンター -->
             <div class="work-card">
-                <div class="work-img-wrapper">
-                    <!-- <img src="../images/text.jpg" alt="文字数カウンターの画面"> -->
+                <div class="work-iframe-wrapper">
+                    <iframe src="https://hontani-hajime.github.io/text-counter/" title="文字数カウンター" loading="lazy"></iframe>
                 </div>
                 <div class="work-info">
                     <h3>文字数カウンター & テキストツール</h3>
@@ -70,8 +65,8 @@
 
             <!-- 4. 画像リサイズツール -->
             <div class="work-card">
-                <div class="work-img-wrapper">
-                    <!-- <img src="../images/img-tool.jpg" alt="画像リサイズツールの画面"> -->
+                <div class="work-iframe-wrapper">
+                    <iframe src="https://hontani-hajime.github.io/img-converter/" title="画像リサイズツール" loading="lazy"></iframe>
                 </div>
                 <div class="work-info">
                     <h3>画像リサイズ・圧縮ツール</h3>
@@ -83,9 +78,8 @@
         </div>
     </main>
 
-    <!-- 共通フッター -->
     <footer class="site-footer">
-        &copy; 2026 My Portfolio. All rights reserved.
+        &copy; 2026 はじめサイト All rights reserved.
     </footer>
 
 </body>
