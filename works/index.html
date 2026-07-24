@@ -1,90 +1,92 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>文字数カウンター&テキストツール</title>
-<link rel="icon" href="/favicon.jpg">
-<style>
-    :root { --bg: #f8f9fa; --card: #ffffff; --text: #2d3436; --accent: #6bb6ff; }
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
-
-    /* ヘッダー */
-    .header { padding: 20px 40px; background: #fff; border-bottom: 2px solid #000; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; }
-
-    /* コンテナ */
-    .app-container { display: flex; gap: 30px; max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-    
-    /* エディタ */
-    .editor-wrapper { flex: 1; border: 2px solid #000; height: 70vh; position: relative; border-radius: 8px; overflow: hidden; background: #fff; }
-    .backdrop, #mainText { position: absolute; top:0; left:0; width:100%; height:100%; padding: 20px; box-sizing: border-box; font-size: 16px; line-height: 1.8; white-space: pre-wrap; word-wrap: break-word; outline: none; }
-    #mainText { z-index: 2; background: transparent; }
-    .backdrop mark { background: #ffeb3b; color: transparent; border-radius: 2px; }
-
-    /* サイドパネル */
-    .side-panel { width: 320px; display: flex; flex-direction: column; gap: 20px; }
-    .card { background: #fff; border: 2px solid #000; padding: 20px; border-radius: 8px; box-shadow: 4px 4px 0px #000; }
-    h3 { font-size: 14px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid #000; display: inline-block; }
-
-    /* 指定のデザインボタン */
-    .button_solid016 { margin-top: 10px; }
-    .button_solid016 a {
-        background: #6bb6ff; border-radius: 5px; position: relative; display: flex;
-        justify-content: center; align-items: center; margin: 0 auto;
-        padding: 10px 20px; color: #003067; transition: 0.3s; font-weight: 800;
-        border: 2px solid #000; text-decoration: none; z-index: 1;
-    }
-    .button_solid016 a:before {
-        content: ""; width: 100%; height: 100%; position: absolute; z-index: -1;
-        border: 2px solid #000; border-radius: 5px; background: #e1f3ff;
-        background-image: linear-gradient(45deg, #c8e4ff 25%, transparent 0), linear-gradient(45deg, transparent 75%, #c8e4ff 0);
-        background-size: 30px 30px;
-    }
-    .button_solid016 a:after {
-        position: absolute; top: 0; bottom: 0; width: 100%; height: 100%; content: '';
-        transition: all .3s; transform: translate3d(0, 0.40rem, -1rem);
-        border: 2px solid #000; border-radius: 5px; background: #2b7fde;
-        box-shadow: 0 0.4rem 0 0 rgb(0 0 0 / 20%); z-index: -2;
-    }
-    .button_solid016 a:hover { transform: translate3d(0, 0.2rem, -1rem); }
-    .button_solid016 a:hover:after { transform: translate3d(0, 0.2rem, -1rem); box-shadow: 0 0.2rem 0 0 rgb(0 0 0 / 20%); }
-
-    /* その他パーツ */
-    .stat-val { font-size: 24px; font-weight: 800; }
-    input { width: 100%; padding: 10px; border: 2px solid #000; border-radius: 4px; box-sizing: border-box; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works | My Portfolio</title>
+    <!-- 一つ上の階層（../）にある style.css を読み込む -->
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-<header class="header">文字数カウンター&テキストツール</header>
-
-<div class="app-container">
-    <div class="editor-wrapper">
-        <div class="backdrop" id="backdrop"></div>
-        <textarea id="mainText" placeholder="ここにテキストを入力..."></textarea>
-    </div>
-
-    <div class="side-panel">
-        <div class="card">
-            <h3>Stats</h3>
-            <div id="statBox">文字数: <span class="stat-val" id="charCount">0</span></div>
+    <!-- 共通ヘッダー -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="site-title">My Portfolio</a>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="./index.html" class="active">Works</a>
+                <!-- <a href="../blog/index.html">Blog</a> -->
+            </nav>
         </div>
-        <div class="card">
-            <h3>Search</h3>
-            <input type="text" id="searchInput" placeholder="検索...">
-            <div class="button_solid016"><a href="#" id="copyBtn">コピーする<i></i></a></div>
-        </div>
-    </div>
-</div>
+    </header>
 
-<script>
-    // JSのロジック（基本は前のものを流用）
-    const mainText = document.getElementById('mainText');
-    const backdrop = document.getElementById('backdrop');
-    mainText.addEventListener('input', () => {
-        const text = mainText.value;
-        document.getElementById('charCount').textContent = text.length;
-        backdrop.innerHTML = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-    });
-</script>
+    <main class="main-content">
+        <h1 class="page-title">My Works</h1>
+        <p style="text-align:center; margin-bottom: 40px; color: #666;">
+            これまで作成した便利なウェブツールの一覧です。<br>
+            ボタンをクリックすると実際のアプリを動かすことができます。
+        </p>
+
+        <!-- 作品一覧グリッド -->
+        <div class="works-grid">
+
+            <!-- 1. ウェブ時計 -->
+            <div class="work-card">
+                <div class="work-img-wrapper">
+                    <!-- ご自身でスクショを撮ってimagesフォルダに入れたらここを有効にします -->
+                    <!-- <img src="../images/timer.jpg" alt="ウェブ時計の画面"> -->
+                </div>
+                <div class="work-info">
+                    <h3>ウェブ時計</h3>
+                    <p>世界時計、時差シミュレーター、ストップウォッチ、タイマー、日付計算の5つの機能を備えた多機能な時計ツールです。</p>
+                    <a href="https://hontani-hajime.github.io/web-timer/" target="_blank" class="btn-view">実際のサイトを見る</a>
+                </div>
+            </div>
+
+            <!-- 2. 割り勘計算機 -->
+            <div class="work-card">
+                <div class="work-img-wrapper">
+                    <!-- <img src="../images/accounting.jpg" alt="割り勘計算機の画面"> -->
+                </div>
+                <div class="work-info">
+                    <h3>割り勘計算機</h3>
+                    <p>単なる均等割りだけでなく、割り切れなかった「余り」をガチャで1人に負担させたり、特定のメンバーに配分できるユニークな計算機です。</p>
+                    <a href="https://hontani-hajime.github.io/accounting/" target="_blank" class="btn-view">実際のサイトを見る</a>
+                </div>
+            </div>
+
+            <!-- 3. 文字数カウンター -->
+            <div class="work-card">
+                <div class="work-img-wrapper">
+                    <!-- <img src="../images/text.jpg" alt="文字数カウンターの画面"> -->
+                </div>
+                <div class="work-info">
+                    <h3>文字数カウンター & テキストツール</h3>
+                    <p>文字数や原稿用紙枚数のリアルタイムカウント機能に加え、検索・置換や全角・半角の一括変換機能を備えた高機能テキストエディタです。</p>
+                    <a href="https://hontani-hajime.github.io/text-counter/" target="_blank" class="btn-view">実際のサイトを見る</a>
+                </div>
+            </div>
+
+            <!-- 4. 画像リサイズツール -->
+            <div class="work-card">
+                <div class="work-img-wrapper">
+                    <!-- <img src="../images/img-tool.jpg" alt="画像リサイズツールの画面"> -->
+                </div>
+                <div class="work-info">
+                    <h3>画像リサイズ・圧縮ツール</h3>
+                    <p>ブラウザ上で画像の拡張子変換（JPEG/PNG/WebP）や、目標ファイルサイズに合わせた自動圧縮が行えるツールです。処理状況も視覚的に分かります。</p>
+                    <a href="https://hontani-hajime.github.io/img-converter/" target="_blank" class="btn-view">実際のサイトを見る</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 共通フッター -->
+    <footer class="site-footer">
+        &copy; 2026 My Portfolio. All rights reserved.
+    </footer>
+
 </body>
 </html>
