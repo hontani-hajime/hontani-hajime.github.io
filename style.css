@@ -1,0 +1,167 @@
+/* ==========================================
+   style.css (サイト全体の共通デザイン)
+========================================== */
+:root {
+    --primary-color: #003067;
+    --text-color: #333333;
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ヘッダーナビゲーション */
+.site-header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--primary-color);
+}
+
+/* メインコンテンツ枠 */
+.main-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+/* ポートフォリオ用のグリッドレイアウト */
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* 作品カード */
+.work-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* スクリーンショット画像部分 */
+.work-img-wrapper {
+    width: 100%;
+    height: 200px;
+    background-color: #e1e8ed; /* 画像がない時の仮背景 */
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+
+.work-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像をはみ出さないように綺麗に切り抜く */
+    transition: transform 0.3s ease;
+}
+
+.work-card:hover .work-img-wrapper img {
+    transform: scale(1.05); /* ホバーで少し画像をズーム */
+}
+
+/* カードのテキスト部分 */
+.work-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.work-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.work-info p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+    flex: 1; /* ボタンを下に押しやる */
+}
+
+/* リンクボタン */
+.btn-view {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-view:hover {
+    background-color: #004b99;
+}
+
+/* フッター */
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    background: #fff;
+    color: #999;
+    font-size: 0.9rem;
+    border-top: 1px solid #e1e8ed;
+}
