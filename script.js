@@ -58,9 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 右側の写真の下端までの残りの高さ
                 const availableHeight = galleryHeight - textHeight - rowGap;
                 
-                // 【修正】「続きを見る」ボタンが下にはみ出さないように、
-                // リスト自体の高さをさらに小さく制限する（ボタンの専有高さを引く）
-                // 余裕をもって 75px ほど引いておくとボタン下端が揃いやすいです
+                // 「続きを見る」ボタンが下にはみ出さないように、
+                // リスト自体の高さをさらに小さく制限する
                 const listContainerMaxHeight = availableHeight - 75; 
                 
                 if (listContainerMaxHeight > 100) {
@@ -140,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 画像がDOMに配置された直後にお知らせの高さを計算
-        // 画像の読み込み完了を待つために少し遅延を入れるとより正確になります
         setTimeout(() => {
             adjustNewsHeight();
         }, 100);
