@@ -34,19 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // ギャラリー（枠は固定し、中の画像だけが個別にランダムで切り替わる）
+    // ギャラリー（2秒ごとに一斉に切り替わり、重複や連続を防止）
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     
-    // PC・タブレット用(6列×2行)のレイアウトパターン（高さを半分に抑えました）
+    // PC・タブレット用(6列×2行)
     const layoutsPC = [
         ['item-2x2', 'item-2x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
         ['item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x2', 'item-1x1', 'item-1x1'],
         ['item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-1x1', 'item-1x1']
     ];
 
-    // スマホ用(3列×4行)のレイアウトパターン（そのままキープ）
+    // スマホ用(3列×4行)
     const layoutsSP = [
         ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1', 'item-1x1'],
         ['item-1x1', 'item-2x1', 'item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1'],
@@ -63,66 +63,75 @@ document.addEventListener('DOMContentLoaded', () => {
         return arr;
     }
 
-    // 初回のギャラリー枠を構築する関数
+    // 「画面内で重複しない」＆「各場所で前回と同じ写真にならない」画像の組み合わせを作る関数
+    function getNextImages(currentImages, count) {
+        let newImages = [];
+        let isValid = false;
+        
+        while (!isValid) {
+            // 全12枚からランダムにシャッフルして、必要な枚数だけ取り出す（これで画面内の重複はナシ）
+            const shuffled = shuffleArray(allImages);
+            newImages = shuffled.slice(0, count);
+            
+            isValid = true;
+            // それぞれの場所で、前回と同じ写真が連続していないかチェック
+            for (let i = 0; i < count; i++) {
+                if (currentImages[i] && newImages[i] === currentImages[i]) {
+                    isValid = false; // もし連続してしまった場所があれば、もう一度やり直し
+                    break;
+                }
+            }
+        }
+        return newImages;
+    }
+
     function initGallery() {
         galleryContainer.innerHTML = '';
         
         const isMobile = window.innerWidth <= 768;
         const layouts = isMobile ? layoutsSP : layoutsPC;
-        
-        // ページ読み込み時にレイアウトを1つ決めて固定する
         const baseLayout = layouts[Math.floor(Math.random() * layouts.length)];
         
-        // 枠の順番はシャッフルせずそのまま使い、中に入る画像だけをシャッフルします
-        // （枠がはみ出して縦長になってしまうのを防ぎます）
-        const shuffledImages = shuffleArray(allImages);
+        // 初回の画像をセット（前回の画像は無いので空配列を渡す）
+        const initialImages = getNextImages([], baseLayout.length);
         
         baseLayout.forEach((shapeClass, index) => {
             const itemDiv = document.createElement('div');
             itemDiv.className = `gallery-item ${shapeClass}`;
 
             const img = document.createElement('img');
-            // 画像をランダムに設定（用意した写真から順番に割り当て）
-            img.src = shuffledImages[index % shuffledImages.length];
+            img.src = initialImages[index];
             img.alt = "Gallery Photo";
 
             itemDiv.appendChild(img);
             galleryContainer.appendChild(itemDiv);
-
-            // この枠の中の画像を個別に切り替えるループを開始
-            startRandomImageCycle(img);
         });
-    }
 
-    // それぞれの画像が2秒〜5秒の間隔でフェードして切り替わる処理
-    function startRandomImageCycle(imgElement) {
-        // 2000ms(2秒) 〜 5000ms(5秒) の間でランダムな時間を設定
-        const nextTime = Math.floor(Math.random() * 3000) + 2000;
-        
-        setTimeout(() => {
-            // まず画像をフェードアウトさせる（透明にする）
-            imgElement.style.opacity = '0';
-            
-            // CSSのフェードアウト時間(0.5秒)を待ってから画像を差し替える
+        // 2000ミリ秒(2秒)ごとに一斉に切り替えるループ
+        setInterval(() => {
+            const imgs = galleryContainer.querySelectorAll('img');
+            if (imgs.length === 0) return;
+
+            // 今表示されている画像のリストを取得
+            const currentSrcs = Array.from(imgs).map(img => img.getAttribute('src'));
+            // 条件を満たした新しい画像のリストを作成
+            const nextSrcs = getNextImages(currentSrcs, imgs.length);
+
+            // ① まず全部の画像を同時にフェードアウトさせる
+            imgs.forEach(img => {
+                img.style.opacity = '0';
+            });
+
+            // ② 0.5秒後（CSSのフェードアウト完了後）に写真を差し替えてフェードインさせる
             setTimeout(() => {
-                let newSrc;
-                // 今表示されている写真とは違う写真が選ばれるまでループ
-                do {
-                    newSrc = allImages[Math.floor(Math.random() * allImages.length)];
-                } while (imgElement.getAttribute('src') === newSrc);
-                
-                imgElement.src = newSrc;
-                
-                // 新しい画像をフェードインさせる
-                imgElement.style.opacity = '1';
-                
-                // 切り替え終わったら、再びランダムなタイマーをセット（繰り返し）
-                startRandomImageCycle(imgElement);
-            }, 500); // 500ミリ秒 = CSSのtransitionの時間
-            
-        }, nextTime);
+                imgs.forEach((img, index) => {
+                    img.src = nextSrcs[index];
+                    img.style.opacity = '1';
+                });
+            }, 500); 
+
+        }, 2000);
     }
 
-    // 実行
     initGallery();
 });
