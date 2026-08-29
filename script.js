@@ -28,23 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ハンバーガーメニュー
     const hamburger = document.getElementById('hamburger');
-    // SPメニュー内のリンクをクリックしたらメニューを閉じるように変更
-    const navLinks = navElement.querySelectorAll('a');
-
-    function toggleMenu() {
+    hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
         navElement.classList.toggle('is-open');
-    }
-
-    hamburger.addEventListener('click', toggleMenu);
-
-    // スマホでリンクタップ時にメニューを閉じる
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navElement.classList.contains('is-open')) {
-                toggleMenu();
-            }
-        });
     });
 
     // =========================================================
@@ -56,47 +42,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const newsListContainer = document.getElementById('news-list-container');
         const gallery = document.getElementById('hero-gallery');
         const textElement = document.querySelector('.hero-text');
-        const btnWrapper = document.getElementById('news-btn-wrapper');
 
         if (!newsSection || !newsListContainer || !gallery || !textElement) return;
 
         if (isMobile) {
+            // スマホ版はCSS側で表示件数を制御するため高さをリセット
             newsListContainer.style.maxHeight = '';
         } else {
+            // PC版で「続きを見る」が押されていない場合
             if (!newsSection.classList.contains('is-expanded')) {
                 const galleryHeight = gallery.offsetHeight;
                 const textHeight = textElement.offsetHeight;
                 const rowGap = 30; // .hero-section の row-gap
                 
-                // ボタン領域の実際の高さを取得（存在しない場合は0）
-                const btnHeight = btnWrapper ? btnWrapper.offsetHeight : 0;
-                
-                // 右側の写真の下端を超えないための全体の空きスペース
+                // 右側の写真の下端までの残りの高さ
                 const availableHeight = galleryHeight - textHeight - rowGap;
                 
-                // 「続きを見る」ボタンの下端が写真の下端と合うように
-                // リスト自体の高さを [空きスペース] - [ボタンの高さ] で計算します
-                const listContainerMaxHeight = availableHeight - btnHeight;
+                // 【修正】「続きを見る」ボタンが下にはみ出さないように、
+                // リスト自体の高さをさらに小さく制限する（ボタンの専有高さを引く）
+                // 余裕をもって 75px ほど引いておくとボタン下端が揃いやすいです
+                const listContainerMaxHeight = availableHeight - 75; 
                 
                 if (listContainerMaxHeight > 100) {
                     newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
                 } else {
-                    newsListContainer.style.maxHeight = '150px';
+                    newsListContainer.style.maxHeight = '150px'; // 最低限の高さ
                 }
             } else {
+                // 展開時は高さ制限を解除
                 newsListContainer.style.maxHeight = 'none';
             }
         }
     }
 
+    // 「続きを見る」ボタンのクリックイベント
     const moreBtn = document.getElementById('news-more-btn');
     if (moreBtn) {
         moreBtn.addEventListener('click', () => {
             document.getElementById('news-section').classList.add('is-expanded');
-            adjustNewsHeight(); 
+            adjustNewsHeight(); // 高さを再計算して展開
         });
     }
 
+    // 画面サイズ変更時にお知らせの高さを再計算
     window.addEventListener('resize', adjustNewsHeight);
 
     // =========================================================
@@ -151,10 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.appendChild(itemDiv);
         }
 
-        // 画像配置直後に高さを計算
-        requestAnimationFrame(() => {
+        // 画像がDOMに配置された直後にお知らせの高さを計算
+        // 画像の読み込み完了を待つために少し遅延を入れるとより正確になります
+        setTimeout(() => {
             adjustNewsHeight();
-        });
+        }, 100);
 
         setInterval(() => {
             const imgs = galleryContainer.querySelectorAll('img');
