@@ -34,23 +34,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // ギャラリー（3秒ごとに一斉に切り替わり、重複や連続を防止）
+    // ギャラリー（4秒ごとに一斉に切り替わり、重複や連続を防止）
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     
-    // PC・タブレット用(6列×2行)
+    // PC・iPad(横長)用: すべて同じ大きさの四角形が6つ (3列×2行)
     const layoutsPC = [
-        ['item-2x2', 'item-2x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
-        ['item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x2', 'item-1x1', 'item-1x1'],
-        ['item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-1x1', 'item-1x1']
+        ['item-1x1', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1']
     ];
 
-    // スマホ用(3列×4行)
+    // スマホ用: 指定されたピッタリ埋まるレイアウト（余白なし！）
+    // 大きな四角形(左上)、小(右上)、小(右中)、小(左下)、横長(右下)
     const layoutsSP = [
-        ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1', 'item-1x1'],
-        ['item-1x1', 'item-2x1', 'item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1'],
-        ['item-1x1', 'item-1x1', 'item-1x1', 'item-2x2', 'item-1x2', 'item-2x1', 'item-1x1']
+        ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1']
     ];
 
     // 配列をシャッフルする関数
@@ -69,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let isValid = false;
         
         while (!isValid) {
-            // 全12枚からランダムにシャッフルして、必要な枚数だけ取り出す（これで画面内の重複はナシ）
+            // 全12枚からランダムにシャッフルして、必要な枚数だけ取り出す
             const shuffled = shuffleArray(allImages);
             newImages = shuffled.slice(0, count);
             
@@ -77,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // それぞれの場所で、前回と同じ写真が連続していないかチェック
             for (let i = 0; i < count; i++) {
                 if (currentImages[i] && newImages[i] === currentImages[i]) {
-                    isValid = false; // もし連続してしまった場所があれば、もう一度やり直し
+                    isValid = false; 
                     break;
                 }
             }
@@ -92,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const layouts = isMobile ? layoutsSP : layoutsPC;
         const baseLayout = layouts[Math.floor(Math.random() * layouts.length)];
         
-        // 初回の画像をセット（前回の画像は無いので空配列を渡す）
+        // 初回の画像をセット
         const initialImages = getNextImages([], baseLayout.length);
         
         baseLayout.forEach((shapeClass, index) => {
@@ -107,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.appendChild(itemDiv);
         });
 
-        // 3000ミリ秒(3秒)ごとに一斉に切り替えるループ
+        // 4000ミリ秒(4秒)ごとに一斉に切り替えるループ
         setInterval(() => {
             const imgs = galleryContainer.querySelectorAll('img');
             if (imgs.length === 0) return;
@@ -117,12 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // 条件を満たした新しい画像のリストを作成
             const nextSrcs = getNextImages(currentSrcs, imgs.length);
 
-            // ① まず全部の画像を同時にフェードアウトさせる
+            // ① まず全部の画像を同時にフェードアウト
             imgs.forEach(img => {
                 img.style.opacity = '0';
             });
 
-            // ② 0.5秒後（CSSのフェードアウト完了後）に写真を差し替えてフェードインさせる
+            // ② 0.5秒後（CSSのフェードアウト完了後）に写真を差し替えてフェードイン
             setTimeout(() => {
                 imgs.forEach((img, index) => {
                     img.src = nextSrcs[index];
@@ -130,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }, 500); 
 
-        }, 3000); // ← ここを2000から3000に変更しました！
+        }, 4000); // 4秒に変更！
     }
 
     initGallery();
