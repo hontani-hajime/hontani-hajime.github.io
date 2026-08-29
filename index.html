@@ -50,7 +50,8 @@
 
             <nav class="global-nav" id="global-nav">
                 <ul>
-                    <li><a href="#" class="klee-one-regular">Profile</a></li>
+                    <!-- Profileリンクを #profile に変更 -->
+                    <li><a href="#profile" class="klee-one-regular">Profile</a></li>
                     <li><a href="#" class="klee-one-regular">Photos</a></li>
                     <li><a href="#" class="klee-one-regular">Web Works</a></li>
                     <li><a href="#" class="klee-one-regular">Blog</a></li>
@@ -77,7 +78,6 @@
                 <div class="news-container">
                     <div class="news-sidebar">
                         <div class="news-icon-wrapper">
-                            <!-- ベルのアイコン -->
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -89,7 +89,6 @@
                     <div class="news-content-area">
                         <div class="news-list-container" id="news-list-container">
                             <ul class="news-list">
-                                <!-- 1件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2026-08-29</span>
@@ -97,7 +96,6 @@
                                     </div>
                                     <div class="news-text">サイト全体をリニューアルしました</div>
                                 </li>
-                                <!-- 2件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2026-03-21</span>
@@ -105,7 +103,6 @@
                                     </div>
                                     <div class="news-text">トップページをリニューアルしました</div>
                                 </li>
-                                <!-- 3件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2026-01-29</span>
@@ -113,7 +110,6 @@
                                     </div>
                                     <div class="news-text">サイト全体にWEBフォントを適用しました</div>
                                 </li>
-                                <!-- 4件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2026-01-01</span>
@@ -121,7 +117,6 @@
                                     </div>
                                     <div class="news-text">新年あけましておめでとうございます。今年も当サイトをよろしくお願いします。</div>
                                 </li>
-                                <!-- 5件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2025-08-15</span>
@@ -129,7 +124,6 @@
                                     </div>
                                     <div class="news-text">一部デザインを変更しました</div>
                                 </li>
-                                <!-- 6件目 -->
                                 <li class="news-item">
                                     <div class="news-meta">
                                         <span class="news-date">2025-01-01</span>
@@ -138,11 +132,10 @@
                                     <div class="news-text">ノートの投稿を開始</div>
                                 </li>
                             </ul>
-                            <!-- フェードグラデーション用 -->
                             <div class="news-fade"></div>
                         </div>
                         
-                        <div class="news-btn-wrapper">
+                        <div class="news-btn-wrapper" id="news-btn-wrapper">
                             <button id="news-more-btn" class="read-more-btn">続きを見る</button>
                         </div>
                     </div>
@@ -155,20 +148,23 @@
         </section>
 
         <!-- ▼▼ 追加：プロフィールセクション ▼▼ -->
-        <section class="profile-section">
-            <div class="profile-inner">
+        <section class="profile-section" id="profile">
+            <h2 class="section-title klee-one-semibold">Profile</h2>
+            <div class="profile-container">
                 <div class="profile-image">
-                    <img src="file/hontani-hajime.jpg" alt="本谷元のプロフィール画像">
+                    <img src="file/hontani-hajime.jpg" alt="本谷元">
                 </div>
                 <div class="profile-info">
-                    <h2 class="profile-name klee-one-semibold">本谷 元</h2>
-                    <p class="profile-desc">
-                        日常のさりげない瞬間を切り取る写真撮影や、シンプルで使いやすいWebサイトの制作をしています。「はじめちゃんサイト」では、日々の活動記録や過去の作品などをのんびりまとめています。好きなものはカメラと散歩です。
+                    <h3 class="profile-name klee-one-semibold">
+                        本谷 元 <span class="profile-name-en klee-one-regular">Hajime Hontani</span>
+                    </h3>
+                    <p class="profile-text">
+                        大阪府出身。写真撮影とWebサイト制作を中心に活動中。<br>
+                        日常の何気ない風景や、心惹かれる瞬間をカメラに収めるのが好きです。<br>
+                        周りからは「はじめちゃん」の愛称で親しまれています。<br>
+                        このサイトでは、これまでの作品や最新のお知らせを更新していきます。
                     </p>
-                    <div class="profile-btn-wrapper">
-                        <!-- profile.html に同じウィンドウで遷移します -->
-                        <a href="profile.html" class="profile-btn">Profile</a>
-                    </div>
+                    <a href="#profile" class="profile-btn">Profile</a>
                 </div>
             </div>
         </section>
