@@ -8,31 +8,29 @@
     <meta name="google-site-verification" content="RDeql2-UmbrKRoXVAKBOwOOME9fBDcSv33-CO8hoEv0" />
     <meta property="og:site_name" content="本谷元">
     
-    <!-- ▼ 修正：Googleにサイト名を伝えるための構造化データ（URLを実際のドメインに変更） ▼ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "本谷元",
       "alternateName": "【公式】本谷元のはじめちゃんサイト",
-      "url": "https://hontani-hajime.github.io/"
+      "url": "https://hontani-hajime.github.io/index.html"
     }
     </script>
-    <!-- ▲ 修正ここまで ▲ -->
     
     <meta name="apple-mobile-web-app-title" content="本谷元">
     <meta name="application-name" content="本谷元">
     
-    <!-- ▼ 修正：ファビコンがGoogle検索に確実に表示されるよう絶対URLで指定 ▼ -->
+    <!-- アイコン関係は全て絶対パス -->
     <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/file/icon.jpg">
     <link rel="icon" href="https://hontani-hajime.github.io/file/icon.jpg">
-    <!-- ▲ 修正ここまで ▲ -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <!-- CSSとJSも絶対パスに -->
+    <link rel="stylesheet" href="https://hontani-hajime.github.io/style.css">
 </head>
 <body>
     <div class="top-line"></div>
@@ -40,11 +38,15 @@
     <header class="site-header">
         <div class="header-inner">
             <div class="logo-area">
-                <img src="file/icon.jpg" alt="アイコン" class="site-logo">
+                <a href="https://hontani-hajime.github.io/index.html">
+                    <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="site-logo">
+                </a>
                 <div class="site-titles">
-                    <h1 class="main-title klee-one-semibold">
-                        <span id="typing-text"></span><span id="cursor" class="blinking">｜</span>
-                    </h1>
+                    <a href="https://hontani-hajime.github.io/index.html" style="text-decoration: none; color: inherit;">
+                        <h1 class="main-title klee-one-semibold">
+                            <span id="typing-text"></span><span id="cursor" class="blinking">｜</span>
+                        </h1>
+                    </a>
                     <p class="sub-title klee-one-regular">Hajime Hontani's Hajime-chan Site</p>
                 </div>
             </div>
@@ -54,35 +56,31 @@
                 <span></span>
             </div>
 
+            <!-- ▼ メニューのリンク先を各ページに設定 ▼ -->
             <nav class="global-nav" id="global-nav">
                 <ul>
-                    <li><a href="#profile" class="klee-one-regular">Profile</a></li>
-                    <li><a href="#" class="klee-one-regular">Photos</a></li>
-                    <li><a href="#" class="klee-one-regular">Web Works</a></li>
-                    <li><a href="#" class="klee-one-regular">Blog</a></li>
+                    <li><a href="https://hontani-hajime.github.io/profile/index.html" class="klee-one-regular">Profile</a></li>
+                    <li><a href="https://hontani-hajime.github.io/photos/index.html" class="klee-one-regular">Photos</a></li>
+                    <li><a href="https://hontani-hajime.github.io/web-works/index.html" class="klee-one-regular">Web Works</a></li>
+                    <li><a href="https://hontani-hajime.github.io/blog/index.html" class="klee-one-regular">Blog</a></li>
                     
-                    <!-- ▼ SNSアイコンエリア ▼ -->
                     <li class="sns-list">
-                        <!-- Instagram -->
                         <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/instagram.jpg" alt="Instagram" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
                             </div>
                         </a>
-                        <!-- LinkedIn -->
                         <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
                             </div>
                         </a>
-                        <!-- Pinterest -->
                         <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/pinterest.jpg" alt="Pinterest" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
                             </div>
                         </a>
                     </li>
-                    <!-- ▲ SNSアイコンエリア ▲ -->
                 </ul>
             </nav>
         </div>
@@ -95,12 +93,10 @@
                 作ったサイトを紹介するよ！
             </div>
 
-            <!-- お知らせセクション -->
             <div class="news-section" id="news-section">
                 <div class="news-container">
                     <div class="news-sidebar">
                         <div class="news-icon-wrapper">
-                            <!-- ベルのアイコン -->
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -112,77 +108,47 @@
                     <div class="news-content-area">
                         <div class="news-list-container" id="news-list-container">
                             <ul class="news-list">
-                                <!-- 1件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2026-08-29</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2026-08-29</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">サイト全体をリニューアルしました</div>
                                 </li>
-                                <!-- 2件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2026-03-21</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2026-03-21</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">トップページをリニューアルしました</div>
                                 </li>
-                                <!-- 3件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2026-01-29</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2026-01-29</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">サイト全体にWEBフォントを適用しました</div>
                                 </li>
-                                <!-- 4件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2026-01-01</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2026-01-01</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">新年あけましておめでとうございます。今年も当サイトをよろしくお願いします。</div>
                                 </li>
-                                <!-- 5件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2025-08-15</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2025-08-15</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">一部デザインを変更しました</div>
                                 </li>
-                                <!-- 6件目 -->
                                 <li class="news-item">
-                                    <div class="news-meta">
-                                        <span class="news-date">2025-01-01</span>
-                                        <span class="news-tag">お知らせ</span>
-                                    </div>
+                                    <div class="news-meta"><span class="news-date">2025-01-01</span><span class="news-tag">お知らせ</span></div>
                                     <div class="news-text">ノートの投稿を開始</div>
                                 </li>
                             </ul>
-                            <!-- フェードグラデーション用 -->
                             <div class="news-fade"></div>
                         </div>
-                        
                         <div class="news-btn-wrapper">
                             <button id="news-more-btn" class="read-more-btn">続きを見る</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- お知らせセクションここまで -->
 
-            <div class="hero-gallery" id="hero-gallery">
-                <!-- 角丸の四角形ブロックが隙間なく生成されます -->
-            </div>
+            <div class="hero-gallery" id="hero-gallery"></div>
         </section>
 
-        <!-- ▼▼ プロフィールセクション ▼▼ -->
         <section class="profile-section" id="profile">
             <div class="profile-card">
                 <div class="profile-img-wrapper">
-                    <img src="file/hontani-hajime.jpg" alt="本谷元">
+                    <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
                 </div>
                 <div class="profile-info">
                     <div class="profile-name-area">
@@ -193,14 +159,13 @@
                         カメラとWeb制作をこよなく愛するクリエイターです。<br>
                         日常の何気ない風景を切り取ったり、使いやすくて少し面白いサイトを作ったりするのが得意です。このサイトでは、これまでに撮影したお気に入りの写真や、制作に携わったWebサイトのポートフォリオをゆるく紹介していきます。よろしくお願いします！
                     </p>
-                    <a href="#profile" class="profile-btn klee-one-semibold">Profile</a>
+                    <a href="https://hontani-hajime.github.io/profile/index.html" class="profile-btn klee-one-semibold">Profile</a>
                 </div>
             </div>
         </section>
-        <!-- ▲▲ プロフィールセクションここまで ▲▲ -->
 
     </main>
 
-    <script src="script.js"></script>
+    <script src="https://hontani-hajime.github.io/script.js"></script>
 </body>
 </html>
