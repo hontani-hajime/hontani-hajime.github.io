@@ -199,7 +199,6 @@ a { text-decoration: none; color: inherit; }
 .news-section.is-expanded .news-fade { display: none; }
 .news-section.is-expanded .news-btn-wrapper { display: none; }
 
-
 /* ==================================================
    ギャラリー (PC)
 ================================================== */
@@ -231,26 +230,27 @@ a { text-decoration: none; color: inherit; }
    プロフィールセクション
 ================================================== */
 .profile-section {
-    margin-top: 60px; /* お知らせ・ギャラリーとの余白 */
-    scroll-margin-top: 20px; /* リンクで飛んだ時の上の余白 */
+    margin-top: 60px;
+    scroll-margin-top: 20px;
 }
 
 /* 黒い枠の四角形 */
 .profile-card {
     border: 2px solid #333;
     border-radius: 16px;
-    padding: 30px;
+    padding: 50px; /* 30pxから50pxに増やして中の余白を確保 */
+    margin: 0 60px; /* 両サイドに間隔を追加 */
     display: flex;
-    gap: 30px;
+    gap: 50px; /* 30pxから50pxに増やして写真とテキストの間隔を確保 */
     align-items: center;
     background-color: #fff;
 }
 
-/* 写真を角丸正方形にする */
+/* 写真のラッパー */
 .profile-img-wrapper {
-    width: 150px;
+    width: 240px; /* 150pxから240pxに大きく変更 */
     flex-shrink: 0;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4; /* 1/1(正方形)から3/4(少し縦長)に変更 */
     border-radius: 16px;
     overflow: hidden;
 }
@@ -268,7 +268,7 @@ a { text-decoration: none; color: inherit; }
 
 .profile-name-area {
     display: flex;
-    align-items: baseline; /* テキストの下端を揃える */
+    align-items: baseline;
     gap: 12px;
     margin-bottom: 15px;
 }
@@ -307,7 +307,6 @@ a { text-decoration: none; color: inherit; }
 .profile-btn:hover {
     opacity: 0.7;
 }
-
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
@@ -403,13 +402,14 @@ a { text-decoration: none; color: inherit; }
     .profile-card {
         flex-direction: column;
         text-align: center;
-        padding: 25px 20px;
+        padding: 30px 20px; /* スマホ版も少し余裕を持たせました */
+        margin: 0; /* PC版の両サイドの余白をリセット */
         gap: 20px;
     }
     .profile-name-area {
-        justify-content: center; /* スマホでは名前を中央揃え */
+        justify-content: center;
     }
     .profile-img-wrapper {
-        width: 120px;
+        width: 160px; /* 120pxから160pxにサイズアップ */
     }
 }
