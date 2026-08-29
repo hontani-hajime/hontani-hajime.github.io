@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     startTypingAnimation();
 
-    // ハンバーガーメニュー
+    // ハンバーガーメニュー (クラスの切り替え)
     const hamburger = document.getElementById('hamburger');
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
