@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---------------------------------------------------
-    // 1. タイピングアニメーション
-    // ---------------------------------------------------
+    // タイピングアニメーション
     const textPart1 = "本谷元";
     const textPart2 = "のはじめちゃんサイト";
     const typingTextElement = document.getElementById('typing-text');
@@ -9,55 +7,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const navElement = document.getElementById('global-nav');
     
     const typingSpeed = 150; 
-
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-    async function typeText(text) {
-        for (let i = 0; i < text.length; i++) {
-            typingTextElement.innerHTML += text.charAt(i);
-            await sleep(typingSpeed);
-        }
-    }
 
     async function startTypingAnimation() {
         await sleep(500);
-        await typeText(textPart1);
+        for (let i = 0; i < textPart1.length; i++) {
+            typingTextElement.innerHTML += textPart1.charAt(i);
+            await sleep(typingSpeed);
+        }
         await sleep(1000); 
-        await typeText(textPart2);
-
+        for (let i = 0; i < textPart2.length; i++) {
+            typingTextElement.innerHTML += textPart2.charAt(i);
+            await sleep(typingSpeed);
+        }
         cursorElement.classList.remove('blinking');
         cursorElement.classList.add('done');
-
-        if (window.innerWidth > 768) {
-            navElement.style.opacity = '1';
-        }
+        if (window.innerWidth > 768) navElement.style.opacity = '1';
     }
-
     startTypingAnimation();
 
-
-    // ---------------------------------------------------
-    // 2. スマホ用ハンバーガーメニュー (2本線 ⇔ バツ印)
-    // ---------------------------------------------------
+    // ハンバーガーメニュー
     const hamburger = document.getElementById('hamburger');
-    
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
         navElement.classList.toggle('is-open');
     });
 
-
-    // ---------------------------------------------------
-    // 3. ランダムギャラリー（余白なくピッタリ埋まる仕様）
-    // ---------------------------------------------------
+    // =========================================================
+    // 【改良版】空白が絶対にできないパズル配置ギャラリー
+    // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     
-    // 全12マス（PC:4x3, スマホ:3x4）をピッタリ使い切るためのレイアウトパターン（丸と四角混合）
-    const layouts = [
-        ['item-2x2-circle', 'item-2x1', 'item-2x1', 'item-1x2', 'item-1x1-circle', 'item-1x1'], // パターン1
-        ['item-2x2', 'item-1x2', 'item-1x2', 'item-1x1-circle', 'item-1x1', 'item-1x1', 'item-1x1-circle'], // パターン2
-        ['item-2x1', 'item-2x1', 'item-2x1', 'item-1x2', 'item-1x1-circle', 'item-1x1-circle', 'item-1x1', 'item-1x1'] // パターン3
+    // PC用(4列x3行)でピッタリはまる組み合わせパターン
+    const layoutsPC = [
+        ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
+        ['item-1x2', 'item-2x2', 'item-1x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1'],
+        ['item-2x1', 'item-2x1', 'item-1x1', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1']
+    ];
+
+    // スマホ用(3列x4行)でピッタリはまる組み合わせパターン
+    const layoutsSP = [
+        ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1', 'item-1x1'],
+        ['item-1x1', 'item-2x1', 'item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1'],
+        ['item-1x1', 'item-1x1', 'item-1x1', 'item-2x2', 'item-1x2', 'item-2x1', 'item-1x1']
     ];
 
     function shuffleArray(array) {
@@ -75,14 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             galleryContainer.innerHTML = '';
             
-            // 3つのパターンからランダムに1つ選び、配置順をシャッフル
-            const randomLayout = layouts[Math.floor(Math.random() * layouts.length)];
-            const shuffledLayout = shuffleArray(randomLayout);
+            // 画面サイズに応じて、隙間ができない完璧なレイアウトを選択
+            const isMobile = window.innerWidth <= 768;
+            const layouts = isMobile ? layoutsSP : layoutsPC;
             
-            // 画像リストもシャッフルして必要な枚数取得
+            // レイアウトパターンを1つ選び、順序をシャッフル
+            const baseLayout = layouts[Math.floor(Math.random() * layouts.length)];
+            const shuffledLayout = shuffleArray(baseLayout);
+            
+            // 画像もシャッフルして必要な枚数取得
             const shuffledImages = shuffleArray(allImages).slice(0, shuffledLayout.length);
 
-            shuffledLayout.forEach((shapeClass, index) => {
+            // 配置する図形の中で、正方形(1x1, 2x2)のものはランダムで50%の確率で綺麗な「丸」にする
+            const finalLayout = shuffledLayout.map(cls => {
+                if (cls === 'item-1x1' || cls === 'item-2x2') {
+                    return Math.random() > 0.5 ? cls + '-circle' : cls;
+                }
+                return cls; // 横長・縦長はそのまま
+            });
+
+            finalLayout.forEach((shapeClass, index) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = `gallery-item ${shapeClass}`;
 
