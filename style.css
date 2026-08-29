@@ -122,7 +122,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-bottom: 20px; /* フェードの下に少し余裕を */
+    padding-bottom: 20px;
 }
 
 /* お知らせの各アイテム */
@@ -153,14 +153,14 @@ a { text-decoration: none; color: inherit; }
     color: #fff;
     font-size: 11px;
     padding: 3px 12px;
-    border-radius: 15px; /* 角丸黒背景 */
+    border-radius: 15px;
 }
 
 .news-text {
     flex: 1;
     font-size: 14px;
     color: #333;
-    word-break: break-word; /* ここでトピック横で綺麗に改行されます */
+    word-break: break-word; 
 }
 
 /* お知らせのフェード効果 */
@@ -180,7 +180,7 @@ a { text-decoration: none; color: inherit; }
     text-align: center;
     position: relative;
     z-index: 2;
-    margin-top: -20px; /* フェードに少し被せる */
+    margin-top: -20px; 
 }
 
 .read-more-btn {
@@ -201,12 +201,11 @@ a { text-decoration: none; color: inherit; }
     border-color: #999;
 }
 
-/* 展開時の表示 */
 .news-section.is-expanded .news-fade {
     display: none;
 }
 .news-section.is-expanded .news-btn-wrapper {
-    display: none; /* 開いたらボタンは消す */
+    display: none; 
 }
 
 
@@ -235,6 +234,72 @@ a { text-decoration: none; color: inherit; }
     object-fit: cover;
     display: block;
     transition: opacity 0.5s ease; 
+}
+
+
+/* ==================================================
+   プロフィールセクション
+================================================== */
+.profile-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #eee; /* 上に薄い線を入れて区切る */
+}
+
+.profile-inner {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+.profile-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+/* プロフィールボタン（黒背景で目立たせる） */
+.profile-btn {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.profile-btn:hover {
+    background-color: #555;
 }
 
 
@@ -299,11 +364,9 @@ a { text-decoration: none; color: inherit; }
         grid-row: 3 / 4;
     }
 
-    /* スマホ版のお知らせ表示制限とデザイン調整 */
     .news-fade { display: none; }
     .news-btn-wrapper { margin-top: 15px; }
 
-    /* 3つ目は薄く（白がかる）、4つ目以降は隠す */
     .news-section:not(.is-expanded) .news-list li:nth-child(3) {
         opacity: 0.2;
         pointer-events: none;
@@ -312,7 +375,6 @@ a { text-decoration: none; color: inherit; }
         display: none;
     }
 
-    /* 展開時は全て表示 */
     .news-section.is-expanded .news-list li:nth-child(3) {
         opacity: 1;
         pointer-events: auto;
@@ -321,7 +383,6 @@ a { text-decoration: none; color: inherit; }
         display: flex; 
     }
 
-    /* スマホ画面サイズに合わせたフォント・余白調整 */
     .news-sidebar { padding-right: 12px; min-width: 55px; }
     .news-content-area { padding-left: 12px; }
     .news-item { gap: 10px; }
@@ -329,4 +390,30 @@ a { text-decoration: none; color: inherit; }
     .news-date { font-size: 12px; }
     .news-tag { font-size: 10px; padding: 2px 8px; }
     .news-text { font-size: 12px; }
+
+    /* スマホ版プロフィールセクション */
+    .profile-section {
+        margin-top: 50px;
+        padding-top: 40px;
+    }
+
+    .profile-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .profile-image {
+        width: 160px;
+        height: 160px;
+    }
+
+    .profile-name {
+        font-size: 22px;
+    }
+
+    .profile-desc {
+        font-size: 14px;
+        text-align: left; /* スマホでも読みやすいようにテキストは左揃え */
+    }
 }
