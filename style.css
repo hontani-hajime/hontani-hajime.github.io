@@ -82,7 +82,6 @@ a { text-decoration: none; color: inherit; }
     align-items: stretch; 
 }
 
-/* 左側：アイコンと文字と縦棒 */
 .news-sidebar {
     display: flex;
     flex-direction: column;
@@ -104,7 +103,6 @@ a { text-decoration: none; color: inherit; }
     letter-spacing: 0.05em;
 }
 
-/* 右側：お知らせリストとボタン */
 .news-content-area {
     flex: 1;
     padding-left: 20px;
@@ -122,10 +120,9 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-bottom: 20px;
+    padding-bottom: 20px; 
 }
 
-/* お知らせの各アイテム */
 .news-item {
     display: flex;
     align-items: flex-start;
@@ -153,17 +150,16 @@ a { text-decoration: none; color: inherit; }
     color: #fff;
     font-size: 11px;
     padding: 3px 12px;
-    border-radius: 15px;
+    border-radius: 15px; 
 }
 
 .news-text {
     flex: 1;
     font-size: 14px;
     color: #333;
-    word-break: break-word;
+    word-break: break-word; 
 }
 
-/* お知らせのフェード効果 */
 .news-fade {
     position: absolute;
     bottom: 0;
@@ -175,12 +171,11 @@ a { text-decoration: none; color: inherit; }
     z-index: 1;
 }
 
-/* 続きを見るボタン */
 .news-btn-wrapper {
     text-align: center;
     position: relative;
     z-index: 2;
-    margin-top: -20px;
+    margin-top: -20px; 
 }
 
 .read-more-btn {
@@ -201,13 +196,9 @@ a { text-decoration: none; color: inherit; }
     border-color: #999;
 }
 
-/* 展開時の表示 */
-.news-section.is-expanded .news-fade {
-    display: none;
-}
-.news-section.is-expanded .news-btn-wrapper {
-    display: none;
-}
+.news-section.is-expanded .news-fade { display: none; }
+.news-section.is-expanded .news-btn-wrapper { display: none; }
+
 
 /* ==================================================
    ギャラリー (PC)
@@ -237,81 +228,86 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   プロフィールセクション (追加)
+   プロフィールセクション
 ================================================== */
 .profile-section {
-    margin-top: 100px;
-    margin-bottom: 60px;
-    scroll-margin-top: 50px; /* ジャンプした時に少し上に余白を持たせる */
+    margin-top: 60px; /* お知らせ・ギャラリーとの余白 */
+    scroll-margin-top: 20px; /* リンクで飛んだ時の上の余白 */
 }
 
-.section-title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 40px;
-    letter-spacing: 0.1em;
-}
-
-.profile-container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background-color: #fafafa;
-    padding: 40px;
+/* 黒い枠の四角形 */
+.profile-card {
+    border: 2px solid #333;
     border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background-color: #fff;
 }
 
-.profile-image {
+/* 写真を角丸正方形にする */
+.profile-img-wrapper {
+    width: 150px;
     flex-shrink: 0;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
     overflow: hidden;
 }
 
-.profile-image img {
+.profile-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .profile-info {
     flex: 1;
 }
 
-.profile-name {
-    font-size: 22px;
-    margin-bottom: 15px;
+.profile-name-area {
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: baseline; /* テキストの下端を揃える */
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.profile-name {
+    font-size: 26px;
+    margin: 0;
 }
 
 .profile-name-en {
+    font-family: sans-serif;
     font-size: 14px;
     color: #666;
+    letter-spacing: 0.05em;
 }
 
 .profile-text {
     font-size: 15px;
     line-height: 1.8;
+    margin-bottom: 20px;
     color: #444;
-    margin-bottom: 25px;
 }
 
+/* Profileボタン */
 .profile-btn {
     display: inline-block;
     background-color: #333;
     color: #fff;
-    padding: 10px 40px;
+    padding: 8px 30px;
     border-radius: 25px;
     font-size: 14px;
-    transition: background-color 0.3s;
+    letter-spacing: 0.1em;
+    transition: opacity 0.3s;
 }
 
 .profile-btn:hover {
-    background-color: #555;
+    opacity: 0.7;
 }
+
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
@@ -347,7 +343,6 @@ a { text-decoration: none; color: inherit; }
 
     .main-content { padding: 20px; }
 
-    /* スマホ版では縦に1列 */
     .hero-section {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
@@ -374,7 +369,6 @@ a { text-decoration: none; color: inherit; }
         grid-row: 3 / 4;
     }
 
-    /* スマホ版のお知らせ表示制限 */
     .news-fade { display: none; }
     .news-btn-wrapper { margin-top: 15px; }
 
@@ -385,6 +379,7 @@ a { text-decoration: none; color: inherit; }
     .news-section:not(.is-expanded) .news-list li:nth-child(n+4) {
         display: none;
     }
+
     .news-section.is-expanded .news-list li:nth-child(3) {
         opacity: 1;
         pointer-events: auto;
@@ -401,21 +396,20 @@ a { text-decoration: none; color: inherit; }
     .news-tag { font-size: 10px; padding: 2px 8px; }
     .news-text { font-size: 12px; }
 
-    /* スマホ版のプロフィールデザイン調整 */
+    /* スマホ版プロフィール */
     .profile-section {
-        margin-top: 60px;
+        margin-top: 40px;
     }
-    .profile-container {
+    .profile-card {
         flex-direction: column;
-        padding: 30px 20px;
         text-align: center;
+        padding: 25px 20px;
         gap: 20px;
     }
-    .profile-name {
-        justify-content: center;
+    .profile-name-area {
+        justify-content: center; /* スマホでは名前を中央揃え */
     }
-    .profile-image {
-        width: 160px;
-        height: 160px;
+    .profile-img-wrapper {
+        width: 120px;
     }
 }
