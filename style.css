@@ -62,9 +62,9 @@ a { text-decoration: none; color: inherit; }
     gap: 15px;
     grid-auto-flow: dense;
     
-    /* 【PC・iPad版】6列ベースに変更して、縦幅をスマートに（高さを約半分に） */
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: calc((100cqw - 75px) / 6);
+    /* 【PC・iPad版】3列ベースに変更して、すべて同じ大きさの四角形が並ぶように */
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: calc((100cqw - 30px) / 3);
 }
 
 .gallery-item {
@@ -126,7 +126,7 @@ a { text-decoration: none; color: inherit; }
     
     .hero-gallery { 
         width: 100%; order: 2; 
-        /* 【スマホ版】3列ベースで隙間なし（ここは変更せずキープ） */
+        /* 【スマホ版】3列ベースで隙間なし（PC版と同じ設定でスマホ専用レイアウトが綺麗にハマります） */
         grid-template-columns: repeat(3, 1fr); 
         grid-auto-rows: calc((100cqw - 30px) / 3);
     }
