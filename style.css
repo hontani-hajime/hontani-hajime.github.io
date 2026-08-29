@@ -1,142 +1,150 @@
 @charset "UTF-8";
 
 /* リセット & ベース */
-body, h1, p, ul, li {
-    margin: 0;
-    padding: 0;
-}
-body {
-    background-color: #ffffff; /* 背景を白に */
-    color: #333333;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
+body, h1, p, ul, li { margin: 0; padding: 0; }
+body { background-color: #ffffff; color: #333333; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
 
-/* Google Fonts Klee One のクラス設定 */
-.klee-one-regular {
-    font-family: "Klee One", cursive;
-    font-weight: 400;
-    font-style: normal;
-}
-.klee-one-semibold {
-    font-family: "Klee One", cursive;
-    font-weight: 600;
-    font-style: normal;
-}
+/* フォント */
+.klee-one-regular { font-family: "Klee One", cursive; font-weight: 400; font-style: normal; }
+.klee-one-semibold { font-family: "Klee One", cursive; font-weight: 600; font-style: normal; }
 
-/* レイアウト */
-.top-line {
-    width: 100%;
-    height: 1px;
-    background-color: #000000; /* 一番上の細い黒色の線 */
-}
+/* 上部の黒線 */
+.top-line { width: 100%; height: 1px; background-color: #000000; }
 
-.site-header {
-    padding: 20px 40px;
-}
+/* ヘッダー */
+.site-header { padding: 20px 40px; position: relative; }
+.header-inner { display: flex; align-items: center; justify-content: flex-start; gap: 20px; }
 
-.header-inner {
+.logo-area { display: flex; align-items: center; }
+.site-logo { width: 60px; height: 60px; object-fit: cover; margin-right: 20px; border-radius: 50%; }
+
+.site-titles { display: flex; flex-direction: column; justify-content: center; }
+.main-title { font-size: 24px; line-height: 1.4; display: flex; align-items: center; white-space: nowrap; }
+.sub-title { font-size: 13px; color: #666; letter-spacing: 0.05em; margin-top: 2px; }
+
+/* カーソル */
+.blinking { animation: blink 0.8s step-end infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+#cursor { font-weight: 400; margin-left: 2px; color: #000; }
+#cursor.done { animation: none; opacity: 1; } /* タイピング完了後は点滅させない */
+
+/* メニュー */
+.global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
+.global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
+.global-nav a { font-size: 16px; transition: color 0.3s; }
+.global-nav a:hover { color: #888; }
+
+.hamburger { display: none; }
+
+/* Instagramアイコン */
+.instagram-link { display: block; }
+.insta-circle {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid #000000; background-color: #ffffff;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 0.3s;
+}
+.insta-circle:hover { opacity: 0.7; }
+.insta-icon { width: 18px; height: 18px; object-fit: contain; }
+
+
+/* メインコンテンツ (Hero セクション) */
+.main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
+.hero-section {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start; 
-    gap: 20px;
+    gap: 40px;
+    margin-top: 40px;
+}
+.hero-text {
+    flex: 1;
+    font-size: 28px;
+    line-height: 2;
+    letter-spacing: 0.1em;
 }
 
-.logo-area {
-    display: flex;
-    align-items: center;
-}
-
-.site-logo {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    margin-right: 20px;
-}
-
-.site-titles {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.main-title {
-    font-size: 24px;
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-}
-
-.sub-title {
-    font-size: 13px;
-    color: #666;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
-}
-
-/* タイピングのカーソル点滅アニメーション */
-.blinking {
-    animation: blink 0.8s step-end infinite;
-    font-weight: 400;
-    margin-left: 2px;
-    color: #000;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* ナビゲーションメニュー */
-.global-nav {
-    opacity: 0; /* JSでタイピング完了後に表示させるため最初は透明 */
+/* ランダムギャラリー（CSS Gridによる配置） */
+.hero-gallery {
+    flex: 1.2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 120px;
+    gap: 15px;
+    grid-auto-flow: dense;
     transition: opacity 0.5s ease;
-    margin-left: 15px; /* ｜ とメニューの間隔 */
-    margin-top: -15px; /* サブタイトルがあるため、タイトル横の縦位置と合うように調整 */
 }
+.hero-gallery.fade-out { opacity: 0; }
 
-.global-nav ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 30px;
+.gallery-item {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    transition: border-radius 0.3s ease; /* 形が変わる時のアニメーション */
 }
-
-.global-nav a {
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.global-nav a:hover {
-    color: #888;
-}
-
-/* Instagram アイコン */
-.instagram-link {
+.gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
     display: block;
 }
 
-.insta-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #000000; /* 白丸に黒い細い縁 */
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: opacity 0.3s;
-}
+/* ギャラリーの形・サイズのバリエーション */
+.shape-square { grid-column: span 1; grid-row: span 1; border-radius: 12px; }
+.shape-wide   { grid-column: span 2; grid-row: span 1; border-radius: 12px; }
+.shape-tall   { grid-column: span 1; grid-row: span 2; border-radius: 12px; }
+.shape-large  { grid-column: span 2; grid-row: span 2; border-radius: 12px; }
+.shape-circle { grid-column: span 1; grid-row: span 1; border-radius: 50%; }
+.shape-circle-large { grid-column: span 2; grid-row: span 2; border-radius: 50%; }
 
-.insta-circle:hover {
-    opacity: 0.7;
-}
 
-.insta-icon {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
+/* =========================================
+   スマホ向けレスポンシブデザイン (768px以下)
+========================================= */
+@media (max-width: 768px) {
+    .site-header { padding: 15px; }
+    .header-inner { flex-direction: column; position: static; }
+    
+    /* アイコンとタイトルを中央寄せ、画面幅に合わせて調整 */
+    .logo-area { flex-direction: column; text-align: center; width: 100%; padding: 0 10px; box-sizing: border-box; }
+    .site-logo { margin-right: 0; margin-bottom: 15px; }
+    .site-titles { align-items: center; width: 100%; }
+    
+    /* タイトルを改行させないために clamp を使用してフォントサイズを可変に */
+    .main-title { font-size: clamp(16px, 4.5vw, 24px); }
+    .sub-title { font-size: 11px; margin-top: 8px; }
+
+    /* スマホ版ではタイピング完了後にカーソルを完全に消す */
+    #cursor.done { display: none; }
+
+    /* ハンバーガーメニュー (2本線) */
+    .hamburger {
+        display: flex; flex-direction: column; justify-content: space-between;
+        width: 30px; height: 14px; /* 2本線なので高さを抑える */
+        position: absolute; right: 20px; top: 25px;
+        cursor: pointer; z-index: 999;
+    }
+    .hamburger span {
+        display: block; width: 100%; height: 2px; background-color: #000;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    /* X印へのアニメーション */
+    .hamburger.is-active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.is-active span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* モバイルナビゲーション (縦並び) */
+    .global-nav {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        background-color: rgba(255, 255, 255, 0.98);
+        margin: 0; opacity: 0; visibility: hidden;
+        display: flex; justify-content: center; align-items: center;
+        z-index: 900; transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .global-nav.is-open { opacity: 1; visibility: visible; }
+    .global-nav ul { flex-direction: column; gap: 40px; }
+    
+    /* メインコンテンツ (縦並びに変更) */
+    .main-content { padding: 20px; }
+    .hero-section { flex-direction: column; gap: 30px; margin-top: 20px; }
+    .hero-text { font-size: 18px; text-align: center; order: 1; }
+    .hero-gallery { width: 100%; order: 2; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 90px; }
 }
