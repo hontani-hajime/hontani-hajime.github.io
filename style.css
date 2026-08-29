@@ -53,39 +53,31 @@ a { text-decoration: none; color: inherit; }
 .hero-text { flex: 1; font-size: 28px; line-height: 2; letter-spacing: 0.1em; }
 
 /* ==================================================
-   すべて角丸四角形だけで隙間ゼロで構成するギャラリー
+   角丸四角形が6つ（横3つ×縦2つ）並ぶギャラリー
 ================================================== */
 .hero-gallery {
     flex: 1.2;
-    container-type: inline-size;
     display: grid;
     gap: 15px;
-    grid-auto-flow: dense;
     
-    /* 【PC・iPad版】3列ベースに変更して、すべて同じ大きさの四角形が並ぶように */
+    /* PC・iPad・スマホ共通：3列ベース */
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: calc((100cqw - 30px) / 3);
 }
 
 .gallery-item {
-    width: 100%; height: 100%;
+    width: 100%; 
+    height: auto;
+    aspect-ratio: 1 / 1; /* きれいな正方形に統一して縦長を防止 */
     overflow: hidden;
-    border-radius: 16px; /* すべて綺麗な角丸四角形に統一 */
+    border-radius: 16px;
     background-color: #f0f0f0;
 }
 .gallery-item img {
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
-    /* 写真の切り替わり時にふんわり変化させる設定 */
     transition: opacity 0.5s ease; 
 }
-
-/* 隙間なく綺麗に埋まるための角丸四角形のサイズバリエーション */
-.item-2x2 { grid-column: span 2; grid-row: span 2; }
-.item-2x1 { grid-column: span 2; grid-row: span 1; }
-.item-1x2 { grid-column: span 1; grid-row: span 2; }
-.item-1x1 { grid-column: span 1; grid-row: span 1; }
 
 
 /* =========================================
@@ -126,8 +118,6 @@ a { text-decoration: none; color: inherit; }
     
     .hero-gallery { 
         width: 100%; order: 2; 
-        /* 【スマホ版】3列ベースで隙間なし（PC版と同じ設定でスマホ専用レイアウトが綺麗にハマります） */
-        grid-template-columns: repeat(3, 1fr); 
-        grid-auto-rows: calc((100cqw - 30px) / 3);
+        /* スマホ版でも3列キープ */
     }
 }
