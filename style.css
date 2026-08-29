@@ -53,34 +53,47 @@ a { text-decoration: none; color: inherit; }
 .hero-text { flex: 1; font-size: 28px; line-height: 2; letter-spacing: 0.1em; }
 
 /* ==================================================
-   絶対に潰れない＆隙間ができない完璧なグリッド設定
+   すべて角丸四角形だけで隙間ゼロで構成するギャラリー
 ================================================== */
 .hero-gallery {
     flex: 1.2;
-    /* 幅を基準にした計算を可能にする */
     container-type: inline-size;
     display: grid;
     gap: 15px;
     grid-auto-flow: dense;
-    transition: opacity 0.5s ease;
     
-    /* 【PC版】4列ベース */
+    /* 【PC版】4列ベース、高さも完全に固定してガタつき防止 */
     grid-template-columns: repeat(4, 1fr);
-    /* 高さを「(全体の幅 - 隙間の合計45px) ÷ 4列」で計算。絶対に完全な正方形になる */
     grid-auto-rows: calc((100cqw - 45px) / 4);
+    
+    /* 切り替わりの時のアニメーション */
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.hero-gallery.fade-out { opacity: 0; }
 
-.gallery-item { width: 100%; height: 100%; overflow: hidden; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 切り替わり時にふんわり伸縮・消え縮みする演出 */
+.hero-gallery.is-animating {
+    opacity: 0;
+    transform: scale(0.97);
+}
 
-/* 図形のバリエーション（正方形ベースなので絶対に丸が潰れない） */
-.item-2x2 { grid-column: span 2; grid-row: span 2; border-radius: 12px; }
-.item-2x2-circle { grid-column: span 2; grid-row: span 2; border-radius: 50%; }
-.item-2x1 { grid-column: span 2; grid-row: span 1; border-radius: 12px; }
-.item-1x2 { grid-column: span 1; grid-row: span 2; border-radius: 12px; }
-.item-1x1 { grid-column: span 1; grid-row: span 1; border-radius: 12px; }
-.item-1x1-circle { grid-column: span 1; grid-row: span 1; border-radius: 50%; }
+.gallery-item {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    border-radius: 16px; /* すべて綺麗な角丸四角形に統一 */
+    background-color: #f0f0f0;
+}
+.gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 隙間なく綺麗に埋まるための角丸四角形のサイズバリエーション */
+.item-2x2 { grid-column: span 2; grid-row: span 2; }
+.item-2x1 { grid-column: span 2; grid-row: span 1; }
+.item-1x2 { grid-column: span 1; grid-row: span 2; }
+.item-1x1 { grid-column: span 1; grid-row: span 1; }
+
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
@@ -120,9 +133,8 @@ a { text-decoration: none; color: inherit; }
     
     .hero-gallery { 
         width: 100%; order: 2; 
-        /* 【スマホ版】3列ベース */
+        /* 【スマホ版】3列ベースで隙間なし */
         grid-template-columns: repeat(3, 1fr); 
-        /* 高さを「(全体の幅 - 隙間の合計30px) ÷ 3列」で計算。ここでも絶対真円をキープ */
         grid-auto-rows: calc((100cqw - 30px) / 3);
     }
 }
