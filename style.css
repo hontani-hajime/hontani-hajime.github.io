@@ -160,7 +160,7 @@ a { text-decoration: none; color: inherit; }
     flex: 1;
     font-size: 14px;
     color: #333;
-    word-break: break-word; 
+    word-break: break-word;
 }
 
 /* お知らせのフェード効果 */
@@ -180,7 +180,7 @@ a { text-decoration: none; color: inherit; }
     text-align: center;
     position: relative;
     z-index: 2;
-    margin-top: -20px; 
+    margin-top: -20px;
 }
 
 .read-more-btn {
@@ -201,13 +201,13 @@ a { text-decoration: none; color: inherit; }
     border-color: #999;
 }
 
+/* 展開時の表示 */
 .news-section.is-expanded .news-fade {
     display: none;
 }
 .news-section.is-expanded .news-btn-wrapper {
-    display: none; 
+    display: none;
 }
-
 
 /* ==================================================
    ギャラリー (PC)
@@ -236,31 +236,37 @@ a { text-decoration: none; color: inherit; }
     transition: opacity 0.5s ease; 
 }
 
-
 /* ==================================================
-   プロフィールセクション
+   プロフィールセクション (追加)
 ================================================== */
 .profile-section {
-    margin-top: 80px;
-    padding-top: 60px;
-    border-top: 1px solid #eee; /* 上に薄い線を入れて区切る */
+    margin-top: 100px;
+    margin-bottom: 60px;
+    scroll-margin-top: 50px; /* ジャンプした時に少し上に余白を持たせる */
 }
 
-.profile-inner {
+.section-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 0.1em;
+}
+
+.profile-container {
     display: flex;
     align-items: center;
-    gap: 50px;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 40px;
+    background-color: #fafafa;
+    padding: 40px;
+    border-radius: 16px;
 }
 
 .profile-image {
     flex-shrink: 0;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     overflow: hidden;
-    background-color: #f5f5f5;
 }
 
 .profile-image img {
@@ -274,34 +280,38 @@ a { text-decoration: none; color: inherit; }
 }
 
 .profile-name {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 15px;
-    color: #111;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
 }
 
-.profile-desc {
+.profile-name-en {
+    font-size: 14px;
+    color: #666;
+}
+
+.profile-text {
     font-size: 15px;
     line-height: 1.8;
     color: #444;
     margin-bottom: 25px;
 }
 
-/* プロフィールボタン（黒背景で目立たせる） */
 .profile-btn {
     display: inline-block;
     background-color: #333;
     color: #fff;
-    padding: 12px 40px;
-    border-radius: 30px;
+    padding: 10px 40px;
+    border-radius: 25px;
     font-size: 14px;
-    text-decoration: none;
     transition: background-color 0.3s;
 }
 
 .profile-btn:hover {
     background-color: #555;
 }
-
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
@@ -337,7 +347,7 @@ a { text-decoration: none; color: inherit; }
 
     .main-content { padding: 20px; }
 
-    /* スマホ版では縦に1列（テキスト→写真→お知らせ） */
+    /* スマホ版では縦に1列 */
     .hero-section {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
@@ -364,6 +374,7 @@ a { text-decoration: none; color: inherit; }
         grid-row: 3 / 4;
     }
 
+    /* スマホ版のお知らせ表示制限 */
     .news-fade { display: none; }
     .news-btn-wrapper { margin-top: 15px; }
 
@@ -374,7 +385,6 @@ a { text-decoration: none; color: inherit; }
     .news-section:not(.is-expanded) .news-list li:nth-child(n+4) {
         display: none;
     }
-
     .news-section.is-expanded .news-list li:nth-child(3) {
         opacity: 1;
         pointer-events: auto;
@@ -391,29 +401,21 @@ a { text-decoration: none; color: inherit; }
     .news-tag { font-size: 10px; padding: 2px 8px; }
     .news-text { font-size: 12px; }
 
-    /* スマホ版プロフィールセクション */
+    /* スマホ版のプロフィールデザイン調整 */
     .profile-section {
-        margin-top: 50px;
-        padding-top: 40px;
+        margin-top: 60px;
     }
-
-    .profile-inner {
+    .profile-container {
         flex-direction: column;
+        padding: 30px 20px;
         text-align: center;
         gap: 20px;
     }
-
+    .profile-name {
+        justify-content: center;
+    }
     .profile-image {
         width: 160px;
         height: 160px;
-    }
-
-    .profile-name {
-        font-size: 22px;
-    }
-
-    .profile-desc {
-        font-size: 14px;
-        text-align: left; /* スマホでも読みやすいようにテキストは左揃え */
     }
 }
