@@ -1,68 +1,76 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio & Blog</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- サイト自体の名前 -->
+    <title>【公式】本谷元のはじめちゃんサイト</title>
+    
+    <!-- Google Search Console 確認コード -->
+    <meta name="google-site-verification" content="RDeql2-UmbrKRoXVAKBOwOOME9fBDcSv33-CO8hoEv0" />
+    
+    <!-- 検索結果のサイト名表示を「本谷元」にするための設定 (og:site_name と 構造化データ) -->
+    <meta property="og:site_name" content="本谷元">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "本谷元",
+      "alternateName": "【公式】本谷元のはじめちゃんサイト",
+      "url": "https://example.com/"
+    }
+    </script>
+
+    <!-- お気に入り追加時などの短い名前とアイコン -->
+    <meta name="apple-mobile-web-app-title" content="本谷元">
+    <meta name="application-name" content="本谷元">
+    <link rel="apple-touch-icon" href="file/icon.jpg">
+    <link rel="icon" href="file/icon.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <header>
-    <h1>My Website</h1>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#photos">Photos</a></li>
-        <li><a href="#works">Web Works</a></li>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#blog">Blog</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section id="home" class="hero">
-      <div class="placeholder hero-image">
-        ここにドカンと一番お気に入りの写真入れるんやで！
-      </div>
-    </section>
-
-    <section id="photos" class="section">
-      <h2>Photography</h2>
-      <p>趣味で撮った写真たちです。</p>
-      <div class="grid-container">
-        <div class="placeholder square">ここに写真入れるんやで！</div>
-        <div class="placeholder square">ここに写真入れるんやで！</div>
-        <div class="placeholder square">ここに写真入れるんやで！</div>
-      </div>
-      <a href="#" class="btn">写真をもっと見る</a>
-    </section>
-
-    <section id="works" class="section">
-      <h2>Web Works & Tools</h2>
-      <p>これまでに作った架空のサイトや、便利なツール群です。</p>
-      <div class="grid-container">
-        <div class="work-card">
-          <div class="placeholder landscape">未来デパートのスクショ入れるんやで！</div>
-          <h3>未来デパート (架空サイト)</h3>
+    <!-- 一番上の細い黒色の線 -->
+    <div class="top-line"></div>
+    
+    <header class="site-header">
+        <div class="header-inner">
+            <!-- 左側：アイコンとタイトル -->
+            <div class="logo-area">
+                <img src="file/icon.jpg" alt="アイコン" class="site-logo">
+                <div class="site-titles">
+                    <h1 class="main-title klee-one-semibold">
+                        <span id="typing-text"></span><span id="cursor" class="blinking">｜</span>
+                    </h1>
+                    <p class="sub-title klee-one-regular">Hajime Hontani's Hajime-chan Site</p>
+                </div>
+            </div>
+            
+            <!-- 右側：メニューバー（｜を挟んで配置） -->
+            <nav class="global-nav" id="global-nav">
+                <ul>
+                    <li><a href="#" class="klee-one-regular">Profile</a></li>
+                    <li><a href="#" class="klee-one-regular">Photos</a></li>
+                    <li><a href="#" class="klee-one-regular">Web Works</a></li>
+                    <li><a href="#" class="klee-one-regular">Blog</a></li>
+                    <li>
+                        <!-- Instagramリンク (別ウィンドウで開く) -->
+                        <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                            <div class="insta-circle">
+                                <img src="file/instagram.jpg" alt="Instagram" class="insta-icon">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <div class="work-card">
-          <div class="placeholder landscape">ウェブタイマーのスクショ入れるんやで！</div>
-          <h3>ウェブタイマー</h3>
-        </div>
-        <div class="work-card">
-          <div class="placeholder landscape">割り勘計算機のスクショ！</div>
-          <h3>割り勘計算機</h3>
-        </div>
-      </div>
-    </section>
-  </main>
+    </header>
 
-  <footer>
-    <p>&copy; 2026 My Website. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
