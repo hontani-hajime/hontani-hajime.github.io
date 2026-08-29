@@ -34,19 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // 【改良版】空白が絶対にできないパズル配置ギャラリー
+    // 全て角丸四角形だけで構成し、伸縮しながら入れ替わるギャラリー
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     
-    // PC用(4列x3行)でピッタリはまる組み合わせパターン
+    // PC用(4列)で100%隙間なく綺麗に埋まる四角形パターンの組み合わせ
     const layoutsPC = [
         ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
         ['item-1x2', 'item-2x2', 'item-1x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1'],
         ['item-2x1', 'item-2x1', 'item-1x1', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1']
     ];
 
-    // スマホ用(3列x4行)でピッタリはまる組み合わせパターン
+    // スマホ用(3列)で100%隙間なく綺麗に埋まる四角形パターンの組み合わせ
     const layoutsSP = [
         ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1', 'item-1x1'],
         ['item-1x1', 'item-2x1', 'item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1'],
@@ -63,32 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateGallery() {
-        galleryContainer.classList.add('fade-out');
+        // 一旦縮みながらフェードアウト
+        galleryContainer.classList.add('is-animating');
 
         setTimeout(() => {
             galleryContainer.innerHTML = '';
             
-            // 画面サイズに応じて、隙間ができない完璧なレイアウトを選択
             const isMobile = window.innerWidth <= 768;
             const layouts = isMobile ? layoutsSP : layoutsPC;
             
-            // レイアウトパターンを1つ選び、順序をシャッフル
             const baseLayout = layouts[Math.floor(Math.random() * layouts.length)];
             const shuffledLayout = shuffleArray(baseLayout);
-            
-            // 画像もシャッフルして必要な枚数取得
             const shuffledImages = shuffleArray(allImages).slice(0, shuffledLayout.length);
 
-            // 配置する図形の中で、正方形(1x1, 2x2)のものはランダムで50%の確率で綺麗な「丸」にする
-            const finalLayout = shuffledLayout.map(cls => {
-                if (cls === 'item-1x1' || cls === 'item-2x2') {
-                    return Math.random() > 0.5 ? cls + '-circle' : cls;
-                }
-                return cls; // 横長・縦長はそのまま
-            });
-
-            finalLayout.forEach((shapeClass, index) => {
+            shuffledLayout.forEach((shapeClass, index) => {
                 const itemDiv = document.createElement('div');
+                // すべて角丸の四角形クラスのみを適用
                 itemDiv.className = `gallery-item ${shapeClass}`;
 
                 const img = document.createElement('img');
@@ -99,8 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 galleryContainer.appendChild(itemDiv);
             });
 
-            galleryContainer.classList.remove('fade-out');
-        }, 500);
+            // 拡大しながらフェードイン
+            galleryContainer.classList.remove('is-animating');
+        }, 400);
     }
 
     updateGallery();
