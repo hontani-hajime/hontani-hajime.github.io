@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // ギャラリー（2秒ごとに一斉に切り替わり、重複や連続を防止）
+    // ギャラリー（3秒ごとに一斉に切り替わり、重複や連続を防止）
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.appendChild(itemDiv);
         });
 
-        // 2000ミリ秒(2秒)ごとに一斉に切り替えるループ
+        // 3000ミリ秒(3秒)ごとに一斉に切り替えるループ
         setInterval(() => {
             const imgs = galleryContainer.querySelectorAll('img');
             if (imgs.length === 0) return;
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }, 500); 
 
-        }, 2000);
+        }, 3000); // ← ここを2000から3000に変更しました！
     }
 
     initGallery();
