@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     
-    // PC用(4列)のレイアウトパターン
+    // PC・タブレット用(6列×2行)のレイアウトパターン（高さを半分に抑えました）
     const layoutsPC = [
-        ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
-        ['item-1x2', 'item-2x2', 'item-1x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-1x1'],
-        ['item-2x1', 'item-2x1', 'item-1x1', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1']
+        ['item-2x2', 'item-2x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1'],
+        ['item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x2', 'item-1x1', 'item-1x1'],
+        ['item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-2x1', 'item-1x1', 'item-1x1']
     ];
 
-    // スマホ用(3列)のレイアウトパターン
+    // スマホ用(3列×4行)のレイアウトパターン（そのままキープ）
     const layoutsSP = [
         ['item-2x2', 'item-1x1', 'item-1x1', 'item-1x1', 'item-2x1', 'item-1x1', 'item-1x1', 'item-1x1'],
         ['item-1x1', 'item-2x1', 'item-1x2', 'item-2x2', 'item-1x1', 'item-1x1', 'item-1x1'],
@@ -72,15 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // ページ読み込み時にレイアウトを1つ決めて固定する
         const baseLayout = layouts[Math.floor(Math.random() * layouts.length)];
-        const shuffledLayout = shuffleArray(baseLayout);
         
-        shuffledLayout.forEach((shapeClass) => {
+        // 枠の順番はシャッフルせずそのまま使い、中に入る画像だけをシャッフルします
+        // （枠がはみ出して縦長になってしまうのを防ぎます）
+        const shuffledImages = shuffleArray(allImages);
+        
+        baseLayout.forEach((shapeClass, index) => {
             const itemDiv = document.createElement('div');
             itemDiv.className = `gallery-item ${shapeClass}`;
 
             const img = document.createElement('img');
-            // 最初の画像をランダムに設定
-            img.src = allImages[Math.floor(Math.random() * allImages.length)];
+            // 画像をランダムに設定（用意した写真から順番に割り当て）
+            img.src = shuffledImages[index % shuffledImages.length];
             img.alt = "Gallery Photo";
 
             itemDiv.appendChild(img);
