@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingTextElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('cursor');
     const navElement = document.getElementById('global-nav');
-    
+
     const typingSpeed = 150; 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -34,15 +34,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
+    // お知らせセクションの高さ自動調整 (PC版のみ)
+    // =========================================================
+    function adjustNewsHeight() {
+        const isMobile = window.innerWidth <= 768;
+        const newsSection = document.getElementById('news-section');
+        const newsListContainer = document.getElementById('news-list-container');
+        const gallery = document.getElementById('hero-gallery');
+        const textElement = document.querySelector('.hero-text');
+
+        if (!newsSection || !newsListContainer || !gallery || !textElement) return;
+
+        if (isMobile) {
+            // スマホ版はCSS側で表示件数を制御するため高さをリセット
+            newsListContainer.style.maxHeight = '';
+        } else {
+            // PC版で「続きを見る」が押されていない場合
+            if (!newsSection.classList.contains('is-expanded')) {
+                const galleryHeight = gallery.offsetHeight;
+                const textHeight = textElement.offsetHeight;
+                const rowGap = 30; // .hero-section の row-gap
+                
+                // 右側の写真の下端を超えないための計算
+                const availableHeight = galleryHeight - textHeight - rowGap;
+                
+                // ボタンの高さなどを考慮してリストコンテナの最大高さを決定
+                const listContainerMaxHeight = availableHeight - 45; 
+                
+                if (listContainerMaxHeight > 100) {
+                    newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
+                } else {
+                    newsListContainer.style.maxHeight = '150px'; // 最低限の高さ
+                }
+            } else {
+                // 展開時は高さ制限を解除
+                newsListContainer.style.maxHeight = 'none';
+            }
+        }
+    }
+
+    // 「続きを見る」ボタンのクリックイベント
+    const moreBtn = document.getElementById('news-more-btn');
+    if (moreBtn) {
+        moreBtn.addEventListener('click', () => {
+            document.getElementById('news-section').classList.add('is-expanded');
+            adjustNewsHeight(); // 高さを再計算して展開
+        });
+    }
+
+    // 画面サイズ変更時にお知らせの高さを再計算
+    window.addEventListener('resize', adjustNewsHeight);
+
+    // =========================================================
     // ギャラリー（4秒ごとに一斉切り替え、横3つ×縦2つの6枚構成）
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
-    
-    // 表示する写真の枚数（横3×縦2 = 6枚）
     const totalItems = 6;
 
-    // 配列をシャッフルする関数
     function shuffleArray(array) {
         const arr = [...array];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -52,18 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return arr;
     }
 
-    // 「画面内で重複しない」＆「各場所で前回と同じ写真にならない」画像の組み合わせを作る関数
     function getNextImages(currentImages, count) {
         let newImages = [];
         let isValid = false;
-        
+
         while (!isValid) {
-            // 全12枚からランダムにシャッフルして、必要な枚数(6枚)だけ取り出す
             const shuffled = shuffleArray(allImages);
             newImages = shuffled.slice(0, count);
-            
+
             isValid = true;
-            // それぞれの場所で、前回と同じ写真が連続していないかチェック
             for (let i = 0; i < count; i++) {
                 if (currentImages[i] && newImages[i] === currentImages[i]) {
                     isValid = false; 
@@ -76,13 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initGallery() {
         galleryContainer.innerHTML = '';
-        
-        // 初回の画像を6枚セット
+
         const initialImages = getNextImages([], totalItems);
-        
+
         for (let i = 0; i < totalItems; i++) {
             const itemDiv = document.createElement('div');
-            itemDiv.className = 'gallery-item'; // 今回は複雑なサイズ違いがないので共通クラスのみ
+            itemDiv.className = 'gallery-item'; 
 
             const img = document.createElement('img');
             img.src = initialImages[i];
@@ -92,30 +137,29 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.appendChild(itemDiv);
         }
 
-        // 4000ミリ秒(4秒)ごとに一斉に切り替えるループ
+        // 画像がDOMに配置された直後にお知らせの高さを計算
+        requestAnimationFrame(() => {
+            adjustNewsHeight();
+        });
+
         setInterval(() => {
             const imgs = galleryContainer.querySelectorAll('img');
             if (imgs.length === 0) return;
 
-            // 今表示されている画像のリストを取得
             const currentSrcs = Array.from(imgs).map(img => img.getAttribute('src'));
-            // 条件を満たした新しい画像のリストを作成
             const nextSrcs = getNextImages(currentSrcs, imgs.length);
 
-            // ① まず全部の画像を同時にフェードアウトさせる
             imgs.forEach(img => {
                 img.style.opacity = '0';
             });
 
-            // ② 0.5秒後（CSSのフェードアウト完了後）に写真を差し替えてフェードインさせる
             setTimeout(() => {
                 imgs.forEach((img, index) => {
                     img.src = nextSrcs[index];
                     img.style.opacity = '1';
                 });
             }, 500); 
-
-        }, 4000); // 4秒に変更しました！
+        }, 4000); 
     }
 
     initGallery();
