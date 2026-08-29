@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- サイト自体の名前 -->
     <title>【公式】本谷元のはじめちゃんサイト</title>
     
-    <!-- Google Search Console 確認コード -->
     <meta name="google-site-verification" content="RDeql2-UmbrKRoXVAKBOwOOME9fBDcSv33-CO8hoEv0" />
-    
-    <!-- 検索結果のサイト名表示を「本谷元」にするための設定 (og:site_name と 構造化データ) -->
     <meta property="og:site_name" content="本谷元">
     <script type="application/ld+json">
     {
@@ -20,14 +16,11 @@
       "url": "https://example.com/"
     }
     </script>
-
-    <!-- お気に入り追加時などの短い名前とアイコン -->
     <meta name="apple-mobile-web-app-title" content="本谷元">
     <meta name="application-name" content="本谷元">
     <link rel="apple-touch-icon" href="file/icon.jpg">
     <link rel="icon" href="file/icon.jpg">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
@@ -35,12 +28,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 一番上の細い黒色の線 -->
     <div class="top-line"></div>
     
     <header class="site-header">
         <div class="header-inner">
-            <!-- 左側：アイコンとタイトル -->
             <div class="logo-area">
                 <img src="file/icon.jpg" alt="アイコン" class="site-logo">
                 <div class="site-titles">
@@ -51,7 +42,13 @@
                 </div>
             </div>
             
-            <!-- 右側：メニューバー（｜を挟んで配置） -->
+            <!-- スマホ用ハンバーガーメニュー (2本線) -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- メニューバー -->
             <nav class="global-nav" id="global-nav">
                 <ul>
                     <li><a href="#" class="klee-one-regular">Profile</a></li>
@@ -59,7 +56,6 @@
                     <li><a href="#" class="klee-one-regular">Web Works</a></li>
                     <li><a href="#" class="klee-one-regular">Blog</a></li>
                     <li>
-                        <!-- Instagramリンク (別ウィンドウで開く) -->
                         <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="instagram-link">
                             <div class="insta-circle">
                                 <img src="file/instagram.jpg" alt="Instagram" class="insta-icon">
@@ -70,6 +66,20 @@
             </nav>
         </div>
     </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <!-- 左側：テキスト -->
+            <div class="hero-text klee-one-semibold">
+                本谷元が撮影した写真や<br>
+                制作したウェブサイトを紹介するよ！
+            </div>
+            <!-- 右側：ランダムギャラリー -->
+            <div class="hero-gallery" id="hero-gallery">
+                <!-- JavaScriptでここに画像と図形がランダムに生成されます -->
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
