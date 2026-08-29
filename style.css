@@ -234,23 +234,21 @@ a { text-decoration: none; color: inherit; }
     scroll-margin-top: 20px;
 }
 
-/* 黒い枠の四角形 */
 .profile-card {
     border: 2px solid #333;
     border-radius: 16px;
-    padding: 50px; /* 30pxから50pxに増やして中の余白を確保 */
-    margin: 0 60px; /* 両サイドに間隔を追加 */
+    padding: 50px; 
+    margin: 0 60px; 
     display: flex;
-    gap: 50px; /* 30pxから50pxに増やして写真とテキストの間隔を確保 */
+    gap: 50px; 
     align-items: center;
     background-color: #fff;
 }
 
-/* 写真のラッパー */
 .profile-img-wrapper {
-    width: 240px; /* 150pxから240pxに大きく変更 */
+    width: 240px; 
     flex-shrink: 0;
-    aspect-ratio: 3 / 4; /* 1/1(正方形)から3/4(少し縦長)に変更 */
+    aspect-ratio: 3 / 4; 
     border-radius: 16px;
     overflow: hidden;
 }
@@ -292,7 +290,6 @@ a { text-decoration: none; color: inherit; }
     color: #444;
 }
 
-/* Profileボタン */
 .profile-btn {
     display: inline-block;
     background-color: #333;
@@ -321,6 +318,7 @@ a { text-decoration: none; color: inherit; }
     .sub-title { font-size: 11px; margin-top: 8px; }
     #cursor.done { display: none; }
 
+    /* ハンバーガーメニュー (2本線対応) */
     .hamburger {
         display: flex; flex-direction: column; justify-content: space-between;
         width: 30px; height: 14px; position: absolute; right: 20px; top: 25px; cursor: pointer; z-index: 999;
@@ -329,6 +327,7 @@ a { text-decoration: none; color: inherit; }
         display: block; width: 100%; height: 2px; background-color: #000;
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
+    /* .is-active がついたら、上の線は下へ、下の線は上へ移動して45度回転し「×」にする */
     .hamburger.is-active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .hamburger.is-active span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
 
@@ -402,14 +401,14 @@ a { text-decoration: none; color: inherit; }
     .profile-card {
         flex-direction: column;
         text-align: center;
-        padding: 30px 20px; /* スマホ版も少し余裕を持たせました */
-        margin: 0; /* PC版の両サイドの余白をリセット */
+        padding: 30px 20px; 
+        margin: 0; 
         gap: 20px;
     }
     .profile-name-area {
         justify-content: center;
     }
     .profile-img-wrapper {
-        width: 160px; /* 120pxから160pxにサイズアップ */
+        width: 160px; 
     }
 }
