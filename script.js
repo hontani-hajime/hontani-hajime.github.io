@@ -1,421 +1,180 @@
-@charset "UTF-8";
+document.addEventListener('DOMContentLoaded', () => {
+    // タイピングアニメーション
+    const textPart1 = "本谷元";
+    const textPart2 = "のはじめちゃんサイト";
+    const typingTextElement = document.getElementById('typing-text');
+    const cursorElement = document.getElementById('cursor');
+    const navElement = document.getElementById('global-nav');
 
-/* リセット & ベース */
-body, h1, p, ul, li { margin: 0; padding: 0; }
-body { background-color: #ffffff; color: #333333; overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
+    const typingSpeed = 150; 
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-/* フォント */
-.klee-one-regular { font-family: "Klee One", cursive; font-weight: 400; font-style: normal; }
-.klee-one-semibold { font-family: "Klee One", cursive; font-weight: 600; font-style: normal; }
-
-.top-line { width: 100%; height: 1px; background-color: #000000; }
-
-/* ヘッダー */
-.site-header { padding: 20px 40px; position: relative; }
-.header-inner { display: flex; align-items: center; justify-content: flex-start; gap: 20px; }
-.logo-area { display: flex; align-items: center; }
-.site-logo { width: 60px; height: 60px; object-fit: cover; margin-right: 20px; border-radius: 50%; }
-
-.site-titles { display: flex; flex-direction: column; justify-content: center; }
-.main-title { font-size: 24px; line-height: 1.4; display: flex; align-items: center; white-space: nowrap; }
-.sub-title { font-size: 13px; color: #666; letter-spacing: 0.05em; margin-top: 2px; }
-
-/* カーソル */
-.blinking { animation: blink 0.8s step-end infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-#cursor { font-weight: 400; margin-left: 2px; color: #000; }
-#cursor.done { animation: none; opacity: 1; }
-
-/* メニュー */
-.global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
-.global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
-.global-nav a { font-size: 16px; transition: color 0.3s; }
-.global-nav a:hover { color: #888; }
-.hamburger { display: none; }
-
-/* Instagram */
-.instagram-link { display: block; }
-.insta-circle {
-    width: 32px; height: 32px; border-radius: 50%;
-    border: 1px solid #000000; background-color: #ffffff;
-    display: flex; justify-content: center; align-items: center;
-    transition: opacity 0.3s;
-}
-.insta-circle:hover { opacity: 0.7; }
-.insta-icon { width: 18px; height: 18px; object-fit: contain; }
-
-/* メインコンテンツ */
-.main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
-
-/* ==================================================
-   ヒーローセクション（Gridレイアウト）
-================================================== */
-.hero-section {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    grid-template-rows: auto auto; 
-    column-gap: 40px;
-    row-gap: 30px;
-    margin-top: 40px;
-}
-
-.hero-text { 
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    font-size: 28px; 
-    line-height: 2; 
-    letter-spacing: 0.1em; 
-}
-
-/* ==================================================
-   お知らせセクション (PC)
-================================================== */
-.news-section {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    width: 100%;
-}
-
-.news-container {
-    display: flex;
-    align-items: stretch; 
-}
-
-/* 左側：アイコンと文字と縦棒 */
-.news-sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 20px;
-    border-right: 1px solid #ddd;
-    min-width: 70px;
-}
-
-.news-icon-wrapper {
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.news-sidebar-title {
-    font-size: 12px;
-    font-weight: bold;
-    color: #333;
-    letter-spacing: 0.05em;
-}
-
-/* 右側：お知らせリストとボタン */
-.news-content-area {
-    flex: 1;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.news-list-container {
-    overflow: hidden;
-    position: relative;
-}
-
-.news-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 20px;
-}
-
-/* お知らせの各アイテム */
-.news-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    line-height: 1.5;
-}
-
-.news-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;
-    padding-top: 2px;
-}
-
-.news-date {
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-    color: #222;
-}
-
-.news-tag {
-    background-color: #333;
-    color: #fff;
-    font-size: 11px;
-    padding: 3px 12px;
-    border-radius: 15px;
-}
-
-.news-text {
-    flex: 1;
-    font-size: 14px;
-    color: #333;
-    word-break: break-word;
-}
-
-/* お知らせのフェード効果 */
-.news-fade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 90%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* 続きを見るボタン */
-.news-btn-wrapper {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    margin-top: -20px;
-}
-
-.read-more-btn {
-    background-color: #fff;
-    color: #666;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    padding: 10px 40px;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.3s;
-}
-
-.read-more-btn:hover {
-    background-color: #f5f5f5;
-    color: #333;
-    border-color: #999;
-}
-
-/* 展開時の表示 */
-.news-section.is-expanded .news-fade {
-    display: none;
-}
-.news-section.is-expanded .news-btn-wrapper {
-    display: none;
-}
-
-/* ==================================================
-   ギャラリー (PC)
-================================================== */
-.hero-gallery {
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-    display: grid;
-    gap: 15px;
-    grid-template-columns: repeat(3, 1fr);
-    align-content: start;
-}
-
-.gallery-item {
-    width: 100%; 
-    height: auto;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border-radius: 16px;
-    background-color: #f0f0f0;
-}
-.gallery-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.5s ease; 
-}
-
-/* ==================================================
-   プロフィールセクション (追加)
-================================================== */
-.profile-section {
-    margin-top: 100px;
-    margin-bottom: 60px;
-    scroll-margin-top: 50px; /* ジャンプした時に少し上に余白を持たせる */
-}
-
-.section-title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 40px;
-    letter-spacing: 0.1em;
-}
-
-.profile-container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background-color: #fafafa;
-    padding: 40px;
-    border-radius: 16px;
-}
-
-.profile-image {
-    flex-shrink: 0;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.profile-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-info {
-    flex: 1;
-}
-
-.profile-name {
-    font-size: 22px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-}
-
-.profile-name-en {
-    font-size: 14px;
-    color: #666;
-}
-
-.profile-text {
-    font-size: 15px;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 25px;
-}
-
-.profile-btn {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 40px;
-    border-radius: 25px;
-    font-size: 14px;
-    transition: background-color 0.3s;
-}
-
-.profile-btn:hover {
-    background-color: #555;
-}
-
-/* =========================================
-   スマホ向けレスポンシブデザイン (768px以下)
-========================================= */
-@media (max-width: 768px) {
-    .site-header { padding: 15px; }
-    .header-inner { flex-direction: column; position: static; }
-    .logo-area { flex-direction: column; text-align: center; width: 100%; padding: 0 10px; box-sizing: border-box; }
-    .site-logo { margin-right: 0; margin-bottom: 15px; }
-    .site-titles { align-items: center; width: 100%; }
-    .main-title { font-size: clamp(16px, 4.5vw, 24px); }
-    .sub-title { font-size: 11px; margin-top: 8px; }
-    #cursor.done { display: none; }
-
-    .hamburger {
-        display: flex; flex-direction: column; justify-content: space-between;
-        width: 30px; height: 14px; position: absolute; right: 20px; top: 25px; cursor: pointer; z-index: 999;
+    async function startTypingAnimation() {
+        await sleep(500);
+        for (let i = 0; i < textPart1.length; i++) {
+            typingTextElement.innerHTML += textPart1.charAt(i);
+            await sleep(typingSpeed);
+        }
+        await sleep(1000); 
+        for (let i = 0; i < textPart2.length; i++) {
+            typingTextElement.innerHTML += textPart2.charAt(i);
+            await sleep(typingSpeed);
+        }
+        cursorElement.classList.remove('blinking');
+        cursorElement.classList.add('done');
+        if (window.innerWidth > 768) navElement.style.opacity = '1';
     }
-    .hamburger span {
-        display: block; width: 100%; height: 2px; background-color: #000;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .hamburger.is-active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hamburger.is-active span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+    startTypingAnimation();
 
-    .global-nav {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 0.98);
-        margin: 0; opacity: 0; visibility: hidden; display: flex; justify-content: center; align-items: center;
-        z-index: 900; transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-    .global-nav.is-open { opacity: 1; visibility: visible; }
-    .global-nav ul { flex-direction: column; gap: 40px; }
+    // ハンバーガーメニュー
+    const hamburger = document.getElementById('hamburger');
+    // SPメニュー内のリンクをクリックしたらメニューを閉じるように変更
+    const navLinks = navElement.querySelectorAll('a');
 
-    .main-content { padding: 20px; }
-
-    /* スマホ版では縦に1列 */
-    .hero-section {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-        column-gap: 0;
-        row-gap: 30px;
-        margin-top: 20px;
-    }
-    
-    .hero-text { 
-        grid-column: 1 / 2; 
-        grid-row: 1 / 2; 
-        font-size: 18px; 
-        text-align: center; 
-    }
-    
-    .hero-gallery { 
-        grid-column: 1 / 2; 
-        grid-row: 2 / 3; 
-        width: 100%; 
-    }
-    
-    .news-section {
-        grid-column: 1 / 2;
-        grid-row: 3 / 4;
+    function toggleMenu() {
+        hamburger.classList.toggle('is-active');
+        navElement.classList.toggle('is-open');
     }
 
-    /* スマホ版のお知らせ表示制限 */
-    .news-fade { display: none; }
-    .news-btn-wrapper { margin-top: 15px; }
+    hamburger.addEventListener('click', toggleMenu);
 
-    .news-section:not(.is-expanded) .news-list li:nth-child(3) {
-        opacity: 0.2;
-        pointer-events: none;
-    }
-    .news-section:not(.is-expanded) .news-list li:nth-child(n+4) {
-        display: none;
-    }
-    .news-section.is-expanded .news-list li:nth-child(3) {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    .news-section.is-expanded .news-list li:nth-child(n+4) {
-        display: flex; 
+    // スマホでリンクタップ時にメニューを閉じる
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navElement.classList.contains('is-open')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // =========================================================
+    // お知らせセクションの高さ自動調整 (PC版のみ)
+    // =========================================================
+    function adjustNewsHeight() {
+        const isMobile = window.innerWidth <= 768;
+        const newsSection = document.getElementById('news-section');
+        const newsListContainer = document.getElementById('news-list-container');
+        const gallery = document.getElementById('hero-gallery');
+        const textElement = document.querySelector('.hero-text');
+        const btnWrapper = document.getElementById('news-btn-wrapper');
+
+        if (!newsSection || !newsListContainer || !gallery || !textElement) return;
+
+        if (isMobile) {
+            newsListContainer.style.maxHeight = '';
+        } else {
+            if (!newsSection.classList.contains('is-expanded')) {
+                const galleryHeight = gallery.offsetHeight;
+                const textHeight = textElement.offsetHeight;
+                const rowGap = 30; // .hero-section の row-gap
+                
+                // ボタン領域の実際の高さを取得（存在しない場合は0）
+                const btnHeight = btnWrapper ? btnWrapper.offsetHeight : 0;
+                
+                // 右側の写真の下端を超えないための全体の空きスペース
+                const availableHeight = galleryHeight - textHeight - rowGap;
+                
+                // 「続きを見る」ボタンの下端が写真の下端と合うように
+                // リスト自体の高さを [空きスペース] - [ボタンの高さ] で計算します
+                const listContainerMaxHeight = availableHeight - btnHeight;
+                
+                if (listContainerMaxHeight > 100) {
+                    newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
+                } else {
+                    newsListContainer.style.maxHeight = '150px';
+                }
+            } else {
+                newsListContainer.style.maxHeight = 'none';
+            }
+        }
     }
 
-    .news-sidebar { padding-right: 12px; min-width: 55px; }
-    .news-content-area { padding-left: 12px; }
-    .news-item { gap: 10px; }
-    .news-meta { gap: 8px; }
-    .news-date { font-size: 12px; }
-    .news-tag { font-size: 10px; padding: 2px 8px; }
-    .news-text { font-size: 12px; }
+    const moreBtn = document.getElementById('news-more-btn');
+    if (moreBtn) {
+        moreBtn.addEventListener('click', () => {
+            document.getElementById('news-section').classList.add('is-expanded');
+            adjustNewsHeight(); 
+        });
+    }
 
-    /* スマホ版のプロフィールデザイン調整 */
-    .profile-section {
-        margin-top: 60px;
+    window.addEventListener('resize', adjustNewsHeight);
+
+    // =========================================================
+    // ギャラリー（4秒ごとに一斉切り替え、横3つ×縦2つの6枚構成）
+    // =========================================================
+    const galleryContainer = document.getElementById('hero-gallery');
+    const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
+    const totalItems = 6;
+
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
     }
-    .profile-container {
-        flex-direction: column;
-        padding: 30px 20px;
-        text-align: center;
-        gap: 20px;
+
+    function getNextImages(currentImages, count) {
+        let newImages = [];
+        let isValid = false;
+
+        while (!isValid) {
+            const shuffled = shuffleArray(allImages);
+            newImages = shuffled.slice(0, count);
+
+            isValid = true;
+            for (let i = 0; i < count; i++) {
+                if (currentImages[i] && newImages[i] === currentImages[i]) {
+                    isValid = false; 
+                    break;
+                }
+            }
+        }
+        return newImages;
     }
-    .profile-name {
-        justify-content: center;
+
+    function initGallery() {
+        galleryContainer.innerHTML = '';
+
+        const initialImages = getNextImages([], totalItems);
+
+        for (let i = 0; i < totalItems; i++) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'gallery-item'; 
+
+            const img = document.createElement('img');
+            img.src = initialImages[i];
+            img.alt = "Gallery Photo";
+
+            itemDiv.appendChild(img);
+            galleryContainer.appendChild(itemDiv);
+        }
+
+        // 画像配置直後に高さを計算
+        requestAnimationFrame(() => {
+            adjustNewsHeight();
+        });
+
+        setInterval(() => {
+            const imgs = galleryContainer.querySelectorAll('img');
+            if (imgs.length === 0) return;
+
+            const currentSrcs = Array.from(imgs).map(img => img.getAttribute('src'));
+            const nextSrcs = getNextImages(currentSrcs, imgs.length);
+
+            imgs.forEach(img => {
+                img.style.opacity = '0';
+            });
+
+            setTimeout(() => {
+                imgs.forEach((img, index) => {
+                    img.src = nextSrcs[index];
+                    img.style.opacity = '1';
+                });
+            }, 500); 
+        }, 4000); 
     }
-    .profile-image {
-        width: 160px;
-        height: 160px;
-    }
-}
+
+    initGallery();
+});
