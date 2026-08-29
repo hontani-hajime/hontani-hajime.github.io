@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ページが見つかりません | 本谷元のはじめちゃんサイト</title>
+
+    <!-- ファビコンやフォントは共通のものを読み込む -->
+    <link rel="apple-touch-icon" href="file/icon.jpg">
+    <link rel="icon" href="file/icon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- 共通のスタイルシートを読み込む -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 404ページ専用の追加スタイル -->
+    <style>
+        /* メインコンテンツエリアを中央寄せにする */
+        .not-found-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh; /* 画面の中央付近に配置 */
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* 404の大きな数字 */
+        .error-code {
+            font-size: 120px;
+            font-weight: 600; /* Klee Oneのsemiboldを適用予定 */
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #333;
+            letter-spacing: 0.05em;
+        }
+
+        /* エラーメッセージのテキスト */
+        .error-message {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .error-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        /* トップへ戻るボタン */
+        .back-home-btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .back-home-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px); /* ホバー時に少し浮き上がる */
+        }
+
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+            .error-message {
+                font-size: 20px;
+            }
+            .error-description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-line"></div>
+
+    <!-- ヘッダー（既存のものと同じ） -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="file/icon.jpg" alt="アイコン" class="site-logo">
+                </a>
+                <div class="site-titles">
+                    <!-- トップページではないのでh1ではなくdivやpを使用するのがSEO的にベターですが、デザイン維持のためそのままにしています -->
+                    <h1 class="main-title klee-one-semibold">
+                        <a href="index.html" style="text-decoration: none; color: inherit;">本谷元のはじめちゃんサイト</a>
+                    </h1>
+                    <p class="sub-title klee-one-regular">Hajime Hontani's Hajime-chan Site</p>
+                </div>
+            </div>
+            <!-- 404ページではシンプルにするため、ナビゲーションを省略するか、残すか選べます。ここでは残しています。 -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav class="global-nav" id="global-nav">
+                <ul>
+                    <li><a href="index.html#profile" class="klee-one-regular">Profile</a></li>
+                    <li><a href="index.html#" class="klee-one-regular">Photos</a></li>
+                    <li><a href="index.html#" class="klee-one-regular">Web Works</a></li>
+                    <li><a href="index.html#" class="klee-one-regular">Blog</a></li>
+                    <li class="sns-list">
+                        <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle">
+                                <img src="file/instagram.jpg" alt="Instagram" class="sns-icon">
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle">
+                                <img src="file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
+                            </div>
+                        </a>
+                        <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle">
+                                <img src="file/pinterest.jpg" alt="Pinterest" class="sns-icon">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 404メインコンテンツ -->
+    <main class="main-content">
+        <div class="not-found-main">
+            <!-- サイトの雰囲気に合わせた手書き風フォントを適用 -->
+            <div class="error-code klee-one-semibold">404</div>
+            <h2 class="error-message klee-one-semibold">お探しのページが見つかりません。</h2>
+            <p class="error-description klee-one-regular">
+                アクセスしようとしたページは削除されたか、<br class="sp-br">URLが変更されている可能性があります。<br>
+                トップページからもう一度お探しください。
+            </p>
+            <a href="index.html" class="back-home-btn klee-one-semibold">トップページへ戻る</a>
+        </div>
+    </main>
+
+    <!-- スクリプト（ハンバーガーメニュー等用） -->
+    <!-- index.html用のタイピングアニメーションが不要な場合は、エラーにならないようにscript.jsを少し修正する必要があります -->
+    <script src="script.js"></script>
+</body>
+</html>
