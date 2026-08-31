@@ -242,13 +242,30 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   プロフィールセクション
+   セクション共通タイトル (装飾を追加！)
 ================================================== */
-.profile-section {
-    margin-top: 60px;
-    scroll-margin-top: 20px;
+.profile-section, .blog-section, .photos-section, .webworks-section {
+    margin-top: 120px;
+    scroll-margin-top: 40px;
 }
 
+/* 各セクションの区切りを明確にするバッジ風デザイン */
+.section-title {
+    width: fit-content;
+    margin: 0 auto 50px;
+    font-size: 28px;
+    color: #333;
+    background-color: #fff;
+    border: 2px solid #333; /* 黒い太枠 */
+    border-radius: 50px; /* 角を丸く */
+    padding: 10px 50px;
+    box-shadow: 4px 4px 0px #333; /* 黒い影を落とす */
+    letter-spacing: 0.1em;
+}
+
+/* ==================================================
+   プロフィールセクション
+================================================== */
 .profile-card {
     border: 2px solid #333;
     border-radius: 16px;
@@ -328,21 +345,6 @@ a { text-decoration: none; color: inherit; }
 
 .profile-btn:hover {
     opacity: 0.7;
-}
-
-/* ==================================================
-   セクション共通タイトル
-================================================== */
-.blog-section, .photos-section, .webworks-section {
-    margin-top: 100px;
-    scroll-margin-top: 20px;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 50px;
-    color: #333;
 }
 
 /* ==================================================
@@ -444,7 +446,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   Photosセクション (コラージュ風レイアウト)
+   Photosセクション
 ================================================== */
 .photo-collage-container {
     position: relative;
@@ -488,7 +490,7 @@ a { text-decoration: none; color: inherit; }
 
 
 /* ==================================================
-   Web Worksセクション (PCウィンドウ & ジグザグ配置)
+   Web Worksセクション
 ================================================== */
 .webworks-list {
     display: flex;
@@ -503,12 +505,10 @@ a { text-decoration: none; color: inherit; }
     gap: 50px;
 }
 
-/* 偶数番目は画像とテキストを左右反転させる */
 .webwork-item:nth-child(even) {
     flex-direction: row-reverse;
 }
 
-/* PCブラウザ風のフレーム */
 .webwork-window {
     flex: 1;
     display: block;
@@ -522,7 +522,6 @@ a { text-decoration: none; color: inherit; }
     color: inherit;
 }
 
-/* ホバーで浮き上がるアニメーション */
 .webwork-window:hover {
     transform: translate(-4px, -4px);
     box-shadow: 8px 8px 0px #333;
@@ -536,7 +535,6 @@ a { text-decoration: none; color: inherit; }
     background-color: #f5f5f5;
 }
 
-/* ウィンドウ上部の3つの丸（遊び心で色付け） */
 .window-bar .dot {
     width: 12px;
     height: 12px;
@@ -596,7 +594,6 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
 }
 
-/* 詳細を見るボタン */
 .webwork-link {
     display: inline-block;
     align-self: flex-start;
@@ -614,6 +611,71 @@ a { text-decoration: none; color: inherit; }
     opacity: 0.7;
 }
 
+/* ==================================================
+   フッター
+================================================== */
+.site-footer {
+    margin-top: 120px;
+    border-top: 2px solid #333; /* サイト上部と同じテイストの線 */
+    background-color: #fafafa; /* 少しだけ背景色を変えて締める */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 18px;
+    transition: opacity 0.3s;
+}
+
+.footer-logo-link:hover {
+    opacity: 0.7;
+}
+
+.footer-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    object-fit: cover;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-links a {
+    font-size: 15px;
+    color: #555;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+.footer-links a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 0.05em;
+    font-family: sans-serif;
+}
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
@@ -678,7 +740,14 @@ a { text-decoration: none; color: inherit; }
     .news-tag { font-size: 10px; padding: 2px 8px; }
     .news-text { font-size: 12px; }
 
-    .profile-section { margin-top: 40px; }
+    /* セクション共通 スマホ版 */
+    .profile-section, .blog-section, .photos-section, .webworks-section { margin-top: 80px; }
+    .section-title { 
+        font-size: 22px; 
+        padding: 8px 35px; 
+        margin-bottom: 35px;
+    }
+    
     .profile-card {
         flex-direction: column;
         text-align: center;
@@ -690,9 +759,6 @@ a { text-decoration: none; color: inherit; }
     .profile-img-wrapper { width: 160px; }
     .profile-action-area { justify-content: center; }
 
-    .blog-section, .photos-section, .webworks-section { margin-top: 60px; }
-    .section-title { font-size: 24px; margin-bottom: 25px; }
-    
     .blog-grid {
         grid-template-columns: 1fr;
         margin: 0 20px; 
@@ -700,7 +766,7 @@ a { text-decoration: none; color: inherit; }
     }
     .blog-card { padding: 15px; }
     
-    /* ▼ スマホ版 Photos ▼ */
+    /* スマホ版 Photos */
     .photo-collage-container {
         height: 600px; 
         max-width: 100%;
@@ -715,12 +781,11 @@ a { text-decoration: none; color: inherit; }
     .photo-5 { top: 440px; left: 5%; bottom: auto; }
     .photo-6 { top: 400px; right: 5%; bottom: auto; }
     
-    /* ▼ スマホ版 Web Works ▼ */
+    /* スマホ版 Web Works */
     .webworks-list {
         margin: 0 20px;
         gap: 40px;
     }
-    /* スマホでは縦並びに統一 */
     .webwork-item, .webwork-item:nth-child(even) {
         flex-direction: column;
         gap: 20px;
@@ -730,5 +795,15 @@ a { text-decoration: none; color: inherit; }
     }
     .webwork-title {
         font-size: 20px;
+    }
+    
+    /* スマホ版 フッター */
+    .site-footer {
+        padding: 40px 20px;
+        margin-top: 80px;
+    }
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
     }
 }
