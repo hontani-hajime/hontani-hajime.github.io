@@ -11,8 +11,17 @@ a { text-decoration: none; color: inherit; }
 
 .top-line { width: 100%; height: 1px; background-color: #000000; }
 
-/* ヘッダー */
-.site-header { padding: 20px 40px; position: relative; }
+/* ==================================================
+   ヘッダー (スクロール追従を追加)
+================================================== */
+.site-header { 
+    padding: 20px 40px; 
+    position: sticky; 
+    top: 0; 
+    z-index: 9999; /* 他の要素より上に表示 */
+    background-color: rgba(255, 255, 255, 0.95); /* 少しだけ透ける白 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* ほんのり影をつける */
+}
 .header-inner { display: flex; align-items: center; justify-content: flex-start; gap: 20px; }
 .logo-area { display: flex; align-items: center; }
 .site-logo { width: 60px; height: 60px; object-fit: cover; margin-right: 20px; border-radius: 50%; }
@@ -246,7 +255,7 @@ a { text-decoration: none; color: inherit; }
 ================================================== */
 .profile-section, .blog-section, .photos-section, .webworks-section {
     margin-top: 120px;
-    scroll-margin-top: 40px;
+    scroll-margin-top: 120px; /* ヘッダーが追従しても隠れないように余白を広げました */
 }
 
 .section-title {
@@ -256,9 +265,9 @@ a { text-decoration: none; color: inherit; }
     color: #333;
     background-color: #fff;
     border: 2px solid #333;
-    border-radius: 50px;
+    border-radius: 50px; 
     padding: 10px 50px;
-    box-shadow: 4px 4px 0px #333;
+    box-shadow: 4px 4px 0px #333; 
     letter-spacing: 0.1em;
 }
 
@@ -480,12 +489,11 @@ a { text-decoration: none; color: inherit; }
     box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
 }
 
-/* ▼ PC版：05を非表示にし、02を左に寄せました */
 .photo-1 { top: 20px; left: 10%; transform: rotate(-8deg); z-index: 1; }
-.photo-2 { top: 70px; left: 25%; transform: rotate(5deg); z-index: 7; } 
+.photo-2 { top: 70px; left: 40%; transform: rotate(5deg); z-index: 7; }
 .photo-3 { top: 30px; right: 10%; transform: rotate(-5deg); z-index: 3; }
 .photo-4 { bottom: 40px; left: 5%; transform: rotate(10deg); z-index: 4; }
-.photo-5 { display: none; } /* PC版では05を非表示 */
+.photo-5 { bottom: 20px; left: 35%; transform: rotate(-3deg); z-index: 5; }
 .photo-6 { bottom: 60px; right: 5%; transform: rotate(8deg); z-index: 6; }
 
 
@@ -616,8 +624,8 @@ a { text-decoration: none; color: inherit; }
 ================================================== */
 .site-footer {
     margin-top: 120px;
-    border-top: 2px solid #333;
-    background-color: #fafafa;
+    border-top: 2px solid #333; 
+    background-color: #fafafa; 
     padding: 60px 20px;
     text-align: center;
 }
@@ -690,10 +698,10 @@ a { text-decoration: none; color: inherit; }
     .sub-title { font-size: 11px; margin-top: 8px; }
     #cursor.done { display: none; }
 
-    /* ハンバーガーメニュー */
+    /* ハンバーガーメニュー (右上に固定追従) */
     .hamburger {
         display: flex; flex-direction: column; justify-content: space-between;
-        width: 30px; height: 14px; position: absolute; right: 20px; top: 25px; cursor: pointer; z-index: 999;
+        width: 30px; height: 14px; position: absolute; right: 20px; top: 30px; cursor: pointer; z-index: 999;
     }
     .hamburger span {
         display: block; width: 100%; height: 2px; background-color: #000;
@@ -741,7 +749,10 @@ a { text-decoration: none; color: inherit; }
     .news-text { font-size: 12px; }
 
     /* セクション共通 スマホ版 */
-    .profile-section, .blog-section, .photos-section, .webworks-section { margin-top: 80px; }
+    .profile-section, .blog-section, .photos-section, .webworks-section { 
+        margin-top: 80px; 
+        scroll-margin-top: 100px; /* ヘッダーの高さ分を考慮 */
+    }
     .section-title { 
         font-size: 22px; 
         padding: 8px 35px; 
@@ -766,32 +777,46 @@ a { text-decoration: none; color: inherit; }
     }
     .blog-card { padding: 15px; }
 
-    /* ▼ スマホ版 Photos：画像を少し小さくして、ギュッとまとまったコラージュ風に調整 ▼ */
+    /* ==============================
+       スマホ版 Photos (配置改善！)
+    ============================== */
     .photo-collage-container {
-        height: 500px; /* 間延びしないように高さをキュッとまとめる */
+        height: 480px; /* ギュッと詰まる高さに変更 */
         max-width: 100%;
+        margin: 0 auto;
     }
     .photo-item {
-        width: 140px; /* 画像を少し小さくして重なりをオシャレに */
+        width: 44%; /* 画面幅に合わせて綺麗に収まるサイズ */
     }
-    
-    /* 少しずつ重ねてコラージュ感・アルバム感をアップ！ */
-    .photo-1 { top: 10px; left: 5%; z-index: 2; transform: rotate(-5deg); }
-    .photo-2 { top: 40px; right: 5%; left: auto; z-index: 1; transform: rotate(6deg); }
-    .photo-3 { top: 130px; left: 15%; right: auto; z-index: 4; transform: rotate(4deg); }
-    .photo-4 { top: 170px; right: 10%; left: auto; bottom: auto; z-index: 3; transform: rotate(-3deg); }
-    .photo-5 { display: block; top: 270px; left: 5%; bottom: auto; z-index: 6; transform: rotate(-6deg); } /* スマホでは05を表示 */
-    .photo-6 { top: 310px; right: 5%; bottom: auto; z-index: 5; transform: rotate(5deg); }
+    /* 左右にジグザグ配置し、少しだけ角が重なるように調整 */
+    .photo-1 { top: 0px; left: 4%; transform: rotate(-5deg); z-index: 1; }
+    .photo-2 { top: 30px; right: 4%; left: auto; transform: rotate(4deg); z-index: 2; }
+    .photo-3 { top: 140px; left: 6%; right: auto; transform: rotate(5deg); z-index: 3; }
+    .photo-4 { top: 170px; right: 2%; left: auto; transform: rotate(-3deg); z-index: 4; }
+    .photo-5 { top: 290px; left: 2%; bottom: auto; transform: rotate(-4deg); z-index: 5; }
+    .photo-6 { top: 310px; right: 6%; bottom: auto; transform: rotate(6deg); z-index: 6; }
 
-    /* スマホ版 Web Works */
+    /* ==============================
+       スマホ版 Web Works (区切り線追加)
+    ============================== */
     .webworks-list {
         margin: 0 20px;
-        gap: 40px;
+        gap: 0; /* gapをなくし、marginで調整 */
     }
     .webwork-item, .webwork-item:nth-child(even) {
         flex-direction: column;
         gap: 20px;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+        border-bottom: 2px dashed #ccc; /* サイト間に点線を引く */
     }
+    /* 一番最後の項目には線を引かない */
+    .webwork-item:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+    
     .webwork-window {
         width: 100%;
     }
