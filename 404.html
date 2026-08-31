@@ -3,106 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ページが見つかりません｜本谷元のはじめちゃんサイト</title>
+    <title>404 Not Found - 【公式】本谷元のはじめちゃんサイト</title>
+    
+    <!-- 404ページは検索エンジンにインデックスさせない -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- アイコン関係は絶対パス -->
+    <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/file/icon.jpg">
+    <link rel="icon" href="https://hontani-hajime.github.io/file/icon.jpg">
 
-    <!-- ファビコンやフォントは共通のものを読み込む -->
-    <link rel="apple-touch-icon" href="file/icon.jpg">
-    <link rel="icon" href="file/icon.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- 共通のスタイルシートを読み込む -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- 404ページ専用の追加スタイル -->
+    <!-- トップページと同じCSSを読み込む -->
+    <link rel="stylesheet" href="https://hontani-hajime.github.io/style.css">
+    
+    <!-- 404ページ専用のレイアウト調整 (style.cssを汚さずHTML内で完結させます) -->
     <style>
-        /* メインコンテンツエリアを中央寄せにする */
-        .not-found-main {
+        .not-found-container {
+            text-align: center;
+            padding: 80px 20px;
+            min-height: 50vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 60vh; /* 画面の中央付近に配置 */
-            text-align: center;
-            padding: 40px 20px;
+            align-items: center;
         }
-
-        /* 404の大きな数字 */
-        .error-code {
-            font-size: 120px;
-            font-weight: 600; /* Klee Oneのsemiboldを適用予定 */
+        .not-found-code {
+            font-size: 100px;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: #333;
             line-height: 1;
             margin-bottom: 20px;
-            color: #333;
-            letter-spacing: 0.05em;
+            text-shadow: 6px 6px 0px rgba(51, 51, 51, 0.1);
         }
-
-        /* エラーメッセージのテキスト */
-        .error-message {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #444;
-        }
-
-        .error-description {
+        .not-found-message {
             font-size: 16px;
-            color: #666;
-            line-height: 1.8;
+            line-height: 2;
+            color: #444;
             margin-bottom: 40px;
         }
-
-        /* トップへ戻るボタン */
-        .back-home-btn {
-            display: inline-block;
-            background-color: #333;
-            color: #fff;
-            padding: 12px 40px;
-            border-radius: 30px;
-            font-size: 16px;
-            letter-spacing: 0.1em;
-            transition: opacity 0.3s ease, transform 0.2s ease;
-            text-decoration: none;
+        .not-found-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            margin-bottom: 30px;
+            object-fit: cover;
         }
-
-        .back-home-btn:hover {
-            opacity: 0.8;
-            transform: translateY(-2px); /* ホバー時に少し浮き上がる */
-        }
-
-        /* スマホ用調整 */
         @media (max-width: 768px) {
-            .error-code {
-                font-size: 80px;
-            }
-            .error-message {
-                font-size: 20px;
-            }
-            .error-description {
-                font-size: 14px;
-            }
+            .not-found-code { font-size: 80px; }
+            .not-found-container { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
     <div class="top-line"></div>
 
-    <!-- ヘッダー（既存のものと同じ） -->
     <header class="site-header">
         <div class="header-inner">
             <div class="logo-area">
-                <a href="index.html">
-                    <img src="file/icon.jpg" alt="アイコン" class="site-logo">
+                <a href="https://hontani-hajime.github.io/">
+                    <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="site-logo">
                 </a>
                 <div class="site-titles">
-                    <!-- トップページではないのでh1ではなくdivやpを使用するのがSEO的にベターですが、デザイン維持のためそのままにしています -->
-                    <h1 class="main-title klee-one-semibold">
-                        <a href="index.html" style="text-decoration: none; color: inherit;">本谷元のはじめちゃんサイト</a>
-                    </h1>
+                    <a href="https://hontani-hajime.github.io/" style="text-decoration: none; color: inherit;">
+                        <h1 class="main-title klee-one-semibold">本谷元のはじめちゃんサイト</h1>
+                    </a>
                     <p class="sub-title klee-one-regular">Hajime Hontani's Hajime-chan Site</p>
                 </div>
             </div>
-            <!-- 404ページではシンプルにするため、ナビゲーションを省略するか、残すか選べます。ここでは残しています。 -->
+
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -110,24 +83,25 @@
 
             <nav class="global-nav" id="global-nav">
                 <ul>
-                    <li><a href="index.html#profile" class="klee-one-regular">Profile</a></li>
-                    <li><a href="index.html#" class="klee-one-regular">Photos</a></li>
-                    <li><a href="index.html#" class="klee-one-regular">Web Works</a></li>
-                    <li><a href="index.html#" class="klee-one-regular">Blog</a></li>
+                    <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
+                    <li><a href="https://hontani-hajime.github.io/blog/" class="klee-one-regular">Blog</a></li>
+                    <li><a href="https://hontani-hajime.github.io/photos/" class="klee-one-regular">Photos</a></li>
+                    <li><a href="https://hontani-hajime.github.io/web-works/" class="klee-one-regular">Web Works</a></li>
+                    
                     <li class="sns-list">
                         <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/instagram.jpg" alt="Instagram" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
                             </div>
                         </a>
                         <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
                             </div>
                         </a>
                         <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle">
-                                <img src="file/pinterest.jpg" alt="Pinterest" class="sns-icon">
+                                <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
                             </div>
                         </a>
                     </li>
@@ -136,22 +110,43 @@
         </div>
     </header>
 
-    <!-- 404メインコンテンツ -->
     <main class="main-content">
-        <div class="not-found-main">
-            <!-- サイトの雰囲気に合わせた手書き風フォントを適用 -->
-            <div class="error-code klee-one-semibold">404</div>
-            <h2 class="error-message klee-one-semibold">お探しのページが見つかりません。</h2>
-            <p class="error-description klee-one-regular">
-                アクセスしようとしたページは削除されたか、<br class="sp-br">URLが変更されている可能性があります。<br>
-                トップページからもう一度お探しください。
+        <div class="not-found-container">
+            <!-- ちょっと困った感じを出すためにアイコンを表示 -->
+            <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="not-found-img">
+            
+            <div class="not-found-code">404</div>
+            <h2 class="section-title klee-one-semibold" style="margin: 0 auto 30px;">Not Found</h2>
+            
+            <p class="not-found-message klee-one-regular">
+                ごめんなさい！<br>
+                お探しのページは移動または削除されたか、<br>
+                URLが間違っているみたいです。
             </p>
-            <a href="index.html" class="back-home-btn klee-one-semibold">トップページへ戻る</a>
+            
+            <!-- トップに戻るボタン -->
+            <a href="https://hontani-hajime.github.io/" class="profile-btn klee-one-semibold">トップページへ戻る</a>
         </div>
     </main>
 
-    <!-- スクリプト（ハンバーガーメニュー等用） -->
-    <!-- index.html用のタイピングアニメーションが不要な場合は、エラーにならないようにscript.jsを少し修正する必要があります -->
-    <script src="script.js"></script>
+    <!-- ▼ 修正済みのフッター ▼ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <a href="https://hontani-hajime.github.io/" class="footer-logo-link">
+                <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="footer-logo">
+                <span class="klee-one-semibold">本谷元のはじめちゃんサイト</span>
+            </a>
+            
+            <ul class="footer-links klee-one-regular">
+                <li><a href="https://hontani-hajime.github.io/site-policy/">サイトポリシー</a></li>
+                <li><a href="https://hontani-hajime.github.io/privacy-policy/">プライバシーポリシー</a></li>
+            </ul>
+            
+            <p class="copyright klee-one-regular">&copy; 2026 Hontani Hajime.</p>
+        </div>
+    </footer>
+
+    <!-- ハンバーガーメニュー動作用にトップと同じJSを読み込む -->
+    <script src="https://hontani-hajime.github.io/script.js"></script>
 </body>
 </html>
