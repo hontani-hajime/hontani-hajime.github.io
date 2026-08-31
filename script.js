@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const galleryHeight = gallery.offsetHeight;
                 const textHeight = textElement.offsetHeight;
                 const rowGap = 30; 
-                
+
                 const availableHeight = galleryHeight - textHeight - rowGap;
                 const listContainerMaxHeight = availableHeight - 75; 
-                
+
                 if (listContainerMaxHeight > 100) {
                     newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
                 } else {
@@ -156,4 +156,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initGallery();
+
+
+    // =========================================================
+    // トップへ戻るボタン (追加！)
+    // =========================================================
+    const topBtn = document.getElementById('page-top-btn');
+    
+    // スクロール検知でボタンを表示・非表示
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            topBtn.classList.add('is-show');
+        } else {
+            topBtn.classList.remove('is-show');
+        }
+    });
+
+    // クリックで上に戻る
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
