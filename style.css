@@ -482,7 +482,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .photo-1 { top: 20px; left: 10%; transform: rotate(-8deg); z-index: 1; }
-.photo-2 { top: 80px; left: 40%; transform: rotate(5deg); z-index: 2; }
+/* ▼ 02の画像が下敷きにならないように z-index を 7 に変更し、前面に出しています */
+.photo-2 { top: 70px; left: 40%; transform: rotate(5deg); z-index: 7; }
 .photo-3 { top: 30px; right: 10%; transform: rotate(-5deg); z-index: 3; }
 .photo-4 { bottom: 40px; left: 5%; transform: rotate(10deg); z-index: 4; }
 .photo-5 { bottom: 20px; left: 35%; transform: rotate(-3deg); z-index: 5; }
@@ -719,7 +720,7 @@ a { text-decoration: none; color: inherit; }
         row-gap: 30px;
         margin-top: 20px;
     }
-    
+
     .hero-text { grid-column: 1 / 2; grid-row: 1 / 2; font-size: 18px; text-align: center; }
     .hero-gallery { grid-column: 1 / 2; grid-row: 2 / 3; width: 100%; }
     .news-section { grid-column: 1 / 2; grid-row: 3 / 4; }
@@ -747,7 +748,7 @@ a { text-decoration: none; color: inherit; }
         padding: 8px 35px; 
         margin-bottom: 35px;
     }
-    
+
     .profile-card {
         flex-direction: column;
         text-align: center;
@@ -765,22 +766,24 @@ a { text-decoration: none; color: inherit; }
         gap: 20px;
     }
     .blog-card { padding: 15px; }
-    
+
     /* スマホ版 Photos */
     .photo-collage-container {
-        height: 600px; 
+        /* ▼ 高さを600pxから750pxに変更し、ボタンが隠れないように調整しました */
+        height: 750px; 
         max-width: 100%;
     }
     .photo-item {
         width: 180px; 
     }
+    /* ▼ 高さが広がった分、各画像の top の位置を少しずつ下に広げてバランスをとっています */
     .photo-1 { top: 10px; left: 5%; }
-    .photo-2 { top: 100px; right: 5%; left: auto; }
-    .photo-3 { top: 220px; left: 10%; right: auto; }
-    .photo-4 { top: 320px; right: 10%; left: auto; bottom: auto; }
-    .photo-5 { top: 440px; left: 5%; bottom: auto; }
-    .photo-6 { top: 400px; right: 5%; bottom: auto; }
-    
+    .photo-2 { top: 120px; right: 5%; left: auto; }
+    .photo-3 { top: 240px; left: 10%; right: auto; }
+    .photo-4 { top: 360px; right: 10%; left: auto; bottom: auto; }
+    .photo-5 { top: 480px; left: 5%; bottom: auto; }
+    .photo-6 { top: 540px; right: 5%; bottom: auto; }
+
     /* スマホ版 Web Works */
     .webworks-list {
         margin: 0 20px;
@@ -796,7 +799,7 @@ a { text-decoration: none; color: inherit; }
     .webwork-title {
         font-size: 20px;
     }
-    
+
     /* スマホ版 フッター */
     .site-footer {
         padding: 40px 20px;
