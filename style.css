@@ -331,25 +331,28 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   ブログセクション & WebWorksセクション 共通
+   セクション共通タイトル
 ================================================== */
-.blog-section, .webworks-section {
-    margin-top: 80px;
+.blog-section, .photos-section, .webworks-section {
+    margin-top: 100px;
     scroll-margin-top: 20px;
 }
 
 .section-title {
     text-align: center;
     font-size: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     color: #333;
 }
 
+/* ==================================================
+   ブログセクション
+================================================== */
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* PCでは3列 */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
-    margin: 0 60px; /* プロフィールカードと幅を合わせる */
+    margin: 0 60px;
 }
 
 .blog-card {
@@ -362,18 +365,15 @@ a { text-decoration: none; color: inherit; }
     gap: 15px;
     text-decoration: none;
     color: inherit;
-    /* アニメーションと影の初期設定 */
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); 
 }
 
-/* ホバー時にポップに浮き上がり、濃い影をつける */
 .blog-card:hover {
     transform: translate(-4px, -4px); 
     box-shadow: 8px 8px 0px #333;
 }
 
-/* 画像の枠線と余白設定 */
 .blog-img-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -424,20 +424,19 @@ a { text-decoration: none; color: inherit; }
     font-family: sans-serif;
     padding: 4px 12px;
     border-radius: 15px;
-    color: #333; /* 文字色を黒にしてポップに */
+    color: #333;
     font-weight: bold;
     letter-spacing: 0.05em;
-    border: 1px solid #333; /* 黒い枠線を追加 */
+    border: 1px solid #333; 
 }
 
-/* タグのカラーバリエーション */
-.tag-piano  { background-color: #FF9A9E; } /* ピンク */
-.tag-abacus { background-color: #FFB74D; } /* オレンジ */
-.tag-photo  { background-color: #4DB6AC; } /* ターコイズ */
-.tag-webit  { background-color: #64B5F6; } /* ブルー */
-.tag-travel { background-color: #BA68C8; } /* パープル */
-.tag-study  { background-color: #81C784; } /* グリーン */
-.tag-other  { background-color: #90A4AE; } /* ブルーグレー */
+.tag-piano  { background-color: #FF9A9E; } 
+.tag-abacus { background-color: #FFB74D; } 
+.tag-photo  { background-color: #4DB6AC; } 
+.tag-webit  { background-color: #64B5F6; } 
+.tag-travel { background-color: #BA68C8; } 
+.tag-study  { background-color: #81C784; } 
+.tag-other  { background-color: #90A4AE; } 
 
 .blog-btn-wrapper {
     text-align: center;
@@ -447,25 +446,18 @@ a { text-decoration: none; color: inherit; }
 /* ==================================================
    Photosセクション (コラージュ風レイアウト)
 ================================================== */
-.photos-section {
-    margin-top: 100px;
-    scroll-margin-top: 20px;
-}
-
 .photo-collage-container {
     position: relative;
     max-width: 800px;
-    height: 500px; /* PCでの高さを確保 */
+    height: 500px; 
     margin: 0 auto;
-    /* ホバーしてないときの領域をわかりやすくする場合は↓などを設定 */
-    /* border: 1px dashed #ccc; */
 }
 
 .photo-item {
     position: absolute;
     display: block;
-    width: 250px; /* 写真の基準サイズ */
-    border: 4px solid #fff; /* 白枠 */
+    width: 250px;
+    border: 4px solid #fff; 
     border-radius: 8px;
     box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
     transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
@@ -481,20 +473,146 @@ a { text-decoration: none; color: inherit; }
     border-radius: 4px;
 }
 
-/* ホバー時に手前に来て少し大きくなる */
 .photo-item:hover {
-    transform: scale(1.05) rotate(0deg) !important; /* 回転を戻して拡大 */
+    transform: scale(1.05) rotate(0deg) !important;
     z-index: 10;
     box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
 }
 
-/* 各写真の配置と傾き設定 */
 .photo-1 { top: 20px; left: 10%; transform: rotate(-8deg); z-index: 1; }
 .photo-2 { top: 80px; left: 40%; transform: rotate(5deg); z-index: 2; }
 .photo-3 { top: 30px; right: 10%; transform: rotate(-5deg); z-index: 3; }
 .photo-4 { bottom: 40px; left: 5%; transform: rotate(10deg); z-index: 4; }
 .photo-5 { bottom: 20px; left: 35%; transform: rotate(-3deg); z-index: 5; }
 .photo-6 { bottom: 60px; right: 5%; transform: rotate(8deg); z-index: 6; }
+
+
+/* ==================================================
+   Web Worksセクション (PCウィンドウ & ジグザグ配置)
+================================================== */
+.webworks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin: 0 60px;
+}
+
+.webwork-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+/* 偶数番目は画像とテキストを左右反転させる */
+.webwork-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+/* PCブラウザ風のフレーム */
+.webwork-window {
+    flex: 1;
+    display: block;
+    border: 2px solid #333;
+    border-radius: 12px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px rgba(51,51,51,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ホバーで浮き上がるアニメーション */
+.webwork-window:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0px #333;
+}
+
+.window-bar {
+    border-bottom: 2px solid #333;
+    padding: 10px 15px;
+    display: flex;
+    gap: 8px;
+    background-color: #f5f5f5;
+}
+
+/* ウィンドウ上部の3つの丸（遊び心で色付け） */
+.window-bar .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+.window-bar .dot:nth-child(1) { background-color: #FF9A9E; }
+.window-bar .dot:nth-child(2) { background-color: #FFB74D; }
+.window-bar .dot:nth-child(3) { background-color: #81C784; }
+
+.window-content {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.window-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.webwork-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.webwork-title {
+    font-size: 24px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.webwork-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.webwork-tags {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px;
+}
+
+.webwork-tag {
+    font-size: 11px;
+    font-family: sans-serif;
+    padding: 4px 12px;
+    border-radius: 15px;
+    color: #333; 
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border: 1px solid #333; 
+    background-color: #fff;
+}
+
+/* 詳細を見るボタン */
+.webwork-link {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #333;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    transition: opacity 0.3s;
+    margin-top: 10px;
+}
+
+.webwork-link:hover {
+    opacity: 0.7;
+}
 
 
 /* =========================================
@@ -560,7 +678,6 @@ a { text-decoration: none; color: inherit; }
     .news-tag { font-size: 10px; padding: 2px 8px; }
     .news-text { font-size: 12px; }
 
-    /* スマホ版プロフィール */
     .profile-section { margin-top: 40px; }
     .profile-card {
         flex-direction: column;
@@ -573,31 +690,45 @@ a { text-decoration: none; color: inherit; }
     .profile-img-wrapper { width: 160px; }
     .profile-action-area { justify-content: center; }
 
-    /* ▼ スマホ版ブログ & Web Works ▼ */
-    .blog-section, .webworks-section { margin-top: 60px; }
+    .blog-section, .photos-section, .webworks-section { margin-top: 60px; }
     .section-title { font-size: 24px; margin-bottom: 25px; }
     
     .blog-grid {
-        grid-template-columns: 1fr; /* スマホでは1列に */
+        grid-template-columns: 1fr;
         margin: 0 20px; 
         gap: 20px;
     }
     .blog-card { padding: 15px; }
     
-    /* ▼ スマホ版 Photos (コラージュ) ▼ */
-    .photos-section { margin-top: 60px; }
+    /* ▼ スマホ版 Photos ▼ */
     .photo-collage-container {
-        height: 600px; /* スマホ用に縦長に調整 */
+        height: 600px; 
         max-width: 100%;
     }
     .photo-item {
-        width: 180px; /* スマホ用に少し小さく */
+        width: 180px; 
     }
-    /* スマホでの各写真の配置調整 (画面内に収まるように) */
     .photo-1 { top: 10px; left: 5%; }
     .photo-2 { top: 100px; right: 5%; left: auto; }
     .photo-3 { top: 220px; left: 10%; right: auto; }
     .photo-4 { top: 320px; right: 10%; left: auto; bottom: auto; }
     .photo-5 { top: 440px; left: 5%; bottom: auto; }
     .photo-6 { top: 400px; right: 5%; bottom: auto; }
+    
+    /* ▼ スマホ版 Web Works ▼ */
+    .webworks-list {
+        margin: 0 20px;
+        gap: 40px;
+    }
+    /* スマホでは縦並びに統一 */
+    .webwork-item, .webwork-item:nth-child(even) {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .webwork-window {
+        width: 100%;
+    }
+    .webwork-title {
+        font-size: 20px;
+    }
 }
