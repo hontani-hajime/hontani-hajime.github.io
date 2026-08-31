@@ -331,9 +331,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   ブログセクション (デザイン改善版)
+   ブログセクション & WebWorksセクション 共通
 ================================================== */
-.blog-section {
+.blog-section, .webworks-section {
     margin-top: 80px;
     scroll-margin-top: 20px;
 }
@@ -347,7 +347,7 @@ a { text-decoration: none; color: inherit; }
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* PCでは3列に変更 */
+    grid-template-columns: repeat(3, 1fr); /* PCでは3列 */
     gap: 30px;
     margin: 0 60px; /* プロフィールカードと幅を合わせる */
 }
@@ -373,7 +373,7 @@ a { text-decoration: none; color: inherit; }
     box-shadow: 8px 8px 0px #333;
 }
 
-/* ブログ画像の枠線と余白設定 */
+/* 画像の枠線と余白設定 */
 .blog-img-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -444,6 +444,59 @@ a { text-decoration: none; color: inherit; }
     margin-top: 50px;
 }
 
+/* ==================================================
+   Photosセクション (コラージュ風レイアウト)
+================================================== */
+.photos-section {
+    margin-top: 100px;
+    scroll-margin-top: 20px;
+}
+
+.photo-collage-container {
+    position: relative;
+    max-width: 800px;
+    height: 500px; /* PCでの高さを確保 */
+    margin: 0 auto;
+    /* ホバーしてないときの領域をわかりやすくする場合は↓などを設定 */
+    /* border: 1px dashed #ccc; */
+}
+
+.photo-item {
+    position: absolute;
+    display: block;
+    width: 250px; /* 写真の基準サイズ */
+    border: 4px solid #fff; /* 白枠 */
+    border-radius: 8px;
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+/* ホバー時に手前に来て少し大きくなる */
+.photo-item:hover {
+    transform: scale(1.05) rotate(0deg) !important; /* 回転を戻して拡大 */
+    z-index: 10;
+    box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
+}
+
+/* 各写真の配置と傾き設定 */
+.photo-1 { top: 20px; left: 10%; transform: rotate(-8deg); z-index: 1; }
+.photo-2 { top: 80px; left: 40%; transform: rotate(5deg); z-index: 2; }
+.photo-3 { top: 30px; right: 10%; transform: rotate(-5deg); z-index: 3; }
+.photo-4 { bottom: 40px; left: 5%; transform: rotate(10deg); z-index: 4; }
+.photo-5 { bottom: 20px; left: 35%; transform: rotate(-3deg); z-index: 5; }
+.photo-6 { bottom: 60px; right: 5%; transform: rotate(8deg); z-index: 6; }
+
+
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
 ========================================= */
@@ -457,7 +510,7 @@ a { text-decoration: none; color: inherit; }
     .sub-title { font-size: 11px; margin-top: 8px; }
     #cursor.done { display: none; }
 
-    /* ハンバーガーメニュー (2本線対応) */
+    /* ハンバーガーメニュー */
     .hamburger {
         display: flex; flex-direction: column; justify-content: space-between;
         width: 30px; height: 14px; position: absolute; right: 20px; top: 25px; cursor: pointer; z-index: 999;
@@ -487,42 +540,17 @@ a { text-decoration: none; color: inherit; }
         margin-top: 20px;
     }
     
-    .hero-text { 
-        grid-column: 1 / 2; 
-        grid-row: 1 / 2; 
-        font-size: 18px; 
-        text-align: center; 
-    }
-    
-    .hero-gallery { 
-        grid-column: 1 / 2; 
-        grid-row: 2 / 3; 
-        width: 100%; 
-    }
-    
-    .news-section {
-        grid-column: 1 / 2;
-        grid-row: 3 / 4;
-    }
+    .hero-text { grid-column: 1 / 2; grid-row: 1 / 2; font-size: 18px; text-align: center; }
+    .hero-gallery { grid-column: 1 / 2; grid-row: 2 / 3; width: 100%; }
+    .news-section { grid-column: 1 / 2; grid-row: 3 / 4; }
 
     .news-fade { display: none; }
     .news-btn-wrapper { margin-top: 15px; }
 
-    .news-section:not(.is-expanded) .news-list li:nth-child(3) {
-        opacity: 0.2;
-        pointer-events: none;
-    }
-    .news-section:not(.is-expanded) .news-list li:nth-child(n+4) {
-        display: none;
-    }
-
-    .news-section.is-expanded .news-list li:nth-child(3) {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    .news-section.is-expanded .news-list li:nth-child(n+4) {
-        display: flex; 
-    }
+    .news-section:not(.is-expanded) .news-list li:nth-child(3) { opacity: 0.2; pointer-events: none; }
+    .news-section:not(.is-expanded) .news-list li:nth-child(n+4) { display: none; }
+    .news-section.is-expanded .news-list li:nth-child(3) { opacity: 1; pointer-events: auto; }
+    .news-section.is-expanded .news-list li:nth-child(n+4) { display: flex; }
 
     .news-sidebar { padding-right: 12px; min-width: 55px; }
     .news-content-area { padding-left: 12px; }
@@ -533,9 +561,7 @@ a { text-decoration: none; color: inherit; }
     .news-text { font-size: 12px; }
 
     /* スマホ版プロフィール */
-    .profile-section {
-        margin-top: 40px;
-    }
+    .profile-section { margin-top: 40px; }
     .profile-card {
         flex-direction: column;
         text-align: center;
@@ -543,32 +569,35 @@ a { text-decoration: none; color: inherit; }
         margin: 0; 
         gap: 20px;
     }
-    .profile-name-area {
-        justify-content: center;
-    }
-    .profile-img-wrapper {
-        width: 160px; 
-    }
-    
-    .profile-action-area {
-        justify-content: center;
-    }
+    .profile-name-area { justify-content: center; }
+    .profile-img-wrapper { width: 160px; }
+    .profile-action-area { justify-content: center; }
 
-    /* ▼ スマホ版ブログ ▼ */
-    .blog-section {
-        margin-top: 60px;
-    }
-    .section-title {
-        font-size: 24px;
-        margin-bottom: 25px;
-    }
+    /* ▼ スマホ版ブログ & Web Works ▼ */
+    .blog-section, .webworks-section { margin-top: 60px; }
+    .section-title { font-size: 24px; margin-bottom: 25px; }
+    
     .blog-grid {
         grid-template-columns: 1fr; /* スマホでは1列に */
         margin: 0 20px; 
         gap: 20px;
     }
-    .blog-card {
-        padding: 15px;
+    .blog-card { padding: 15px; }
+    
+    /* ▼ スマホ版 Photos (コラージュ) ▼ */
+    .photos-section { margin-top: 60px; }
+    .photo-collage-container {
+        height: 600px; /* スマホ用に縦長に調整 */
+        max-width: 100%;
     }
-    /* スマホ版でもタップ時に少し動くように設定可能ですが、デフォルト状態でも可愛く見えます */
+    .photo-item {
+        width: 180px; /* スマホ用に少し小さく */
+    }
+    /* スマホでの各写真の配置調整 (画面内に収まるように) */
+    .photo-1 { top: 10px; left: 5%; }
+    .photo-2 { top: 100px; right: 5%; left: auto; }
+    .photo-3 { top: 220px; left: 10%; right: auto; }
+    .photo-4 { top: 320px; right: 10%; left: auto; bottom: auto; }
+    .photo-5 { top: 440px; left: 5%; bottom: auto; }
+    .photo-6 { top: 400px; right: 5%; bottom: auto; }
 }
