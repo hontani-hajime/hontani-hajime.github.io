@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     startTypingAnimation();
 
-    // ハンバーガーメニュー (クラスの切り替え)
+    // ハンバーガーメニュー
     const hamburger = document.getElementById('hamburger');
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
@@ -46,48 +46,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!newsSection || !newsListContainer || !gallery || !textElement) return;
 
         if (isMobile) {
-            // スマホ版はCSS側で表示件数を制御するため高さをリセット
             newsListContainer.style.maxHeight = '';
         } else {
-            // PC版で「続きを見る」が押されていない場合
             if (!newsSection.classList.contains('is-expanded')) {
                 const galleryHeight = gallery.offsetHeight;
                 const textHeight = textElement.offsetHeight;
-                const rowGap = 30; // .hero-section の row-gap
+                const rowGap = 30; 
                 
-                // 右側の写真の下端までの残りの高さ
                 const availableHeight = galleryHeight - textHeight - rowGap;
-                
-                // 「続きを見る」ボタンが下にはみ出さないように、
-                // リスト自体の高さをさらに小さく制限する
                 const listContainerMaxHeight = availableHeight - 75; 
                 
                 if (listContainerMaxHeight > 100) {
                     newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
                 } else {
-                    newsListContainer.style.maxHeight = '150px'; // 最低限の高さ
+                    newsListContainer.style.maxHeight = '150px'; 
                 }
             } else {
-                // 展開時は高さ制限を解除
                 newsListContainer.style.maxHeight = 'none';
             }
         }
     }
 
-    // 「続きを見る」ボタンのクリックイベント
     const moreBtn = document.getElementById('news-more-btn');
     if (moreBtn) {
         moreBtn.addEventListener('click', () => {
             document.getElementById('news-section').classList.add('is-expanded');
-            adjustNewsHeight(); // 高さを再計算して展開
+            adjustNewsHeight(); 
         });
     }
 
-    // 画面サイズ変更時にお知らせの高さを再計算
     window.addEventListener('resize', adjustNewsHeight);
 
     // =========================================================
-    // ギャラリー（4秒ごとに一斉切り替え、横3つ×縦2つの6枚構成）
+    // ギャラリー
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
@@ -140,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.appendChild(itemDiv);
         }
 
-        // 画像がDOMに配置された直後にお知らせの高さを計算
         setTimeout(() => {
             adjustNewsHeight();
         }, 100);
