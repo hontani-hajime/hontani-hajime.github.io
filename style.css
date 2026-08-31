@@ -454,38 +454,36 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   Photosセクション (綺麗に整列しつつ遊び心を残すGridレイアウトに刷新！)
+   Photosセクション
 ================================================== */
 .photo-collage-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* PCでは3列で綺麗に整列 */
-    gap: 30px; /* 写真同士のすき間 */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px; /* 画面端の余白 */
+    padding: 20px; 
 }
 
 .photo-item {
     display: block;
     background-color: #fff;
-    padding: 12px; /* 白い縁（ポラロイド風に枠を付けます） */
+    padding: 12px; 
     border-radius: 4px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease;
     text-decoration: none;
-    position: relative; /* hover時にz-indexを効かせるため */
+    position: relative; 
 }
 
-/* 縦長・横長をすべて同じ比率で綺麗にトリミング */
 .photo-item img {
     width: 100%;
-    aspect-ratio: 4 / 3; /* ここで統一感を出します */
+    aspect-ratio: 4 / 3; 
     object-fit: cover;
     display: block;
     border-radius: 2px;
 }
 
-/* 綺麗に並べつつ、CSSの機能で交互に少しだけ傾けて「グラグラ」の遊び心を演出 */
 .photo-item:nth-child(1) { transform: rotate(-3deg); }
 .photo-item:nth-child(2) { transform: rotate(2deg); }
 .photo-item:nth-child(3) { transform: rotate(-2deg); }
@@ -493,7 +491,6 @@ a { text-decoration: none; color: inherit; }
 .photo-item:nth-child(5) { transform: rotate(-4deg); }
 .photo-item:nth-child(6) { transform: rotate(1deg); }
 
-/* マウスを乗せたら真っ直ぐになって少し浮かせる */
 .photo-item:hover {
     transform: scale(1.05) rotate(0deg) !important;
     box-shadow: 0 12px 25px rgba(0,0,0,0.2);
@@ -710,7 +707,7 @@ a { text-decoration: none; color: inherit; }
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background-color 0.3s;
-    z-index: 9999;
+    z-index: 9000; /* ★ここを修正しました★ メニューより下に隠れるように数値を調整 */
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .page-top-btn.is-show {
@@ -738,7 +735,7 @@ a { text-decoration: none; color: inherit; }
         padding: 15px; 
         position: relative; /* stickyを解除 */
         box-shadow: none;
-        z-index: 1;
+        z-index: 9990; /* ★ここを修正しました★ メニュー全体が他の要素より手前に来るように数値を調整 */
     }
     .header-inner { flex-direction: column; position: static; }
     .logo-area { flex-direction: column; text-align: center; width: 100%; padding: 0 10px; box-sizing: border-box; }
@@ -750,12 +747,12 @@ a { text-decoration: none; color: inherit; }
 
     /* ハンバーガーメニュー (右上に固定追従) */
     .hamburger {
-        position: fixed; /* ここだけ画面に固定 */
+        position: fixed; 
         top: 15px; 
         right: 15px; 
         width: 44px; 
         height: 44px; 
-        background-color: rgba(255, 255, 255, 0.95); /* スクロールしても見えるよう白丸背景 */
+        background-color: rgba(255, 255, 255, 0.95); 
         border: 1px solid #ddd;
         border-radius: 50%;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -765,7 +762,7 @@ a { text-decoration: none; color: inherit; }
         flex-direction: column; 
         justify-content: center;
         align-items: center;
-        gap: 6px; /* 二重線の間隔 */
+        gap: 6px; 
     }
     .hamburger span {
         display: block; width: 20px; height: 2px; background-color: #333;
@@ -841,23 +838,19 @@ a { text-decoration: none; color: inherit; }
     }
     .blog-card { padding: 15px; }
 
-    /* ==============================
-       スマホ版 Photos (綺麗に2列で並べます！)
-    ============================== */
+    /* スマホ版 Photos */
     .photo-collage-container {
-        grid-template-columns: repeat(2, 1fr); /* スマホは2列 */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 15px;
         padding: 10px;
         margin: 0 10px;
     }
     
     .photo-item {
-        padding: 8px; /* スマホ画面に合わせて、白い縁を少しだけ細く調整 */
+        padding: 8px; 
     }
 
-    /* ==============================
-       スマホ版 Web Works (区切り線)
-    ============================== */
+    /* スマホ版 Web Works */
     .webworks-list {
         margin: 0 20px;
         gap: 0; 
