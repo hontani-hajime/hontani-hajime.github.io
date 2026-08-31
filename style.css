@@ -454,50 +454,51 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   Photosセクション (画像配置・比率を改善！)
+   Photosセクション (綺麗に整列しつつ遊び心を残すGridレイアウトに刷新！)
 ================================================== */
 .photo-collage-container {
-    position: relative;
-    max-width: 900px; /* 少し広くしました */
-    height: 550px; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* PCでは3列で綺麗に整列 */
+    gap: 30px; /* 写真同士のすき間 */
+    max-width: 900px;
     margin: 0 auto;
+    padding: 20px; /* 画面端の余白 */
 }
 
 .photo-item {
-    position: absolute;
     display: block;
-    width: 250px;
-    border: 4px solid #fff; 
-    border-radius: 8px;
-    box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
-    padding: 8px;
-    box-sizing: border-box;
+    padding: 12px; /* 白い縁（ポラロイド風に枠を付けます） */
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease;
+    text-decoration: none;
+    position: relative; /* hover時にz-indexを効かせるため */
 }
 
-/* 縦長写真が混ざって枠がおかしくならないよう、強制的に横長(4:3)に切り抜きます */
+/* 縦長・横長をすべて同じ比率で綺麗にトリミング */
 .photo-item img {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 3; /* ここで統一感を出します */
     object-fit: cover;
     display: block;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
+/* 綺麗に並べつつ、CSSの機能で交互に少しだけ傾けて「グラグラ」の遊び心を演出 */
+.photo-item:nth-child(1) { transform: rotate(-3deg); }
+.photo-item:nth-child(2) { transform: rotate(2deg); }
+.photo-item:nth-child(3) { transform: rotate(-2deg); }
+.photo-item:nth-child(4) { transform: rotate(3deg); }
+.photo-item:nth-child(5) { transform: rotate(-4deg); }
+.photo-item:nth-child(6) { transform: rotate(1deg); }
+
+/* マウスを乗せたら真っ直ぐになって少し浮かせる */
 .photo-item:hover {
     transform: scale(1.05) rotate(0deg) !important;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     z-index: 10;
-    box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
 }
-
-/* PC版の配置：上段3枚、下段3枚に散らして被りを減らしました */
-.photo-1 { top: 10px; left: 5%; transform: rotate(-5deg); z-index: 1; }
-.photo-2 { top: 30px; left: 38%; transform: rotate(3deg); z-index: 2; }
-.photo-3 { top: 10px; right: 5%; transform: rotate(-4deg); z-index: 3; }
-.photo-4 { bottom: 20px; left: 10%; transform: rotate(5deg); z-index: 4; }
-.photo-5 { bottom: 0px; left: 42%; transform: rotate(-3deg); z-index: 5; }
-.photo-6 { bottom: 20px; right: 10%; transform: rotate(4deg); z-index: 6; }
 
 
 /* ==================================================
@@ -689,7 +690,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   TOPへ戻るボタン (追加！)
+   TOPへ戻るボタン
 ================================================== */
 .page-top-btn {
     position: fixed;
@@ -841,22 +842,18 @@ a { text-decoration: none; color: inherit; }
     .blog-card { padding: 15px; }
 
     /* ==============================
-       スマホ版 Photos
+       スマホ版 Photos (綺麗に2列で並べます！)
     ============================== */
     .photo-collage-container {
-        height: 480px; 
-        max-width: 100%;
-        margin: 0 auto;
+        grid-template-columns: repeat(2, 1fr); /* スマホは2列 */
+        gap: 15px;
+        padding: 10px;
+        margin: 0 10px;
     }
+    
     .photo-item {
-        width: 44%; 
+        padding: 8px; /* スマホ画面に合わせて、白い縁を少しだけ細く調整 */
     }
-    .photo-1 { top: 0px; left: 4%; transform: rotate(-5deg); z-index: 1; }
-    .photo-2 { top: 30px; right: 4%; left: auto; transform: rotate(4deg); z-index: 2; }
-    .photo-3 { top: 140px; left: 6%; right: auto; transform: rotate(5deg); z-index: 3; }
-    .photo-4 { top: 170px; right: 2%; left: auto; transform: rotate(-3deg); z-index: 4; }
-    .photo-5 { top: 290px; left: 2%; bottom: auto; transform: rotate(-4deg); z-index: 5; }
-    .photo-6 { top: 310px; right: 6%; bottom: auto; transform: rotate(6deg); z-index: 6; }
 
     /* ==============================
        スマホ版 Web Works (区切り線)
