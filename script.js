@@ -122,6 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initGallery() {
+        if(!galleryContainer) return;
+
         galleryContainer.innerHTML = '';
 
         const initialImages = getNextImages([], totalItems);
