@@ -331,7 +331,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   ブログセクション
+   ブログセクション (デザイン改善版)
 ================================================== */
 .blog-section {
     margin-top: 80px;
@@ -347,7 +347,7 @@ a { text-decoration: none; color: inherit; }
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* PCでは2列 */
+    grid-template-columns: repeat(3, 1fr); /* PCでは3列に変更 */
     gap: 30px;
     margin: 0 60px; /* プロフィールカードと幅を合わせる */
 }
@@ -362,12 +362,15 @@ a { text-decoration: none; color: inherit; }
     gap: 15px;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* アニメーションと影の初期設定 */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); 
 }
 
+/* ホバー時にポップに浮き上がり、濃い影をつける */
 .blog-card:hover {
-    transform: translateY(-5px); /* ホバーで少し浮き上がる */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    transform: translate(-4px, -4px); 
+    box-shadow: 8px 8px 0px #333;
 }
 
 /* ブログ画像の枠線と余白設定 */
@@ -386,7 +389,7 @@ a { text-decoration: none; color: inherit; }
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 4px; /* 枠の丸みから線と余白を引いて並行にする */
+    border-radius: 4px;
 }
 
 .blog-content {
@@ -400,6 +403,7 @@ a { text-decoration: none; color: inherit; }
     font-size: 13px;
     color: #666;
     margin-bottom: 8px;
+    font-weight: bold;
 }
 
 .blog-title {
@@ -410,9 +414,9 @@ a { text-decoration: none; color: inherit; }
 
 .blog-tags {
     display: flex;
-    flex-wrap: wrap; /* タグが多い場合は折り返す */
+    flex-wrap: wrap; 
     gap: 8px;
-    margin-top: auto; /* タグをカードの下部に押し下げる */
+    margin-top: auto; 
 }
 
 .blog-tag {
@@ -420,9 +424,10 @@ a { text-decoration: none; color: inherit; }
     font-family: sans-serif;
     padding: 4px 12px;
     border-radius: 15px;
-    color: #fff;
+    color: #333; /* 文字色を黒にしてポップに */
     font-weight: bold;
     letter-spacing: 0.05em;
+    border: 1px solid #333; /* 黒い枠線を追加 */
 }
 
 /* タグのカラーバリエーション */
@@ -436,7 +441,7 @@ a { text-decoration: none; color: inherit; }
 
 .blog-btn-wrapper {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 /* =========================================
@@ -565,4 +570,5 @@ a { text-decoration: none; color: inherit; }
     .blog-card {
         padding: 15px;
     }
+    /* スマホ版でもタップ時に少し動くように設定可能ですが、デフォルト状態でも可愛く見えます */
 }
