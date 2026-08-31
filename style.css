@@ -260,7 +260,6 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
 }
 
-/* ▼ プロフィール画像の枠線と余白を追加 ▼ */
 .profile-img-wrapper {
     width: 240px; 
     flex-shrink: 0;
@@ -277,7 +276,7 @@ a { text-decoration: none; color: inherit; }
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 6px; /* 外枠16 - 線2 - 余白8 = 6px (並行になる丸み) */
+    border-radius: 6px; 
 }
 
 .profile-info {
@@ -310,7 +309,6 @@ a { text-decoration: none; color: inherit; }
     color: #444;
 }
 
-/* ▼ ボタンとSNSアイコンを横並びにするレイアウト設定 ▼ */
 .profile-action-area {
     display: flex;
     align-items: center;
@@ -330,6 +328,115 @@ a { text-decoration: none; color: inherit; }
 
 .profile-btn:hover {
     opacity: 0.7;
+}
+
+/* ==================================================
+   ブログセクション
+================================================== */
+.blog-section {
+    margin-top: 80px;
+    scroll-margin-top: 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* PCでは2列 */
+    gap: 30px;
+    margin: 0 60px; /* プロフィールカードと幅を合わせる */
+}
+
+.blog-card {
+    border: 2px solid #333;
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px); /* ホバーで少し浮き上がる */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+/* ブログ画像の枠線と余白設定 */
+.blog-img-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 2px solid #333;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.blog-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px; /* 枠の丸みから線と余白を引いて並行にする */
+}
+
+.blog-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.blog-date {
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.blog-title {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap; /* タグが多い場合は折り返す */
+    gap: 8px;
+    margin-top: auto; /* タグをカードの下部に押し下げる */
+}
+
+.blog-tag {
+    font-size: 11px;
+    font-family: sans-serif;
+    padding: 4px 12px;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+/* タグのカラーバリエーション */
+.tag-piano  { background-color: #FF9A9E; } /* ピンク */
+.tag-abacus { background-color: #FFB74D; } /* オレンジ */
+.tag-photo  { background-color: #4DB6AC; } /* ターコイズ */
+.tag-webit  { background-color: #64B5F6; } /* ブルー */
+.tag-travel { background-color: #BA68C8; } /* パープル */
+.tag-study  { background-color: #81C784; } /* グリーン */
+.tag-other  { background-color: #90A4AE; } /* ブルーグレー */
+
+.blog-btn-wrapper {
+    text-align: center;
+    margin-top: 40px;
 }
 
 /* =========================================
@@ -438,8 +545,24 @@ a { text-decoration: none; color: inherit; }
         width: 160px; 
     }
     
-    /* スマホ版ではボタンとアイコンを中央揃えに */
     .profile-action-area {
         justify-content: center;
+    }
+
+    /* ▼ スマホ版ブログ ▼ */
+    .blog-section {
+        margin-top: 60px;
+    }
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    .blog-grid {
+        grid-template-columns: 1fr; /* スマホでは1列に */
+        margin: 0 20px; 
+        gap: 20px;
+    }
+    .blog-card {
+        padding: 15px;
     }
 }
