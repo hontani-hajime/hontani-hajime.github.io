@@ -14,13 +14,6 @@ body {
 a { text-decoration: none; color: inherit; }
 .font-bold { font-weight: bold; }
 
-/* ▼ DotGothic16 のクラス定義 ▼ */
-.dotgothic16-regular {
-    font-family: "DotGothic16", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
 .top-line { width: 100%; height: 1px; background-color: #000000; }
 
 /* ==================================================
@@ -40,10 +33,12 @@ a { text-decoration: none; color: inherit; }
 #cursor { font-weight: 400; margin-left: 2px; color: #000; }
 #cursor.done { animation: none; opacity: 1; }
 
+/* メインメニュー（PC & スマホ共通） */
 .global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
 .global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
-.global-nav a { font-size: 16px; transition: color 0.3s; font-weight: bold; }
+.global-nav a { display: flex; align-items: center; gap: 8px; font-size: 16px; transition: color 0.3s; font-weight: bold; }
 .global-nav a:hover { color: #888; }
+.global-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .hamburger { display: none; }
 
 .sns-list { display: flex; align-items: center; gap: 10px; }
@@ -101,7 +96,7 @@ a { text-decoration: none; color: inherit; }
    余白の調整 (お知らせとProfileの間)
 ================================================== */
 .profile-section {
-    margin-top: 180px; /* ここを大きくして間隔を開けました */
+    margin-top: 180px; 
     scroll-margin-top: 120px;
 }
 .blog-section, .photos-section, .webworks-section {
@@ -153,7 +148,7 @@ a { text-decoration: none; color: inherit; }
     color: #333;
     border: 2px solid #333;
     border-radius: 50px;
-    padding: 10px 16px 10px 32px; /* 右側は丸アイコン分少し狭く */
+    padding: 10px 16px 10px 32px; 
     font-size: 15px;
     font-family: inherit;
     font-weight: bold;
@@ -162,12 +157,12 @@ a { text-decoration: none; color: inherit; }
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     
-    /* ▼ 初期状態で影をつけ、左上に浮かせます ▼ */
+    /* 初期状態で影をつけ、左上に浮かせます */
     box-shadow: 4px 4px 0px #333;
     transform: translate(-4px, -4px);
 }
 .action-btn:hover {
-    /* ▼ ホバーすると影がなくなり、右下に移動して「凹む」 ▼ */
+    /* ホバーすると影がなくなり、右下に移動して「凹む」 */
     box-shadow: 0px 0px 0px #333;
     transform: translate(0, 0);
 }
@@ -193,101 +188,8 @@ a { text-decoration: none; color: inherit; }
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
-    /* ほんの少し右にずらすとバランスがいい */
     margin-left: 2px;
 }
-
-
-/* ==================================================
-   ひょっこり画像 (各所に配置して背後から出す)
-================================================== */
-/* 監視対象の親要素に relative をかけて裏に仕込む */
-.observe-target {
-    position: relative;
-    z-index: 1; /* 手前のカードなど */
-}
-.pop-element {
-    position: absolute;
-    width: 75px; 
-    z-index: -1; /* 親要素の背後に隠す */
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* --- Profile --- */
-/* 右上から右倒れ */
-.pop-prof-tr { top: 10px; right: 20px; transform: translateY(40px) rotate(0); }
-.is-show > .pop-prof-tr { transform: translateY(-35px) rotate(30deg); opacity: 1; }
-/* 左下から左倒れ */
-.pop-prof-bl { bottom: 10px; left: 20px; transform: translateY(-40px) rotate(0); }
-.is-show > .pop-prof-bl { transform: translateY(35px) translateX(-15px) rotate(-30deg); opacity: 1; }
-
-/* --- Blog (通常) --- */
-/* 左上から右倒れ */
-.pop-blog-tl { top: 10px; left: 20px; transform: translateY(40px) rotate(0); }
-.is-show > .pop-blog-tl { transform: translateY(-35px) rotate(30deg); opacity: 1; }
-
-/* --- Blog (最新記事のスペシャル版) --- */
-.pop-blog-new-container {
-    position: absolute;
-    top: -45px; left: 20px;
-    z-index: -1;
-}
-.pop-blog-new-img {
-    width: 75px; 
-    transform: translateY(100%);
-    opacity: 0;
-}
-.pop-bubble {
-    position: absolute;
-    top: -25px; left: 45px;
-    background: #e83e8c; color: #fff; font-size: 13px; font-weight: bold;
-    padding: 4px 10px; border-radius: 8px;
-    opacity: 0;
-    white-space: nowrap;
-    transform: translateY(10px);
-}
-.pop-bubble::after {
-    content: ''; position: absolute; bottom: -4px; left: 10px;
-    width: 8px; height: 8px; background: #e83e8c; transform: rotate(45deg);
-}
-/* is-showが付いたらアニメーションスタート */
-.is-show .pop-blog-new-img {
-    animation: popAndFall 3.5s forwards;
-}
-.is-show .pop-bubble {
-    animation: showBubble 3.5s forwards;
-}
-
-@keyframes popAndFall {
-    0%   { transform: translateY(100%) rotate(0); opacity: 0; }
-    15%  { transform: translateY(0) rotate(20deg); opacity: 1; } /* 出る */
-    30%  { transform: translateY(40px) rotate(80deg); opacity: 0; } /* コケて引っ込む */
-    45%  { transform: translateY(40px) rotate(80deg); opacity: 0; } /* ちょっと待機 */
-    60%  { transform: translateY(-10px) rotate(-10deg); opacity: 1; } /* もう一回出る */
-    100% { transform: translateY(-10px) rotate(-10deg); opacity: 1; }
-}
-@keyframes showBubble {
-    0%, 65% { opacity: 0; transform: translateY(10px); }
-    75%, 100% { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Photos --- */
-/* コンテナ全体に対して配置 */
-/* 右上から右倒れ (上から出します) */
-.pop-photo-tr { top: 0; right: 20px; transform: translateY(40px) rotate(0); }
-.is-show > .pop-photo-tr { transform: translateY(-35px) rotate(20deg); opacity: 1; }
-/* 左下から右倒れ */
-.pop-photo-bl { bottom: 0; left: 20px; transform: translateY(-40px) rotate(0); }
-.is-show > .pop-photo-bl { transform: translateY(35px) translateX(-15px) rotate(30deg); opacity: 1; }
-
-/* --- WebWorks --- */
-/* 1,3番目 (左上から右倒れ) */
-.pop-ww-tl { top: 10px; left: 20px; transform: translateY(40px) rotate(0); }
-.is-show > .pop-ww-tl { transform: translateY(-40px) rotate(30deg); opacity: 1; }
-/* 2番目 (右上から左倒れ) */
-.pop-ww-tr { top: 10px; right: 20px; transform: translateY(40px) rotate(0); }
-.is-show > .pop-ww-tr { transform: translateY(-40px) rotate(-30deg); opacity: 1; }
 
 
 /* ==================================================
@@ -307,7 +209,7 @@ a { text-decoration: none; color: inherit; }
    ブログセクション
 ================================================== */
 .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 0 60px; }
-.blog-card { border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); }
+.blog-card { border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); position: relative; z-index: 1; }
 .blog-card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; z-index: 10; }
 .blog-img-wrapper { width: 100%; aspect-ratio: 16 / 9; border: 2px solid #333; border-radius: 12px; background-color: #fff; padding: 6px; box-sizing: border-box; }
 .blog-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
@@ -328,7 +230,7 @@ a { text-decoration: none; color: inherit; }
 /* ==================================================
    Photosセクション
 ================================================== */
-.photo-collage-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; padding: 20px; }
+.photo-collage-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
 .photo-item { display: block; background-color: #fff; padding: 12px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease; text-decoration: none; position: relative; }
 .photo-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
 .photo-item:nth-child(1) { transform: rotate(-3deg); }
@@ -345,8 +247,8 @@ a { text-decoration: none; color: inherit; }
 .webworks-list { display: flex; flex-direction: column; gap: 60px; margin: 0 60px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; }
 .webwork-item:nth-child(even) { flex-direction: row-reverse; }
-.webwork-window { flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; box-shadow: 4px 4px 0px rgba(51,51,51,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; color: inherit; }
-.webwork-window:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; }
+.webwork-window { flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; box-shadow: 4px 4px 0px rgba(51,51,51,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; }
+.webwork-window:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; z-index: 10; }
 .window-bar { border-bottom: 2px solid #333; padding: 10px 15px; display: flex; gap: 8px; background-color: #f5f5f5; }
 .window-bar .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #333; }
 .window-bar .dot:nth-child(1) { background-color: #FF9A9E; }
@@ -382,6 +284,7 @@ a { text-decoration: none; color: inherit; }
 .page-top-btn svg { margin-bottom: 2px; }
 .page-top-btn span { font-size: 11px; letter-spacing: 0.05em; }
 
+
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
 ========================================= */
@@ -404,7 +307,11 @@ a { text-decoration: none; color: inherit; }
 
     .global-nav { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 0.98); margin: 0; opacity: 0; visibility: hidden; display: flex; justify-content: center; align-items: center; z-index: 9900; transition: opacity 0.4s ease, visibility 0.4s ease; }
     .global-nav.is-open { opacity: 1; visibility: visible; }
+    
+    /* スマホ版メニューのフォントサイズを少し大きく調整 */
     .global-nav ul { flex-direction: column; gap: 40px; }
+    .global-nav a { font-size: 20px; }
+    .global-nav svg { width: 24px; height: 24px; }
 
     .main-content { padding: 20px; }
     .hero-section { grid-template-columns: 1fr; grid-template-rows: auto auto auto; column-gap: 0; row-gap: 30px; margin-top: 20px; }
@@ -450,10 +357,6 @@ a { text-decoration: none; color: inherit; }
 
     .site-footer { padding: 40px 20px; margin-top: 80px; }
     .footer-links { flex-direction: column; gap: 15px; }
-
-    /* スマホ版 ひょっこり画像 (小さく) */
-    .pop-element { width: 55px; }
-    .pop-blog-new-img { width: 55px; }
 
     .page-top-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
     .page-top-btn svg { width: 20px; height: 20px; }
