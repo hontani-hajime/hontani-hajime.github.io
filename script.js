@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // =========================================================
     // タイピングアニメーション
-    // =========================================================
     const textPart1 = "本谷元";
     const textPart2 = "のはじめちゃんサイト";
     const typingTextElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('cursor');
+    const navElement = document.getElementById('global-nav');
 
     const typingSpeed = 150; 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -23,93 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         cursorElement.classList.remove('blinking');
         cursorElement.classList.add('done');
+        if (window.innerWidth > 768) navElement.style.opacity = '1';
     }
     startTypingAnimation();
 
-    // =========================================================
-    // スマホ用ハンバーガーメニュー
-    // =========================================================
+    // ハンバーガーメニュー
     const hamburger = document.getElementById('hamburger');
-    const fullscreenNav = document.getElementById('fullscreen-nav');
-    
-    // フルスクリーンメニュー内のリンクをクリックしたら閉じる処理を追加
-    const fullscreenLinks = fullscreenNav.querySelectorAll('a');
-
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
-        fullscreenNav.classList.toggle('is-open');
+        navElement.classList.toggle('is-open');
     });
-
-    fullscreenLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('is-active');
-            fullscreenNav.classList.remove('is-open');
-        });
-    });
-
-    // =========================================================
-    // スクロール検知 (PC版追従メニュー ＆ TOPボタン)
-    // =========================================================
-    const floatingMenu = document.getElementById('floating-menu');
-    const topBtn = document.getElementById('page-top-btn');
-    const header = document.querySelector('.site-header');
-
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-
-        // 1. PC用フローティングメニューの表示制御
-        if (window.innerWidth > 768 && floatingMenu) {
-             const headerHeight = header.offsetHeight;
-             if (scrollY > headerHeight) {
-                 floatingMenu.classList.add('is-visible');
-             } else {
-                 floatingMenu.classList.remove('is-visible');
-             }
-        }
-
-        // 2. TOPへ戻るボタンの表示制御
-        if (scrollY > 300) {
-            topBtn.classList.add('is-show');
-        } else {
-            topBtn.classList.remove('is-show');
-        }
-    });
-
-    // TOPへ戻るクリックイベント
-    topBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // =========================================================
-    // 「ヒョコッと出るイラスト」のスクロール連動アニメーション
-    // Intersection Observer を使用
-    // =========================================================
-    const hyokoElements = document.querySelectorAll('.hyoko-illust');
-    
-    // 画面内に20%入ってきたら発火する設定
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // 画面に入ったらクラスを付けてアニメーション発動
-                entry.target.classList.add('is-visible');
-            } else {
-                // 画面から出たらクラスを外す（スクロールするたびに何度でもヒョコッと出るように）
-                entry.target.classList.remove('is-visible');
-            }
-        });
-    }, observerOptions);
-
-    hyokoElements.forEach(el => observer.observe(el));
-
 
     // =========================================================
     // お知らせセクションの高さ自動調整 (PC版のみ)
@@ -156,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', adjustNewsHeight);
 
     // =========================================================
-    // ギャラリー (自動切り替え)
+    // ギャラリー
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
@@ -229,9 +151,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.src = nextSrcs[index];
                     img.style.opacity = '1';
                 });
-            }, 600); // フェード時間をCSS(0.6s)に合わせました
+            }, 500); 
         }, 4000); 
     }
 
     initGallery();
+
+
+    // =========================================================
+    // トップへ戻るボタン
+    // =========================================================
+    const topBtn = document.getElementById('page-top-btn');
+    
+    // スクロール検知でボタンを表示・非表示
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            topBtn.classList.add('is-show');
+        } else {
+            topBtn.classList.remove('is-show');
+        }
+    });
+
+    // クリックで上に戻る
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
