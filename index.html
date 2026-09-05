@@ -60,7 +60,7 @@
                 <span></span>
             </div>
 
-            <!-- ▼ PC用メインメニュー（スクロールで消えます） ▼ -->
+            <!-- ▼ PC用メインメニュー ▼ -->
             <nav class="global-nav" id="global-nav">
                 <ul>
                     <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
@@ -120,262 +120,277 @@
         </ul>
     </nav>
 
-    <main class="main-content">
-        <section class="hero-section">
-            <div class="hero-text klee-one-semibold">
-                本谷元が撮った写真や<br>
-                作ったサイトを紹介するよ！
-            </div>
+    <!-- 画面の端に対する絶対配置の基準となるラッパー -->
+    <div class="page-wrapper">
 
-            <div class="news-section" id="news-section">
-                <div class="news-container">
-                    <div class="news-sidebar">
-                        <div class="news-icon-wrapper">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                            </svg>
-                        </div>
-                        <div class="news-sidebar-title">お知らせ</div>
-                    </div>
+        <main class="main-content">
+            <section class="hero-section">
+                <div class="hero-text klee-one-semibold">
+                    本谷元が撮った写真や<br>
+                    作ったサイトを紹介するよ！
+                </div>
 
-                    <div class="news-content-area">
-                        <div class="news-list-container" id="news-list-container">
-                            <ul class="news-list">
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2026-08-29</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">サイト全体をリニューアルしました</div>
-                                </li>
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2026-03-21</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">トップページをリニューアルしました</div>
-                                </li>
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2026-01-29</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">サイト全体にWEBフォントを適用しました</div>
-                                </li>
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2026-01-01</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">新年あけましておめでとうございます。今年も当サイトをよろしくお願いします。</div>
-                                </li>
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2025-08-15</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">一部デザインを変更しました</div>
-                                </li>
-                                <li class="news-item">
-                                    <div class="news-meta"><span class="news-date">2025-01-01</span><span class="news-tag">お知らせ</span></div>
-                                    <div class="news-text">ノートの投稿を開始</div>
-                                </li>
-                            </ul>
-                            <div class="news-fade"></div>
+                <div class="news-section" id="news-section">
+                    <div class="news-container">
+                        <div class="news-sidebar">
+                            <div class="news-icon-wrapper">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                </svg>
+                            </div>
+                            <div class="news-sidebar-title">お知らせ</div>
                         </div>
-                        <div class="news-btn-wrapper">
-                            <button id="news-more-btn" class="read-more-btn">続きを見る</button>
+
+                        <div class="news-content-area">
+                            <div class="news-list-container" id="news-list-container">
+                                <ul class="news-list">
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2026-08-29</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">サイト全体をリニューアルしました</div>
+                                    </li>
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2026-03-21</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">トップページをリニューアルしました</div>
+                                    </li>
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2026-01-29</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">サイト全体にWEBフォントを適用しました</div>
+                                    </li>
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2026-01-01</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">新年あけましておめでとうございます。今年も当サイトをよろしくお願いします。</div>
+                                    </li>
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2025-08-15</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">一部デザインを変更しました</div>
+                                    </li>
+                                    <li class="news-item">
+                                        <div class="news-meta"><span class="news-date">2025-01-01</span><span class="news-tag">お知らせ</span></div>
+                                        <div class="news-text">ノートの投稿を開始</div>
+                                    </li>
+                                </ul>
+                                <div class="news-fade"></div>
+                            </div>
+                            <div class="news-btn-wrapper">
+                                <button id="news-more-btn" class="read-more-btn">続きを見る</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="hero-gallery" id="hero-gallery"></div>
-        </section>
+                <div class="hero-gallery" id="hero-gallery"></div>
+            </section>
 
-        <!-- ▼ プロフィールセクション ▼ -->
-        <section class="profile-section" id="profile">
-            <h2 class="section-title klee-one-semibold">Profile</h2>
+            <!-- ▼ プロフィールセクション ▼ -->
+            <section class="profile-section relative-section" id="profile">
+                <!-- 左からひょっこり -->
+                <img src="https://hontani-hajime.github.io/file/small-hajime.png" class="pop-image pop-left" alt="ひょっこりはじめちゃん">
+                
+                <h2 class="section-title klee-one-semibold">Profile</h2>
 
-            <div class="profile-card">
-                <div class="profile-img-wrapper">
-                    <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
-                </div>
-                <div class="profile-info">
-                    <div class="profile-name-area">
-                        <h2 class="profile-name klee-one-semibold">本谷 元</h2>
-                        <span class="profile-name-en">Hontani Hajime</span>
+                <div class="profile-card">
+                    <div class="profile-img-wrapper">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
                     </div>
-                    <p class="profile-text klee-one-regular">
-                        カメラとWeb制作をこよなく愛するクリエイターです。<br>
-                        日常の何気ない風景を切り取ったり、使いやすくて少し面白いサイトを作ったりするのが得意です。このサイトでは、これまでに撮影したお気に入りの写真や、制作に携わったWebサイトのポートフォリオをゆるく紹介していきます。よろしくお願いします！
-                    </p>
+                    <div class="profile-info">
+                        <div class="profile-name-area">
+                            <h2 class="profile-name klee-one-semibold">本谷 元</h2>
+                            <span class="profile-name-en">Hontani Hajime</span>
+                        </div>
+                        <p class="profile-text klee-one-regular">
+                            カメラとWeb制作をこよなく愛するクリエイターです。<br>
+                            日常の何気ない風景を切り取ったり、使いやすくて少し面白いサイトを作ったりするのが得意です。このサイトでは、これまでに撮影したお気に入りの写真や、制作に携わったWebサイトのポートフォリオをゆるく紹介していきます。よろしくお願いします！
+                        </p>
 
-                    <div class="profile-action-area">
-                        <a href="https://hontani-hajime.github.io/profile/" class="profile-btn klee-one-semibold">Profileページへ</a>
+                        <div class="profile-action-area">
+                            <a href="https://hontani-hajime.github.io/profile/" class="profile-btn klee-one-semibold">Profileページへ</a>
 
-                        <div class="sns-list">
-                            <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
-                                </div>
-                            </a>
-                            <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
-                                </div>
-                            </a>
-                            <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
-                                </div>
-                            </a>
+                            <div class="sns-list">
+                                <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
+                                    <div class="sns-circle">
+                                        <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
+                                    </div>
+                                </a>
+                                <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                                    <div class="sns-circle">
+                                        <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
+                                    </div>
+                                </a>
+                                <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                                    <div class="sns-circle">
+                                        <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- ▼ ブログセクション ▼ -->
-        <section class="blog-section" id="blog">
-            <h2 class="section-title klee-one-semibold">Blog</h2>
+            <!-- ▼ ブログセクション ▼ -->
+            <section class="blog-section relative-section" id="blog">
+                <!-- 右からひょっこり -->
+                <img src="https://hontani-hajime.github.io/file/small-hajime.png" class="pop-image pop-right" alt="ひょっこりはじめちゃん">
+                
+                <h2 class="section-title klee-one-semibold">Blog</h2>
 
-            <div class="blog-grid">
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
-                    <div class="blog-img-wrapper">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">2026.08.31</span>
-                        <h3 class="blog-title klee-one-semibold">春の桜を撮りに行きました</h3>
-                        <div class="blog-tags">
-                            <span class="blog-tag tag-photo">写真</span>
-                            <span class="blog-tag tag-travel">旅行</span>
+                <div class="blog-grid">
+                    <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                        <div class="blog-img-wrapper">
+                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                         </div>
-                    </div>
-                </a>
-
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
-                    <div class="blog-img-wrapper">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">2026.08.20</span>
-                        <h3 class="blog-title klee-one-semibold">新しいサイトのポートフォリオを作成中</h3>
-                        <div class="blog-tags">
-                            <span class="blog-tag tag-webit">WEB・IT</span>
-                            <span class="blog-tag tag-study">勉強</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
-                    <div class="blog-img-wrapper">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">2026.08.15</span>
-                        <h3 class="blog-title klee-one-semibold">久しぶりのピアノ発表会に向けて</h3>
-                        <div class="blog-tags">
-                            <span class="blog-tag tag-piano">ピアノ</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/blog/" class="profile-btn klee-one-semibold">Blogページへ</a>
-            </div>
-        </section>
-
-        <!-- ▼ フォトセクション ▼ -->
-        <section class="photos-section" id="photos">
-            <h2 class="section-title klee-one-semibold">Photos</h2>
-
-            <div class="photo-collage-container">
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/01.jpg" alt="Photo 1">
-                </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/02.jpg" alt="Photo 2">
-                </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/03.jpg" alt="Photo 3">
-                </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/04.jpg" alt="Photo 4">
-                </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/05.jpg" alt="Photo 5">
-                </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
-                    <img src="https://hontani-hajime.github.io/file/06.jpg" alt="Photo 6">
-                </a>
-            </div>
-
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/photos/" class="profile-btn klee-one-semibold">Photosページへ</a>
-            </div>
-        </section>
-
-        <!-- ▼ ウェブワークスセクション ▼ -->
-        <section class="webworks-section" id="web-works">
-            <h2 class="section-title klee-one-semibold">Web Works</h2>
-
-            <div class="webworks-list">
-                <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
-                        <div class="window-bar">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                        </div>
-                        <div class="window-content">
-                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 1">
+                        <div class="blog-content">
+                            <span class="blog-date">2026.08.31</span>
+                            <h3 class="blog-title klee-one-semibold">春の桜を撮りに行きました</h3>
+                            <div class="blog-tags">
+                                <span class="blog-tag tag-photo">写真</span>
+                                <span class="blog-tag tag-travel">旅行</span>
+                            </div>
                         </div>
                     </a>
-                    <div class="webwork-text">
-                        <h3 class="webwork-title klee-one-semibold">架空のカフェサイト制作</h3>
-                        <p class="webwork-desc klee-one-regular">落ち着いた雰囲気のカフェをイメージした架空のサイトです。スマートフォンでも見やすいレスポンシブデザインに対応しています。</p>
-                        <div class="webwork-tags">
-                            <span class="webwork-tag">HTML/CSS</span>
-                            <span class="webwork-tag">Design</span>
-                        </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
-                    </div>
-                </div>
 
-                <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
-                        <div class="window-bar">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                        <div class="blog-img-wrapper">
+                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                         </div>
-                        <div class="window-content">
-                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 2">
+                        <div class="blog-content">
+                            <span class="blog-date">2026.08.20</span>
+                            <h3 class="blog-title klee-one-semibold">新しいサイトのポートフォリオを作成中</h3>
+                            <div class="blog-tags">
+                                <span class="blog-tag tag-webit">WEB・IT</span>
+                                <span class="blog-tag tag-study">勉強</span>
+                            </div>
                         </div>
                     </a>
-                    <div class="webwork-text">
-                        <h3 class="webwork-title klee-one-semibold">個人ブログ用WordPressテーマ</h3>
-                        <p class="webwork-desc klee-one-regular">シンプルで読みやすさにこだわった、オリジナルのWordPressテーマを自作しました。記事の執筆に集中できる設計です。</p>
-                        <div class="webwork-tags">
-                            <span class="webwork-tag">WordPress</span>
-                            <span class="webwork-tag">PHP</span>
-                        </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
-                    </div>
-                </div>
 
-                <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
-                        <div class="window-bar">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                        <div class="blog-img-wrapper">
+                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                         </div>
-                        <div class="window-content">
-                            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 3">
+                        <div class="blog-content">
+                            <span class="blog-date">2026.08.15</span>
+                            <h3 class="blog-title klee-one-semibold">久しぶりのピアノ発表会に向けて</h3>
+                            <div class="blog-tags">
+                                <span class="blog-tag tag-piano">ピアノ</span>
+                            </div>
                         </div>
                     </a>
-                    <div class="webwork-text">
-                        <h3 class="webwork-title klee-one-semibold">はじめちゃんサイト（当サイト）</h3>
-                        <p class="webwork-desc klee-one-regular">自分らしさを詰め込んだポートフォリオサイトです。手書き風フォントとポップなデザインで、親しみやすさを表現しました。</p>
-                        <div class="webwork-tags">
-                            <span class="webwork-tag">HTML/CSS/JS</span>
-                            <span class="webwork-tag">Portfolio</span>
+                </div>
+
+                <div class="blog-btn-wrapper">
+                    <a href="https://hontani-hajime.github.io/blog/" class="profile-btn klee-one-semibold">Blogページへ</a>
+                </div>
+            </section>
+
+            <!-- ▼ フォトセクション ▼ -->
+            <section class="photos-section relative-section" id="photos">
+                <!-- 左からひょっこり -->
+                <img src="https://hontani-hajime.github.io/file/small-hajime.png" class="pop-image pop-left" alt="ひょっこりはじめちゃん">
+                
+                <h2 class="section-title klee-one-semibold">Photos</h2>
+
+                <div class="photo-collage-container">
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/01.jpg" alt="Photo 1">
+                    </a>
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/02.jpg" alt="Photo 2">
+                    </a>
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/03.jpg" alt="Photo 3">
+                    </a>
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/04.jpg" alt="Photo 4">
+                    </a>
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/05.jpg" alt="Photo 5">
+                    </a>
+                    <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                        <img src="https://hontani-hajime.github.io/file/06.jpg" alt="Photo 6">
+                    </a>
+                </div>
+
+                <div class="blog-btn-wrapper">
+                    <a href="https://hontani-hajime.github.io/photos/" class="profile-btn klee-one-semibold">Photosページへ</a>
+                </div>
+            </section>
+
+            <!-- ▼ ウェブワークスセクション ▼ -->
+            <section class="webworks-section relative-section" id="web-works">
+                <!-- 右からひょっこり -->
+                <img src="https://hontani-hajime.github.io/file/small-hajime.png" class="pop-image pop-right" alt="ひょっこりはじめちゃん">
+                
+                <h2 class="section-title klee-one-semibold">Web Works</h2>
+
+                <div class="webworks-list">
+                    <div class="webwork-item">
+                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                            <div class="window-bar">
+                                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                            </div>
+                            <div class="window-content">
+                                <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 1">
+                            </div>
+                        </a>
+                        <div class="webwork-text">
+                            <h3 class="webwork-title klee-one-semibold">架空のカフェサイト制作</h3>
+                            <p class="webwork-desc klee-one-regular">落ち着いた雰囲気のカフェをイメージした架空のサイトです。スマートフォンでも見やすいレスポンシブデザインに対応しています。</p>
+                            <div class="webwork-tags">
+                                <span class="webwork-tag">HTML/CSS</span>
+                                <span class="webwork-tag">Design</span>
+                            </div>
+                            <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
                         </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                    </div>
+
+                    <div class="webwork-item">
+                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                            <div class="window-bar">
+                                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                            </div>
+                            <div class="window-content">
+                                <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 2">
+                            </div>
+                        </a>
+                        <div class="webwork-text">
+                            <h3 class="webwork-title klee-one-semibold">個人ブログ用WordPressテーマ</h3>
+                            <p class="webwork-desc klee-one-regular">シンプルで読みやすさにこだわった、オリジナルのWordPressテーマを自作しました。記事の執筆に集中できる設計です。</p>
+                            <div class="webwork-tags">
+                                <span class="webwork-tag">WordPress</span>
+                                <span class="webwork-tag">PHP</span>
+                            </div>
+                            <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                        </div>
+                    </div>
+
+                    <div class="webwork-item">
+                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                            <div class="window-bar">
+                                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                            </div>
+                            <div class="window-content">
+                                <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Web Works 3">
+                            </div>
+                        </a>
+                        <div class="webwork-text">
+                            <h3 class="webwork-title klee-one-semibold">はじめちゃんサイト（当サイト）</h3>
+                            <p class="webwork-desc klee-one-regular">自分らしさを詰め込んだポートフォリオサイトです。手書き風フォントとポップなデザインで、親しみやすさを表現しました。</p>
+                            <div class="webwork-tags">
+                                <span class="webwork-tag">HTML/CSS/JS</span>
+                                <span class="webwork-tag">Portfolio</span>
+                            </div>
+                            <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/web-works/" class="profile-btn klee-one-semibold">Web Works一覧へ</a>
-            </div>
-        </section>
-
-    </main>
+                <div class="blog-btn-wrapper">
+                    <a href="https://hontani-hajime.github.io/web-works/" class="profile-btn klee-one-semibold">Web Works一覧へ</a>
+                </div>
+            </section>
+        </main>
+    </div> <!-- /.page-wrapper -->
 
     <!-- ▼ フッター ▼ -->
     <footer class="site-footer">
@@ -393,9 +408,6 @@
             <p class="copyright klee-one-regular">&copy; 2026 Hontani Hajime.</p>
         </div>
     </footer>
-
-    <!-- ▼ ひょっこり出てくる画像 ▼ -->
-    <img src="https://hontani-hajime.github.io/file/small-hajime.png" id="pop-image" class="pop-image" alt="ひょっこりはじめちゃん">
 
     <!-- ▼ TOPに戻るボタン ▼ -->
     <button id="page-top-btn" class="page-top-btn">
