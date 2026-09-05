@@ -161,29 +161,4 @@ document.addEventListener('DOMContentLoaded', () => {
     topBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    // =========================================================
-    // 1回きりの「ひょっこり」アニメーション監視
-    // =========================================================
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.3 // 要素が30%見えたら発火
-    };
-
-    const popObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // 発火したらクラスをつけてアニメーション開始
-                entry.target.classList.add('is-show');
-                // 一度表示したら監視をやめる（戻ってももう出ない）
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // .observe-target がついている親要素を全て監視
-    document.querySelectorAll('.observe-target').forEach(el => {
-        popObserver.observe(el);
-    });
 });
