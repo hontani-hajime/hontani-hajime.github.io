@@ -29,7 +29,8 @@ a { text-decoration: none; color: inherit; }
 .global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
 .global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
 .global-nav a { display: flex; align-items: center; gap: 8px; font-size: 16px; transition: color 0.3s; font-weight: bold; }
-.global-nav a:hover { color: #888; }
+/* ▼ 文字色をホバーしても変えない ▼ */
+.global-nav a:hover { color: inherit; } 
 .global-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .hamburger { display: none; }
 
@@ -43,13 +44,15 @@ a { text-decoration: none; color: inherit; }
 .floating-nav.is-show { opacity: 1; visibility: visible; transform: translateY(0); }
 .floating-nav ul { display: flex; list-style: none; gap: 25px; margin: 0; padding: 12px 0; }
 .floating-nav a { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; font-weight: bold; transition: color 0.3s; }
-.floating-nav a:hover { color: #888; }
+/* ▼ 文字色をホバーしても変えない ▼ */
+.floating-nav a:hover { color: inherit; }
 .floating-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
 .hover-marker { position: relative; z-index: 1; }
 .hover-marker::after {
-    content: ""; position: absolute; left: 0; bottom: 0;
-    width: 0; height: 35%; z-index: -1;
+    /* ▼ より細く、下寄りに調整 ▼ */
+    content: ""; position: absolute; left: 0; bottom: -2px;
+    width: 0; height: 8px; z-index: -1;
     transition: width 0.3s ease;
     background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
 }
@@ -61,10 +64,12 @@ a { text-decoration: none; color: inherit; }
 
 .marker-anim, .marker-static { position: relative; z-index: 1; display: inline-block; }
 .marker-anim::after, .marker-static::after {
-    content: ""; position: absolute; left: 0; bottom: 0; height: 35%; z-index: -1;
+    /* ▼ より細く、下寄りに調整 ▼ */
+    content: ""; position: absolute; left: 0; bottom: -2px; height: 8px; z-index: -1;
     background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
 }
-.marker-anim::after { width: 0; animation: drawMarker 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+/* ▼ アニメーションを少しゆっくりに (1.2s) ▼ */
+.marker-anim::after { width: 0; animation: drawMarker 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 @keyframes drawMarker { 100% { width: 100%; } }
 .marker-static::after { width: 100%; }
 .marker-yellow::after { background-color: #FBC02D; }
