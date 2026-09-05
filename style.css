@@ -46,7 +46,6 @@ a { text-decoration: none; color: inherit; }
 .floating-nav a:hover { color: inherit; }
 .floating-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ▼ ストライプや波線を動かすキーフレーム ▼ */
 @keyframes moveStripe {
     0% { background-position: 0 0; }
     100% { background-position: 11.31px 0; }
@@ -58,7 +57,7 @@ a { text-decoration: none; color: inherit; }
 
 .hover-marker { position: relative; z-index: 1; }
 .hover-marker::after {
-    content: ""; position: absolute; left: 0; bottom: 1px;
+    content: ""; position: absolute; left: 0; bottom: 3px;
     width: 0; height: 8px; z-index: -1;
     transition: width 0.3s ease;
     background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
@@ -73,25 +72,23 @@ a { text-decoration: none; color: inherit; }
 .mark-orange::after { background-color: #fd7e14; }
 .mark-purple::after { background-color: #6f42c1; }
 
-
-.marker-anim, .marker-static { position: relative; z-index: 1; display: inline-block; }
-.marker-anim::after, .marker-static::after {
-    content: ""; position: absolute; left: 0; bottom: 1px; height: 8px; z-index: -1;
+.js-marker { position: relative; z-index: 1; display: inline-block; }
+.js-marker::after {
+    content: ""; position: absolute; left: 0; bottom: 3px; height: 8px; z-index: -1;
     background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
     background-size: 11.31px 100%;
+    width: 0;
 }
-/* ▼ アニメーションを1.5sにし、ストライプも流し続ける ▼ */
-.marker-anim::after { 
-    width: 0; 
+.js-marker.is-active::after { 
     animation: drawMarker 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards, moveStripe 1s linear infinite; 
 }
-/* ▼ 2行目専用（1.5秒遅れて線を引き始める） ▼ */
-.marker-anim-2::after {
-    animation-delay: 1.5s, 0s;
-}
-
 @keyframes drawMarker { 100% { width: 100%; } }
-.marker-static::after { 
+
+.marker-static { position: relative; z-index: 1; display: inline-block; }
+.marker-static::after {
+    content: ""; position: absolute; left: 0; bottom: 3px; height: 8px; z-index: -1;
+    background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
+    background-size: 11.31px 100%;
     width: 100%; 
     animation: moveStripe 1s linear infinite; 
 }
@@ -101,7 +98,6 @@ a { text-decoration: none; color: inherit; }
 .marker-green::after  { background-color: #20c997; }
 .marker-orange::after { background-color: #fd7e14; }
 .marker-purple::after { background-color: #6f42c1; }
-
 
 .main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
 
@@ -134,7 +130,6 @@ a { text-decoration: none; color: inherit; }
 .profile-section { margin-top: 180px; scroll-margin-top: 120px; }
 .blog-section, .photos-section, .webworks-section { scroll-margin-top: 120px; }
 
-/* ▼ 区切り線のアニメーション ▼ */
 .wave-divider { 
     width: 100vw; height: 15px; margin: 100px 0; position: relative; left: 50%; transform: translateX(-50%); 
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 15' preserveAspectRatio='none'%3E%3Cpath d='M0,7.5 Q12.5,15 25,7.5 T50,7.5' fill='none' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x; 
@@ -145,9 +140,6 @@ a { text-decoration: none; color: inherit; }
 .section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
 .section-title::before, .section-title::after { content: ''; display: block; width: 40px; height: 2px; background-color: #333; border-radius: 2px; }
 
-/* ==================================================
-   ボタン共通デザイン (ホバーで斜め黒背景 ＋ 白抜き)
-================================================== */
 .action-btn { 
     display: inline-flex; align-items: center; justify-content: center; gap: 12px; 
     background-color: #fff; color: #333; border: 2px solid #333; border-radius: 50px; 
@@ -159,18 +151,16 @@ a { text-decoration: none; color: inherit; }
     overflow: hidden; 
     z-index: 1; 
 }
-/* ホバー時の斜め黒背景 */
 .action-btn::before {
     content: "";
     position: absolute;
-    top: 0; left: -120%;
+    top: 0; left: -150%;
     width: 120%; height: 100%;
     background-color: #333;
     transform: skewX(-20deg);
     transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: -1;
 }
-
 .action-btn:hover { 
     box-shadow: 0px 0px 0px #333; 
     transform: translate(0, 0); 
@@ -179,7 +169,6 @@ a { text-decoration: none; color: inherit; }
 .action-btn:hover::before {
     left: -10%; 
 }
-
 #news-more-btn { padding: 10px 40px; font-size: 14px; }
 
 .btn-arrow-circle { 
@@ -187,15 +176,11 @@ a { text-decoration: none; color: inherit; }
     display: flex; align-items: center; justify-content: center; color: #fff; 
     transition: background-color 0.4s, color 0.4s;
 }
-/* ホバー時の矢印色反転 */
 .action-btn:hover .btn-arrow-circle {
     background-color: #fff; 
     color: #333; 
 }
 .btn-arrow-circle svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-left: 2px; }
-
-/* ================================================== */
-
 
 .profile-card { border: 2px solid #333; border-radius: 16px; padding: 50px; margin: 0 60px; display: flex; gap: 50px; align-items: center; background-color: #fff; }
 .profile-img-wrapper { width: 240px; flex-shrink: 0; aspect-ratio: 3 / 4; border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 8px; box-sizing: border-box; }
@@ -208,8 +193,18 @@ a { text-decoration: none; color: inherit; }
 .profile-action-area { display: flex; align-items: center; gap: 30px; }
 
 .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 0 60px; }
-.blog-card { border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); position: relative; z-index: 1; }
-.blog-card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; z-index: 10; }
+.blog-card { 
+    border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; 
+    display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; 
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
+    position: relative; z-index: 1; 
+}
+.blog-card:hover { 
+    transform: translate(0, 0); 
+    box-shadow: 0px 0px 0px #333; 
+    z-index: 10; 
+}
 .blog-img-wrapper { width: 100%; aspect-ratio: 16 / 9; border: 2px solid #333; border-radius: 12px; background-color: #fff; padding: 6px; box-sizing: border-box; }
 .blog-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
 .blog-content { display: flex; flex-direction: column; flex: 1; }
@@ -240,8 +235,16 @@ a { text-decoration: none; color: inherit; }
 .webworks-list { display: flex; flex-direction: column; gap: 60px; margin: 0 60px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; }
 .webwork-item:nth-child(even) { flex-direction: row-reverse; }
-.webwork-window { flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; box-shadow: 4px 4px 0px rgba(51,51,51,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; }
-.webwork-window:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; z-index: 10; }
+.webwork-window { 
+    flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; 
+    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
+}
+.webwork-window:hover { 
+    transform: translate(0, 0); 
+    box-shadow: 0px 0px 0px #333; 
+    z-index: 10; 
+}
 .window-bar { border-bottom: 2px solid #333; padding: 10px 15px; display: flex; gap: 8px; background-color: #f5f5f5; }
 .window-bar .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #333; }
 .window-bar .dot:nth-child(1) { background-color: #FF9A9E; }
