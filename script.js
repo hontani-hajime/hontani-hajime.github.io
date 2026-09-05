@@ -1,164 +1,157 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // タイピングアニメーション
-    const textPart1 = "本谷元";
-    const textPart2 = "のはじめちゃんサイト";
-    const typingTextElement = document.getElementById('typing-text');
-    const cursorElement = document.getElementById('cursor');
-    const navElement = document.getElementById('global-nav');
 
-    const typingSpeed = 150; 
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const t1 = "本谷元";
+    const t2 = "のはじめちゃんサイト";
+    const tgt = document.getElementById('typing-text');
+    const cur = document.getElementById('cursor');
+    const nav = document.getElementById('global-nav');
 
-    async function startTypingAnimation() {
-        await sleep(500);
-        for (let i = 0; i < textPart1.length; i++) {
-            typingTextElement.innerHTML += textPart1.charAt(i);
-            await sleep(typingSpeed);
+    const wait = (m) => new Promise(r => setTimeout(r, m));
+
+    async function typeAnim() {
+        await wait(500);
+        for (let i = 0; i < t1.length; i++) {
+            tgt.innerHTML += t1.charAt(i);
+            await wait(150);
         }
-        await sleep(1000); 
-        for (let i = 0; i < textPart2.length; i++) {
-            typingTextElement.innerHTML += textPart2.charAt(i);
-            await sleep(typingSpeed);
+        await wait(1000); 
+        for (let i = 0; i < t2.length; i++) {
+            tgt.innerHTML += t2.charAt(i);
+            await wait(150);
         }
-        cursorElement.classList.remove('blinking');
-        cursorElement.classList.add('done');
-        if (window.innerWidth > 768) navElement.style.opacity = '1';
+        cur.classList.remove('blinking');
+        cur.classList.add('done');
+        if (window.innerWidth > 768) nav.style.opacity = '1';
     }
-    startTypingAnimation();
+    typeAnim();
 
-    // ハンバーガーメニュー
-    const hamburger = document.getElementById('hamburger');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('is-active');
-        navElement.classList.toggle('is-open');
+
+    const ham = document.getElementById('hamburger');
+    ham.addEventListener('click', () => {
+        ham.classList.toggle('is-active');
+        nav.classList.toggle('is-open');
     });
 
-    // お知らせセクションの高さ自動調整
-    function adjustNewsHeight() {
-        const isMobile = window.innerWidth <= 768;
-        const newsSection = document.getElementById('news-section');
-        const newsListContainer = document.getElementById('news-list-container');
-        const gallery = document.getElementById('hero-gallery');
-        const textElement = document.querySelector('.hero-text');
 
-        if (!newsSection || !newsListContainer || !gallery || !textElement) return;
+    function fixNews() {
+        const mbl = window.innerWidth <= 768;
+        const sec = document.getElementById('news-section');
+        const box = document.getElementById('news-list-container');
+        const gal = document.getElementById('hero-gallery');
+        const txt = document.querySelector('.hero-text');
 
-        if (isMobile) {
-            newsListContainer.style.maxHeight = '';
+        if (!sec || !box || !gal || !txt) return;
+
+        if (mbl) {
+            box.style.maxHeight = '';
         } else {
-            if (!newsSection.classList.contains('is-expanded')) {
-                const galleryHeight = gallery.offsetHeight;
-                const textHeight = textElement.offsetHeight;
-                const rowGap = 30; 
-
-                const availableHeight = galleryHeight - textHeight - rowGap;
-                const listContainerMaxHeight = availableHeight - 75; 
-
-                if (listContainerMaxHeight > 100) {
-                    newsListContainer.style.maxHeight = listContainerMaxHeight + 'px';
-                } else {
-                    newsListContainer.style.maxHeight = '150px'; 
-                }
+            if (!sec.classList.contains('is-expanded')) {
+                const gh = gal.offsetHeight;
+                const th = txt.offsetHeight;
+                const h = gh - th - 30 - 75; 
+                box.style.maxHeight = (h > 100 ? h : 150) + 'px';
             } else {
-                newsListContainer.style.maxHeight = 'none';
+                box.style.maxHeight = 'none';
             }
         }
     }
 
-    const moreBtn = document.getElementById('news-more-btn');
-    if (moreBtn) {
-        moreBtn.addEventListener('click', () => {
+    const mb = document.getElementById('news-more-btn');
+    if (mb) {
+        mb.addEventListener('click', () => {
             document.getElementById('news-section').classList.add('is-expanded');
-            adjustNewsHeight(); 
+            fixNews(); 
         });
     }
 
-    window.addEventListener('resize', adjustNewsHeight);
+    window.addEventListener('resize', fixNews);
 
-    // ギャラリー処理
-    const galleryContainer = document.getElementById('hero-gallery');
-    const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
-    const totalItems = 6;
 
-    function shuffleArray(array) {
-        const arr = [...array];
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+    const gc = document.getElementById('hero-gallery');
+    const imgs = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
+
+    function mix(a) {
+        let b = [...a];
+        for (let i = b.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [b[i], b[j]] = [b[j], b[i]];
         }
-        return arr;
+        return b;
     }
 
-    function getNextImages(currentImages, count) {
-        let newImages = [];
-        let isValid = false;
-
-        while (!isValid) {
-            const shuffled = shuffleArray(allImages);
-            newImages = shuffled.slice(0, count);
-            isValid = true;
-            for (let i = 0; i < count; i++) {
-                if (currentImages[i] && newImages[i] === currentImages[i]) {
-                    isValid = false; 
-                    break;
+    function getNext(curr, c) {
+        let res = [];
+        let ok = false;
+        while (!ok) {
+            let s = mix(imgs);
+            res = s.slice(0, c);
+            ok = true;
+            for (let i = 0; i < c; i++) {
+                if (curr[i] && res[i] === curr[i]) {
+                    ok = false; break;
                 }
             }
         }
-        return newImages;
+        return res;
     }
 
-    function initGallery() {
-        if(!galleryContainer) return;
-
-        galleryContainer.innerHTML = '';
-        const initialImages = getNextImages([], totalItems);
-
-        for (let i = 0; i < totalItems; i++) {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'gallery-item'; 
-            const img = document.createElement('img');
-            img.src = initialImages[i];
-            img.alt = "Gallery Photo";
-            itemDiv.appendChild(img);
-            galleryContainer.appendChild(itemDiv);
+    function setupGal() {
+        if(!gc) return;
+        gc.innerHTML = '';
+        let init = getNext([], 6);
+        for (let i = 0; i < 6; i++) {
+            let d = document.createElement('div');
+            d.className = 'gallery-item'; 
+            let im = document.createElement('img');
+            im.src = init[i];
+            d.appendChild(im);
+            gc.appendChild(d);
         }
 
-        setTimeout(() => { adjustNewsHeight(); }, 100);
+        setTimeout(fixNews, 100);
 
         setInterval(() => {
-            const imgs = galleryContainer.querySelectorAll('img');
-            if (imgs.length === 0) return;
-            const currentSrcs = Array.from(imgs).map(img => img.getAttribute('src'));
-            const nextSrcs = getNextImages(currentSrcs, imgs.length);
+            let ch = gc.querySelectorAll('img');
+            if (ch.length === 0) return;
+            let cr = Array.from(ch).map(img => img.getAttribute('src'));
+            let nx = getNext(cr, ch.length);
 
-            imgs.forEach(img => { img.style.opacity = '0'; });
+            ch.forEach(img => img.style.opacity = '0');
             setTimeout(() => {
-                imgs.forEach((img, index) => {
-                    img.src = nextSrcs[index];
+                ch.forEach((img, idx) => {
+                    img.src = nx[idx];
                     img.style.opacity = '1';
                 });
             }, 500); 
         }, 4000); 
     }
-    initGallery();
+    setupGal();
 
-    // スクロール検知
-    const topBtn = document.getElementById('page-top-btn');
-    const floatingNav = document.getElementById('floating-nav');
+
+    setTimeout(() => {
+        const m1 = document.querySelector('.js-marker:not(.js-marker-delay)');
+        const m2 = document.querySelector('.js-marker-delay');
+        if(m1) m1.classList.add('is-active');
+        
+        setTimeout(() => {
+            if(m2) m2.classList.add('is-active');
+        }, 1500); 
+    }, 800);
+
+
+    const tb = document.getElementById('page-top-btn');
+    const fn = document.getElementById('floating-nav');
     
     window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
+        let y = window.scrollY;
+        if (y > 300) tb.classList.add('is-show');
+        else tb.classList.remove('is-show');
 
-        // TOPへ戻るボタン
-        if (scrollY > 300) { topBtn.classList.add('is-show'); } 
-        else { topBtn.classList.remove('is-show'); }
-
-        // PC版右上のフローティングメニュー
-        if (window.innerWidth > 768 && scrollY > 200) { floatingNav.classList.add('is-show'); } 
-        else { floatingNav.classList.remove('is-show'); }
+        if (window.innerWidth > 768 && y > 200) fn.classList.add('is-show');
+        else fn.classList.remove('is-show');
     });
 
-    topBtn.addEventListener('click', () => {
+    tb.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
