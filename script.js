@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // =========================================================
     // タイピングアニメーション
+    // =========================================================
     const textPart1 = "本谷元";
     const textPart2 = "のはじめちゃんサイト";
     const typingTextElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('cursor');
-    const navElementPC = document.getElementById('global-nav-pc');
 
     const typingSpeed = 150; 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -22,75 +23,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         cursorElement.classList.remove('blinking');
         cursorElement.classList.add('done');
-        // PC用メニューを表示
-        if (window.innerWidth > 768 && navElementPC) navElementPC.style.opacity = '1';
     }
     startTypingAnimation();
 
     // =========================================================
-    // メニュー関連 (追従アイコン＆フルスクリーンメニュー)
+    // スマホ用ハンバーガーメニュー
     // =========================================================
     const hamburger = document.getElementById('hamburger');
     const fullscreenNav = document.getElementById('fullscreen-nav');
-    const stickyMenuWrapper = document.getElementById('sticky-menu-wrapper');
+    
+    // フルスクリーンメニュー内のリンクをクリックしたら閉じる処理を追加
+    const fullscreenLinks = fullscreenNav.querySelectorAll('a');
 
-    // ハンバーガークリック処理
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
         fullscreenNav.classList.toggle('is-open');
     });
 
+    fullscreenLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('is-active');
+            fullscreenNav.classList.remove('is-open');
+        });
+    });
+
     // =========================================================
-    // スクロール検知 (追従メニュー表示＆TOPへ戻るボタン＆イラストアニメーション)
+    // スクロール検知 (PC版追従メニュー ＆ TOPボタン)
     // =========================================================
+    const floatingMenu = document.getElementById('floating-menu');
     const topBtn = document.getElementById('page-top-btn');
-    const illustration = document.getElementById('scroll-illustration');
     const header = document.querySelector('.site-header');
 
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
 
-        // --- 1. 追従メニューアイコンの表示/非表示 (PC版のみ制御) ---
-        if (window.innerWidth > 768) {
+        // 1. PC用フローティングメニューの表示制御
+        if (window.innerWidth > 768 && floatingMenu) {
              const headerHeight = header.offsetHeight;
-             // ヘッダーを過ぎたら表示
              if (scrollY > headerHeight) {
-                 stickyMenuWrapper.classList.add('is-show');
+                 floatingMenu.classList.add('is-visible');
              } else {
-                 stickyMenuWrapper.classList.remove('is-show');
-                 // ヘッダーに戻ったらフルスクリーンメニューも閉じる
-                 if(fullscreenNav.classList.contains('is-open')) {
-                     hamburger.classList.remove('is-active');
-                     fullscreenNav.classList.remove('is-open');
-                 }
+                 floatingMenu.classList.remove('is-visible');
              }
         }
 
-        // --- 2. TOPへ戻るボタン ---
+        // 2. TOPへ戻るボタンの表示制御
         if (scrollY > 300) {
             topBtn.classList.add('is-show');
         } else {
             topBtn.classList.remove('is-show');
         }
-
-        // --- 3. イラストのスクロールアニメーション ---
-        if (illustration) {
-            const rect = illustration.getBoundingClientRect();
-            // 要素の上端が画面下部より少し上に来たら表示開始
-            if (rect.top < windowHeight - 100) {
-                illustration.classList.add('is-active');
-            }
-        }
     });
 
-    // クリックで上に戻る
+    // TOPへ戻るクリックイベント
     topBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
+
+    // =========================================================
+    // 「ヒョコッと出るイラスト」のスクロール連動アニメーション
+    // Intersection Observer を使用
+    // =========================================================
+    const hyokoElements = document.querySelectorAll('.hyoko-illust');
+    
+    // 画面内に20%入ってきたら発火する設定
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 画面に入ったらクラスを付けてアニメーション発動
+                entry.target.classList.add('is-visible');
+            } else {
+                // 画面から出たらクラスを外す（スクロールするたびに何度でもヒョコッと出るように）
+                entry.target.classList.remove('is-visible');
+            }
+        });
+    }, observerOptions);
+
+    hyokoElements.forEach(el => observer.observe(el));
 
 
     // =========================================================
@@ -138,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', adjustNewsHeight);
 
     // =========================================================
-    // ギャラリー
+    // ギャラリー (自動切り替え)
     // =========================================================
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
@@ -211,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.src = nextSrcs[index];
                     img.style.opacity = '1';
                 });
-            }, 500); 
+            }, 600); // フェード時間をCSS(0.6s)に合わせました
         }, 4000); 
     }
 
