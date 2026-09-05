@@ -54,13 +54,8 @@
                 </div>
             </div>
 
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- ▼ メニュー ▼ -->
-            <nav class="global-nav" id="global-nav">
+            <!-- PC版の通常メニュー -->
+            <nav class="global-nav-pc" id="global-nav-pc">
                 <ul>
                     <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
                     <li><a href="https://hontani-hajime.github.io/blog/" class="klee-one-regular">Blog</a></li>
@@ -88,6 +83,31 @@
             </nav>
         </div>
     </header>
+
+    <!-- 追従用のハンバーガーメニュー -->
+    <div class="sticky-menu-wrapper" id="sticky-menu-wrapper">
+        <div class="sticky-menu-icon">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- スマホ＆PC追従時共通のフルスクリーンメニュー -->
+    <nav class="fullscreen-nav" id="fullscreen-nav">
+        <ul>
+            <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
+            <li><a href="https://hontani-hajime.github.io/blog/" class="klee-one-regular">Blog</a></li>
+            <li><a href="https://hontani-hajime.github.io/photos/" class="klee-one-regular">Photos</a></li>
+            <li><a href="https://hontani-hajime.github.io/web-works/" class="klee-one-regular">Web Works</a></li>
+        </ul>
+    </nav>
+
 
     <main class="main-content">
         <section class="hero-section">
@@ -147,10 +167,12 @@
 
             <div class="hero-gallery" id="hero-gallery"></div>
         </section>
+    </main>
 
-        <!-- ▼ プロフィールセクション ▼ -->
-        <section class="profile-section" id="profile">
-            <h2 class="section-title klee-one-semibold">Profile</h2>
+    <!-- ▼ プロフィールセクション ▼ -->
+    <section class="section-wrapper bg-white profile-section" id="profile">
+        <div class="section-inner">
+            <h2 class="section-title klee-one-semibold">- Profile -</h2>
 
             <div class="profile-card">
                 <div class="profile-img-wrapper">
@@ -189,11 +211,13 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ▼ ブログセクション ▼ -->
-        <section class="blog-section" id="blog">
-            <h2 class="section-title klee-one-semibold">Blog</h2>
+    <!-- ▼ ブログセクション ▼ -->
+    <section class="section-wrapper bg-gray blog-section" id="blog">
+        <div class="section-inner">
+            <h2 class="section-title klee-one-semibold">- Blog -</h2>
 
             <div class="blog-grid">
                 <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
@@ -241,14 +265,15 @@
             <div class="blog-btn-wrapper">
                 <a href="https://hontani-hajime.github.io/blog/" class="profile-btn klee-one-semibold">Blogページへ</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ▼ フォトセクション ▼ -->
-        <section class="photos-section" id="photos">
-            <h2 class="section-title klee-one-semibold">Photos</h2>
+    <!-- ▼ フォトセクション ▼ -->
+    <section class="section-wrapper bg-white photos-section" id="photos">
+        <div class="section-inner">
+            <h2 class="section-title klee-one-semibold">- Photos -</h2>
 
             <div class="photo-collage-container">
-                <!-- クラスをスッキリさせて、すべて統一しました -->
                 <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
                     <img src="https://hontani-hajime.github.io/file/01.jpg" alt="Photo 1">
                 </a>
@@ -272,11 +297,20 @@
             <div class="blog-btn-wrapper">
                 <a href="https://hontani-hajime.github.io/photos/" class="profile-btn klee-one-semibold">Photosページへ</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ▼ ウェブワークスセクション ▼ -->
-        <section class="webworks-section" id="web-works">
-            <h2 class="section-title klee-one-semibold">Web Works</h2>
+    <!-- ▼ スクロールアニメーション用イラスト ▼ -->
+    <div class="illustration-container">
+        <div class="illustration-inner">
+            <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="scroll-illustration" id="scroll-illustration">
+        </div>
+    </div>
+
+    <!-- ▼ ウェブワークスセクション ▼ -->
+    <section class="section-wrapper bg-gray webworks-section" id="web-works">
+        <div class="section-inner">
+            <h2 class="section-title klee-one-semibold">- Web Works -</h2>
 
             <div class="webworks-list">
                 <div class="webwork-item">
@@ -343,9 +377,8 @@
             <div class="blog-btn-wrapper">
                 <a href="https://hontani-hajime.github.io/web-works/" class="profile-btn klee-one-semibold">Web Works一覧へ</a>
             </div>
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <!-- ▼ フッター ▼ -->
     <footer class="site-footer">
