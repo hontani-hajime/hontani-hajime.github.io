@@ -12,15 +12,13 @@ a { text-decoration: none; color: inherit; }
 .top-line { width: 100%; height: 1px; background-color: #000000; }
 
 /* ==================================================
-   ヘッダー (PC版のみ全体を追従させる)
+   ヘッダー (PC版もスクロール追従を解除しました)
 ================================================== */
 .site-header { 
     padding: 20px 40px; 
-    position: sticky; 
-    top: 0; 
-    z-index: 9990; 
-    background-color: rgba(255, 255, 255, 0.95); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
+    position: relative; /* stickyから変更 */
+    z-index: 9000; 
+    background-color: #ffffff; 
 }
 .header-inner { display: flex; align-items: center; justify-content: flex-start; gap: 20px; }
 .logo-area { display: flex; align-items: center; }
@@ -36,14 +34,14 @@ a { text-decoration: none; color: inherit; }
 #cursor { font-weight: 400; margin-left: 2px; color: #000; }
 #cursor.done { animation: none; opacity: 1; }
 
-/* メニュー */
+/* 元のメニュー (一番上にある時だけ表示) */
 .global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
 .global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
 .global-nav a { font-size: 16px; transition: color 0.3s; }
 .global-nav a:hover { color: #888; }
 .hamburger { display: none; }
 
-/* SNSアイコン (Instagram, LinkedIn, Pinterest) */
+/* SNSアイコン */
 .sns-list { display: flex; align-items: center; gap: 10px; }
 .sns-link { display: block; }
 .sns-circle {
@@ -54,6 +52,59 @@ a { text-decoration: none; color: inherit; }
 }
 .sns-circle:hover { opacity: 0.7; }
 .sns-icon { width: 18px; height: 18px; object-fit: contain; }
+
+
+/* ==================================================
+   フローティングメニュー (スクロール時に右上に出現)
+================================================== */
+.floating-nav {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid #333;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 9900;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 0 25px;
+}
+.floating-nav.is-show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.floating-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 12px 0;
+}
+.floating-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+.floating-nav a:hover {
+    color: #888;
+}
+.floating-nav svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
 
 /* メインコンテンツ */
 .main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
@@ -233,7 +284,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   セクション共通タイトル (ボタンらしさを排除)
+   セクション共通タイトル (太字に調整)
 ================================================== */
 .profile-section, .blog-section, .photos-section, .webworks-section {
     margin-top: 120px;
@@ -245,14 +296,15 @@ a { text-decoration: none; color: inherit; }
     margin: 0 auto 50px;
     font-size: 28px;
     color: #333;
+    font-weight: 600; /* 太字 */
+    text-shadow: 0px 0px 1px #333; /* よりはっきりと太く見せるための影付け */
     letter-spacing: 0.1em;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px; /* 文字と横線の隙間 */
+    gap: 20px; 
 }
 
-/* タイトルの左右にあしらう横線 */
 .section-title::before,
 .section-title::after {
     content: '';
@@ -264,7 +316,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   ボタン共通デザイン（ホバーで影が伸びて浮き上がる）
+   ボタン共通デザイン
 ================================================== */
 .profile-btn,
 .webwork-link,
@@ -282,7 +334,6 @@ a { text-decoration: none; color: inherit; }
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    /* 初期状態はごく薄い影 */
     box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1);
 }
 
@@ -294,18 +345,9 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
 }
 
-/* 各ボタン個別の調整 */
-.read-more-btn {
-    padding: 10px 40px;
-}
-.profile-btn {
-    padding: 10px 40px;
-}
-.webwork-link {
-    padding: 8px 30px;
-    margin-top: 10px;
-    align-self: flex-start;
-}
+.read-more-btn { padding: 10px 40px; }
+.profile-btn { padding: 10px 40px; }
+.webwork-link { padding: 8px 30px; margin-top: 10px; align-self: flex-start; }
 
 /* ==================================================
    プロフィールセクション
@@ -340,9 +382,7 @@ a { text-decoration: none; color: inherit; }
     border-radius: 6px; 
 }
 
-.profile-info {
-    flex: 1;
-}
+.profile-info { flex: 1; }
 
 .profile-name-area {
     display: flex;
@@ -351,17 +391,8 @@ a { text-decoration: none; color: inherit; }
     margin-bottom: 15px;
 }
 
-.profile-name {
-    font-size: 26px;
-    margin: 0;
-}
-
-.profile-name-en {
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #666;
-    letter-spacing: 0.05em;
-}
+.profile-name { font-size: 26px; margin: 0; }
+.profile-name-en { font-family: sans-serif; font-size: 14px; color: #666; letter-spacing: 0.05em; }
 
 .profile-text {
     font-size: 15px;
@@ -416,49 +447,18 @@ a { text-decoration: none; color: inherit; }
 }
 
 .blog-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 4px;
+    width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;
 }
 
-.blog-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.blog-date {
-    font-family: sans-serif;
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.blog-title {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.blog-tags {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 8px;
-    margin-top: auto; 
-}
+.blog-content { display: flex; flex-direction: column; flex: 1; }
+.blog-date { font-family: sans-serif; font-size: 13px; color: #666; margin-bottom: 8px; font-weight: bold; }
+.blog-title { font-size: 18px; line-height: 1.5; margin-bottom: 15px; }
+.blog-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
 
 .blog-tag {
-    font-size: 11px;
-    font-family: sans-serif;
-    padding: 4px 12px;
-    border-radius: 15px;
-    color: #333;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    border: 1px solid #333; 
+    font-size: 11px; font-family: sans-serif; padding: 4px 12px;
+    border-radius: 15px; color: #333; font-weight: bold;
+    letter-spacing: 0.05em; border: 1px solid #333; 
 }
 
 .tag-piano  { background-color: #FF9A9E; } 
@@ -469,10 +469,7 @@ a { text-decoration: none; color: inherit; }
 .tag-study  { background-color: #81C784; } 
 .tag-other  { background-color: #90A4AE; } 
 
-.blog-btn-wrapper {
-    text-align: center;
-    margin-top: 50px;
-}
+.blog-btn-wrapper { text-align: center; margin-top: 50px; }
 
 /* ==================================================
    Photosセクション
@@ -498,11 +495,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .photo-item img {
-    width: 100%;
-    aspect-ratio: 4 / 3; 
-    object-fit: cover;
-    display: block;
-    border-radius: 2px;
+    width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px;
 }
 
 .photo-item:nth-child(1) { transform: rotate(-3deg); }
@@ -522,22 +515,9 @@ a { text-decoration: none; color: inherit; }
 /* ==================================================
    Web Worksセクション
 ================================================== */
-.webworks-list {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-    margin: 0 60px;
-}
-
-.webwork-item {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-}
-
-.webwork-item:nth-child(even) {
-    flex-direction: row-reverse;
-}
+.webworks-list { display: flex; flex-direction: column; gap: 60px; margin: 0 60px; }
+.webwork-item { display: flex; align-items: center; gap: 50px; }
+.webwork-item:nth-child(even) { flex-direction: row-reverse; }
 
 .webwork-window {
     flex: 1;
@@ -557,138 +537,60 @@ a { text-decoration: none; color: inherit; }
     box-shadow: 8px 8px 0px #333;
 }
 
-.window-bar {
-    border-bottom: 2px solid #333;
-    padding: 10px 15px;
-    display: flex;
-    gap: 8px;
-    background-color: #f5f5f5;
-}
-
-.window-bar .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid #333;
-}
+.window-bar { border-bottom: 2px solid #333; padding: 10px 15px; display: flex; gap: 8px; background-color: #f5f5f5; }
+.window-bar .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #333; }
 .window-bar .dot:nth-child(1) { background-color: #FF9A9E; }
 .window-bar .dot:nth-child(2) { background-color: #FFB74D; }
 .window-bar .dot:nth-child(3) { background-color: #81C784; }
 
-.window-content {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-}
+.window-content { width: 100%; aspect-ratio: 16 / 9; }
+.window-content img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.window-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.webwork-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.webwork-title {
-    font-size: 24px;
-    line-height: 1.4;
-    color: #333;
-}
-
-.webwork-desc {
-    font-size: 15px;
-    line-height: 1.8;
-    color: #444;
-}
-
-.webwork-tags {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 8px;
-}
+.webwork-text { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+.webwork-title { font-size: 24px; line-height: 1.4; color: #333; }
+.webwork-desc { font-size: 15px; line-height: 1.8; color: #444; }
+.webwork-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .webwork-tag {
-    font-size: 11px;
-    font-family: sans-serif;
-    padding: 4px 12px;
-    border-radius: 15px;
-    color: #333; 
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    border: 1px solid #333; 
-    background-color: #fff;
+    font-size: 11px; font-family: sans-serif; padding: 4px 12px;
+    border-radius: 15px; color: #333; font-weight: bold;
+    letter-spacing: 0.05em; border: 1px solid #333; background-color: #fff;
 }
 
 /* ==================================================
    フッター
 ================================================== */
-.site-footer {
-    margin-top: 120px;
-    border-top: 2px solid #333; 
-    background-color: #fafafa; 
-    padding: 60px 20px;
-    text-align: center;
+.site-footer { margin-top: 120px; border-top: 2px solid #333; background-color: #fafafa; padding: 60px 20px; text-align: center; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.footer-logo-link { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 25px; color: #333; font-size: 18px; transition: opacity 0.3s; }
+.footer-logo-link:hover { opacity: 0.7; }
+.footer-logo { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; object-fit: cover; }
+.footer-links { list-style: none; display: flex; gap: 30px; margin-bottom: 30px; }
+.footer-links a { font-size: 15px; color: #555; transition: color 0.3s, text-decoration 0.3s; }
+.footer-links a:hover { color: #000; text-decoration: underline; }
+.copyright { font-size: 13px; color: #888; letter-spacing: 0.05em; font-family: sans-serif; }
+
+
+/* ==================================================
+   ひょっこりはじめちゃん (左下から顔を出す画像)
+================================================== */
+.pop-image {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 130px; 
+    z-index: 8500;
+    pointer-events: none; /* クリックを邪魔しないようにする */
+    /* 初期状態は左に隠れて、少し傾けておく */
+    transform: translateX(-100%) rotate(-30deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: bottom left;
+}
+.pop-image.is-show {
+    /* クラスが付いたら元の位置に戻り、角度もまっすぐに */
+    transform: translateX(0) rotate(0deg);
 }
 
-.footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer-logo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-    color: #333;
-    font-size: 18px;
-    transition: opacity 0.3s;
-}
-
-.footer-logo-link:hover {
-    opacity: 0.7;
-}
-
-.footer-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 1px solid #333;
-    object-fit: cover;
-}
-
-.footer-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.footer-links a {
-    font-size: 15px;
-    color: #555;
-    transition: color 0.3s, text-decoration 0.3s;
-}
-
-.footer-links a:hover {
-    color: #000;
-    text-decoration: underline;
-}
-
-.copyright {
-    font-size: 13px;
-    color: #888;
-    letter-spacing: 0.05em;
-    font-family: sans-serif;
-}
 
 /* ==================================================
    TOPへ戻るボタン
@@ -714,30 +616,21 @@ a { text-decoration: none; color: inherit; }
     z-index: 9000; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-.page-top-btn.is-show {
-    opacity: 1;
-    visibility: visible;
-}
-.page-top-btn:hover {
-    transform: translateY(-5px);
-    background-color: #555;
-}
-.page-top-btn svg {
-    margin-bottom: 2px;
-}
-.page-top-btn span {
-    font-size: 11px;
-    letter-spacing: 0.05em;
-}
+.page-top-btn.is-show { opacity: 1; visibility: visible; }
+.page-top-btn:hover { transform: translateY(-5px); background-color: #555; }
+.page-top-btn svg { margin-bottom: 2px; }
+.page-top-btn span { font-size: 11px; letter-spacing: 0.05em; }
 
 /* =========================================
    スマホ向けレスポンシブデザイン (768px以下)
 ========================================= */
 @media (max-width: 768px) {
-    /* スマホ版ではヘッダー全体は追従させない */
+    /* PC用フローティングメニューはスマホでは非表示 */
+    .floating-nav { display: none !important; }
+
     .site-header { 
         padding: 15px; 
-        position: relative; /* stickyを解除 */
+        position: relative;
         box-shadow: none;
         z-index: 9990; 
     }
@@ -821,89 +714,37 @@ a { text-decoration: none; color: inherit; }
     .section-title { 
         font-size: 22px; 
         margin-bottom: 35px;
-        gap: 12px; /* スマホでは横の隙間を少し狭く */
+        gap: 12px;
     }
     .section-title::before,
-    .section-title::after {
-        width: 25px; /* スマホでは横線を短く */
-    }
+    .section-title::after { width: 25px; }
 
-    .profile-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 30px 20px; 
-        margin: 0; 
-        gap: 20px;
-    }
+    .profile-card { flex-direction: column; text-align: center; padding: 30px 20px; margin: 0; gap: 20px; }
     .profile-name-area { justify-content: center; }
     .profile-img-wrapper { width: 160px; }
     .profile-action-area { justify-content: center; }
 
-    .blog-grid {
-        grid-template-columns: 1fr;
-        margin: 0 20px; 
-        gap: 20px;
-    }
+    .blog-grid { grid-template-columns: 1fr; margin: 0 20px; gap: 20px; }
     .blog-card { padding: 15px; }
 
-    /* スマホ版 Photos */
-    .photo-collage-container {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px;
-        padding: 10px;
-        margin: 0 10px;
-    }
-    
-    .photo-item {
-        padding: 8px; 
+    .photo-collage-container { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; margin: 0 10px; }
+    .photo-item { padding: 8px; }
+
+    .webworks-list { margin: 0 20px; gap: 0; }
+    .webwork-item, .webwork-item:nth-child(even) { flex-direction: column; gap: 20px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 2px dashed #ccc; }
+    .webwork-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
+    .webwork-window { width: 100%; }
+    .webwork-title { font-size: 20px; }
+
+    .site-footer { padding: 40px 20px; margin-top: 80px; }
+    .footer-links { flex-direction: column; gap: 15px; }
+
+    /* スマホ版 ひょっこり画像 (少し小さくする) */
+    .pop-image {
+        width: 90px;
     }
 
-    /* スマホ版 Web Works */
-    .webworks-list {
-        margin: 0 20px;
-        gap: 0; 
-    }
-    .webwork-item, .webwork-item:nth-child(even) {
-        flex-direction: column;
-        gap: 20px;
-        padding-bottom: 40px;
-        margin-bottom: 40px;
-        border-bottom: 2px dashed #ccc; 
-    }
-    .webwork-item:last-child {
-        padding-bottom: 0;
-        margin-bottom: 0;
-        border-bottom: none;
-    }
-    .webwork-window {
-        width: 100%;
-    }
-    .webwork-title {
-        font-size: 20px;
-    }
-
-    /* スマホ版 フッター */
-    .site-footer {
-        padding: 40px 20px;
-        margin-top: 80px;
-    }
-    .footer-links {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* スマホ版 TOPに戻るボタン */
-    .page-top-btn {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-    }
-    .page-top-btn svg {
-        width: 20px;
-        height: 20px;
-    }
-    .page-top-btn span {
-        font-size: 9px;
-    }
+    .page-top-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+    .page-top-btn svg { width: 20px; height: 20px; }
+    .page-top-btn span { font-size: 9px; }
 }
