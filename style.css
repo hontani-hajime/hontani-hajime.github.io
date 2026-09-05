@@ -33,7 +33,11 @@ a { text-decoration: none; color: inherit; }
 #cursor { font-weight: 400; margin-left: 2px; color: #000; }
 #cursor.done { animation: none; opacity: 1; }
 
-/* メインメニュー（PC & スマホ共通） */
+
+/* ==================================================
+   メニュー共通 (ホバー時のマーカー)
+================================================== */
+/* PC用 */
 .global-nav { opacity: 0; transition: opacity 0.5s ease; margin-left: 15px; margin-top: -15px; }
 .global-nav ul { display: flex; align-items: center; list-style: none; gap: 30px; }
 .global-nav a { display: flex; align-items: center; gap: 8px; font-size: 16px; transition: color 0.3s; font-weight: bold; }
@@ -47,10 +51,7 @@ a { text-decoration: none; color: inherit; }
 .sns-circle:hover { opacity: 0.7; }
 .sns-icon { width: 18px; height: 18px; object-fit: contain; }
 
-
-/* ==================================================
-   フローティングメニュー
-================================================== */
+/* フローティング用 */
 .floating-nav { position: fixed; top: 20px; right: 30px; background-color: rgba(255, 255, 255, 0.95); border: 2px solid #333; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 9900; opacity: 0; visibility: hidden; transform: translateY(-20px); transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); padding: 0 25px; }
 .floating-nav.is-show { opacity: 1; visibility: visible; transform: translateY(0); }
 .floating-nav ul { display: flex; list-style: none; gap: 25px; margin: 0; padding: 12px 0; }
@@ -58,8 +59,73 @@ a { text-decoration: none; color: inherit; }
 .floating-nav a:hover { color: #888; }
 .floating-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
+/* --- ホバー時アニメーションマーカー --- */
+.hover-marker { position: relative; z-index: 1; }
+.hover-marker::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 0; height: 8px; z-index: -1;
+    border-radius: 4px; transition: width 0.3s ease;
+}
+.hover-marker:hover::after { width: 100%; }
 
-/* メインコンテンツ */
+/* ホバーマーカーの色（斜線なし） */
+.mark-pink::after   { background-color: rgba(232, 62, 140, 0.5); }
+.mark-green::after  { background-color: rgba(32, 201, 151, 0.5); }
+.mark-orange::after { background-color: rgba(253, 126, 20, 0.5); }
+.mark-purple::after { background-color: rgba(111, 66, 193, 0.5); }
+
+
+/* ==================================================
+   マーカー（斜線あり・文字の後ろ）
+================================================== */
+.marker-anim, .marker-static {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+.marker-anim::after, .marker-static::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 10%; /* 文字の真ん中ちょい下から */
+    height: 45%; /* 文字の半分くらいを覆う */
+    z-index: -1;
+    border-radius: 2px;
+    /* 白の半透明で斜線を描く */
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.4) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+}
+
+/* アニメーション用（左からシュッ） */
+.marker-anim::after {
+    width: 0;
+    animation: drawMarker 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@keyframes drawMarker {
+    100% { width: 100%; }
+}
+
+/* 常に引かれている状態用 */
+.marker-static::after {
+    width: 100%;
+}
+
+/* マーカーのベースカラー */
+.marker-yellow::after { background-color: #FBC02D; } /* 見やすい濃い黄色 */
+.marker-pink::after   { background-color: #e83e8c; } /* 濃いピンク */
+.marker-green::after  { background-color: #20c997; } /* 青緑 */
+.marker-orange::after { background-color: #fd7e14; } /* オレンジ */
+.marker-purple::after { background-color: #6f42c1; } /* 紫 */
+
+
+/* ==================================================
+   メインコンテンツ
+================================================== */
 .main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
 
 /* ヒーローセクション */
@@ -95,13 +161,8 @@ a { text-decoration: none; color: inherit; }
 /* ==================================================
    余白の調整 (お知らせとProfileの間)
 ================================================== */
-.profile-section {
-    margin-top: 180px; 
-    scroll-margin-top: 120px;
-}
-.blog-section, .photos-section, .webworks-section {
-    scroll-margin-top: 120px;
-}
+.profile-section { margin-top: 180px; scroll-margin-top: 120px; }
+.blog-section, .photos-section, .webworks-section { scroll-margin-top: 120px; }
 
 /* ==================================================
    セクション間の波線区切り
@@ -116,7 +177,6 @@ a { text-decoration: none; color: inherit; }
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 15' preserveAspectRatio='none'%3E%3Cpath d='M0,7.5 Q12.5,15 25,7.5 T50,7.5' fill='none' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
     background-size: 50px 100%;
 }
-
 
 /* ==================================================
    セクション共通タイトル
@@ -156,20 +216,15 @@ a { text-decoration: none; color: inherit; }
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
-    /* 初期状態で影をつけ、左上に浮かせます */
     box-shadow: 4px 4px 0px #333;
     transform: translate(-4px, -4px);
 }
 .action-btn:hover {
-    /* ホバーすると影がなくなり、右下に移動して「凹む」 */
     box-shadow: 0px 0px 0px #333;
     transform: translate(0, 0);
 }
-/* お知らせの「続きを見る」用調整 */
 #news-more-btn { padding: 10px 40px; font-size: 14px; }
 
-/* 矢印が入る黒丸アイコン */
 .btn-arrow-circle {
     width: 28px;
     height: 28px;
@@ -193,8 +248,9 @@ a { text-decoration: none; color: inherit; }
 
 
 /* ==================================================
-   プロフィールセクション
+   各セクション中身
 ================================================== */
+/* プロフィール */
 .profile-card { border: 2px solid #333; border-radius: 16px; padding: 50px; margin: 0 60px; display: flex; gap: 50px; align-items: center; background-color: #fff; }
 .profile-img-wrapper { width: 240px; flex-shrink: 0; aspect-ratio: 3 / 4; border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 8px; box-sizing: border-box; }
 .profile-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 6px; }
@@ -205,9 +261,7 @@ a { text-decoration: none; color: inherit; }
 .profile-text { font-size: 15px; line-height: 1.8; margin-bottom: 20px; color: #444; }
 .profile-action-area { display: flex; align-items: center; gap: 30px; }
 
-/* ==================================================
-   ブログセクション
-================================================== */
+/* ブログ */
 .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 0 60px; }
 .blog-card { border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1); position: relative; z-index: 1; }
 .blog-card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px #333; z-index: 10; }
@@ -227,9 +281,7 @@ a { text-decoration: none; color: inherit; }
 .tag-other  { background-color: #90A4AE; } 
 .blog-btn-wrapper { text-align: center; margin-top: 50px; }
 
-/* ==================================================
-   Photosセクション
-================================================== */
+/* Photos */
 .photo-collage-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
 .photo-item { display: block; background-color: #fff; padding: 12px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease; text-decoration: none; position: relative; }
 .photo-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
@@ -241,9 +293,7 @@ a { text-decoration: none; color: inherit; }
 .photo-item:nth-child(6) { transform: rotate(1deg); }
 .photo-item:hover { transform: scale(1.05) rotate(0deg) !important; box-shadow: 0 12px 25px rgba(0,0,0,0.2); z-index: 10; }
 
-/* ==================================================
-   Web Worksセクション
-================================================== */
+/* Web Works */
 .webworks-list { display: flex; flex-direction: column; gap: 60px; margin: 0 60px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; }
 .webwork-item:nth-child(even) { flex-direction: row-reverse; }
@@ -308,7 +358,6 @@ a { text-decoration: none; color: inherit; }
     .global-nav { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 0.98); margin: 0; opacity: 0; visibility: hidden; display: flex; justify-content: center; align-items: center; z-index: 9900; transition: opacity 0.4s ease, visibility 0.4s ease; }
     .global-nav.is-open { opacity: 1; visibility: visible; }
     
-    /* スマホ版メニューのフォントサイズを少し大きく調整 */
     .global-nav ul { flex-direction: column; gap: 40px; }
     .global-nav a { font-size: 20px; }
     .global-nav svg { width: 24px; height: 24px; }
