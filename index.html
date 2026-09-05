@@ -53,26 +53,26 @@
                 <span></span>
             </div>
 
-            <!-- ▼ PC用メインメニュー（スマホ用メニュー兼用） ▼ -->
+            <!-- ▼ PC用メインメニュー（ホバーマーカー用クラス追加） ▼ -->
             <nav class="global-nav" id="global-nav">
                 <ul>
                     <li>
-                        <a href="https://hontani-hajime.github.io/profile/">
+                        <a href="https://hontani-hajime.github.io/profile/" class="hover-marker mark-pink">
                             <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Profile
                         </a>
                     </li>
                     <li>
-                        <a href="https://hontani-hajime.github.io/blog/">
+                        <a href="https://hontani-hajime.github.io/blog/" class="hover-marker mark-green">
                             <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> Blog
                         </a>
                     </li>
                     <li>
-                        <a href="https://hontani-hajime.github.io/photos/">
+                        <a href="https://hontani-hajime.github.io/photos/" class="hover-marker mark-orange">
                             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Photos
                         </a>
                     </li>
                     <li>
-                        <a href="https://hontani-hajime.github.io/web-works/">
+                        <a href="https://hontani-hajime.github.io/web-works/" class="hover-marker mark-purple">
                             <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Web Works
                         </a>
                     </li>
@@ -97,22 +97,22 @@
     <nav class="floating-nav" id="floating-nav">
         <ul>
             <li>
-                <a href="https://hontani-hajime.github.io/profile/">
+                <a href="https://hontani-hajime.github.io/profile/" class="hover-marker mark-pink">
                     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Profile
                 </a>
             </li>
             <li>
-                <a href="https://hontani-hajime.github.io/blog/">
+                <a href="https://hontani-hajime.github.io/blog/" class="hover-marker mark-green">
                     <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> Blog
                 </a>
             </li>
             <li>
-                <a href="https://hontani-hajime.github.io/photos/">
+                <a href="https://hontani-hajime.github.io/photos/" class="hover-marker mark-orange">
                     <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Photos
                 </a>
             </li>
             <li>
-                <a href="https://hontani-hajime.github.io/web-works/">
+                <a href="https://hontani-hajime.github.io/web-works/" class="hover-marker mark-purple">
                     <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Web Works
                 </a>
             </li>
@@ -122,8 +122,9 @@
     <main class="main-content">
         <section class="hero-section">
             <div class="hero-text font-bold">
-                本谷元が撮った写真や<br>
-                作ったサイトを紹介するよ！
+                <!-- ▼ アニメーション付きマーカー（2行目は少し遅れて引く） ▼ -->
+                <span class="marker-anim marker-yellow">本谷元が撮った写真や</span><br>
+                <span class="marker-anim marker-yellow" style="animation-delay: 0.6s;">作ったサイトを紹介するよ！</span>
             </div>
 
             <div class="news-section" id="news-section">
@@ -162,7 +163,8 @@
 
         <!-- ▼ プロフィールセクション ▼ -->
         <section class="profile-section" id="profile">
-            <h2 class="section-title">Profile</h2>
+            <!-- ▼ タイトルにマーカー追加 ▼ -->
+            <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
 
             <div class="profile-card">
                 <div class="profile-img-wrapper">
@@ -206,7 +208,8 @@
 
         <!-- ▼ ブログセクション ▼ -->
         <section class="blog-section" id="blog">
-            <h2 class="section-title">Blog</h2>
+            <!-- ▼ タイトルにマーカー追加 ▼ -->
+            <h2 class="section-title"><span class="marker-static marker-green">Blog</span></h2>
 
             <div class="blog-grid">
                 <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
@@ -257,7 +260,8 @@
 
         <!-- ▼ フォトセクション ▼ -->
         <section class="photos-section" id="photos">
-            <h2 class="section-title">Photos</h2>
+            <!-- ▼ タイトルにマーカー追加 ▼ -->
+            <h2 class="section-title"><span class="marker-static marker-orange">Photos</span></h2>
 
             <div class="photo-collage-container">
                 <a href="https://hontani-hajime.github.io/photos/" class="photo-item"><img src="https://hontani-hajime.github.io/file/01.jpg" alt="Photo 1"></a>
@@ -282,7 +286,8 @@
 
         <!-- ▼ ウェブワークスセクション ▼ -->
         <section class="webworks-section" id="web-works">
-            <h2 class="section-title">Web Works</h2>
+            <!-- ▼ タイトルにマーカー追加 ▼ -->
+            <h2 class="section-title"><span class="marker-static marker-purple">Web Works</span></h2>
 
             <div class="webworks-list">
                 <div class="webwork-item">
