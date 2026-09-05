@@ -157,18 +157,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initGallery();
 
-
     // =========================================================
-    // トップへ戻るボタン
+    // スクロール検知イベント (フローティングメニュー、ひょっこり画像、TOPボタン)
     // =========================================================
     const topBtn = document.getElementById('page-top-btn');
+    const floatingNav = document.getElementById('floating-nav');
+    const popImage = document.getElementById('pop-image');
     
-    // スクロール検知でボタンを表示・非表示
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
+        const scrollY = window.scrollY;
+
+        // TOPへ戻るボタンの表示・非表示
+        if (scrollY > 300) {
             topBtn.classList.add('is-show');
         } else {
             topBtn.classList.remove('is-show');
+        }
+
+        // PC版の右上のフローティングメニュー表示
+        // 少しスクロールしたらヘッダーと入れ替わりで登場させる
+        if (window.innerWidth > 768 && scrollY > 200) {
+            floatingNav.classList.add('is-show');
+        } else {
+            floatingNav.classList.remove('is-show');
+        }
+
+        // ひょっこりはじめちゃんの表示 (ページをある程度スクロールしたら)
+        if (scrollY > 600) {
+            popImage.classList.add('is-show');
+        } else {
+            popImage.classList.remove('is-show');
         }
     });
 
