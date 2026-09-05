@@ -188,27 +188,6 @@ a { text-decoration: none; color: inherit; }
     margin-top: -20px; 
 }
 
-/* お知らせの「続きを見る」ボタンも統一デザインに変更 */
-.read-more-btn {
-    background-color: #fff;
-    color: #333;
-    border: 2px solid #333;
-    border-radius: 50px;
-    padding: 10px 40px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: inherit;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-    box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.15);
-}
-
-.read-more-btn:hover {
-    background-color: #fff;
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0px #333;
-}
-
 .news-section.is-expanded .news-fade { display: none; }
 .news-section.is-expanded .news-btn-wrapper { display: none; }
 
@@ -254,30 +233,26 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==================================================
-   セクション共通タイトル
+   セクション共通タイトル (ボタンらしさを排除)
 ================================================== */
 .profile-section, .blog-section, .photos-section, .webworks-section {
     margin-top: 120px;
     scroll-margin-top: 120px;
 }
 
-/* ボタンっぽさをなくし、見出しらしい装飾（左右に線）に変更 */
 .section-title {
     width: fit-content;
     margin: 0 auto 50px;
     font-size: 28px;
     color: #333;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none; 
     letter-spacing: 0.1em;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 20px; /* 文字と横線の隙間 */
 }
 
+/* タイトルの左右にあしらう横線 */
 .section-title::before,
 .section-title::after {
     content: '';
@@ -285,6 +260,51 @@ a { text-decoration: none; color: inherit; }
     width: 40px;
     height: 2px;
     background-color: #333;
+    border-radius: 2px;
+}
+
+/* ==================================================
+   ボタン共通デザイン（ホバーで影が伸びて浮き上がる）
+================================================== */
+.profile-btn,
+.webwork-link,
+.read-more-btn {
+    display: inline-block;
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 50px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* 初期状態はごく薄い影 */
+    box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.1);
+}
+
+.profile-btn:hover,
+.webwork-link:hover,
+.read-more-btn:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0px #333;
+    background-color: #fff;
+}
+
+/* 各ボタン個別の調整 */
+.read-more-btn {
+    padding: 10px 40px;
+}
+.profile-btn {
+    padding: 10px 40px;
+}
+.webwork-link {
+    padding: 8px 30px;
+    margin-top: 10px;
+    align-self: flex-start;
 }
 
 /* ==================================================
@@ -354,27 +374,6 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: center;
     gap: 20px;
-}
-
-/* ボタンをリッチなホバーアクション付きデザインに変更 */
-.profile-btn {
-    display: inline-block;
-    background-color: #fff;
-    color: #333;
-    padding: 12px 40px;
-    border: 2px solid #333;
-    border-radius: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-    box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.15);
-}
-
-.profile-btn:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0px #333;
-    opacity: 1;
 }
 
 /* ==================================================
@@ -625,29 +624,6 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
 }
 
-/* 「詳しく見る」ボタンもホバーで浮き上がるデザインに変更 */
-.webwork-link {
-    display: inline-block;
-    align-self: flex-start;
-    background-color: #fff;
-    color: #333;
-    padding: 10px 30px;
-    border: 2px solid #333;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    margin-top: 10px;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-    box-shadow: 2px 2px 0px rgba(51, 51, 51, 0.15);
-}
-
-.webwork-link:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0px #333;
-    opacity: 1;
-}
-
 /* ==================================================
    フッター
 ================================================== */
@@ -726,7 +702,7 @@ a { text-decoration: none; color: inherit; }
     background-color: #333;
     color: #fff;
     border: none;
-    border-radius: 50px; /* 少し形を整えました */
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -844,13 +820,12 @@ a { text-decoration: none; color: inherit; }
     }
     .section-title { 
         font-size: 22px; 
-        padding: 0; 
         margin-bottom: 35px;
+        gap: 12px; /* スマホでは横の隙間を少し狭く */
     }
-    /* スマホ表示では横の線を少し短くして見やすく調整 */
     .section-title::before,
     .section-title::after {
-        width: 20px;
+        width: 25px; /* スマホでは横線を短く */
     }
 
     .profile-card {
