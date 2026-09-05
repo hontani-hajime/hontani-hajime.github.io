@@ -38,6 +38,36 @@
 <body>
     <div class="top-line"></div>
 
+    <!-- ▼ 追従するピル型メニュー (PC用) ▼ -->
+    <nav class="floating-menu klee-one-semibold" id="floating-menu">
+        <ul>
+            <li>
+                <a href="#profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Profile
+                </a>
+            </li>
+            <li>
+                <a href="#blog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Blog
+                </a>
+            </li>
+            <li>
+                <a href="#photos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    Photos
+                </a>
+            </li>
+            <li>
+                <a href="#web-works">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    Web Works
+                </a>
+            </li>
+        </ul>
+    </nav>
+
     <header class="site-header">
         <div class="header-inner">
             <div class="logo-area">
@@ -54,58 +84,55 @@
                 </div>
             </div>
 
-            <!-- PC版の通常メニュー -->
-            <nav class="global-nav-pc" id="global-nav-pc">
-                <ul>
-                    <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
-                    <li><a href="https://hontani-hajime.github.io/blog/" class="klee-one-regular">Blog</a></li>
-                    <li><a href="https://hontani-hajime.github.io/photos/" class="klee-one-regular">Photos</a></li>
-                    <li><a href="https://hontani-hajime.github.io/web-works/" class="klee-one-regular">Web Works</a></li>
-
-                    <li class="sns-list">
-                        <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle">
-                                <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
-                            </div>
-                        </a>
-                        <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle">
-                                <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
-                            </div>
-                        </a>
-                        <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle">
-                                <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <!-- スマホ用ハンバーガーアイコン -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
 
-    <!-- 追従用のハンバーガーメニュー -->
-    <div class="sticky-menu-wrapper" id="sticky-menu-wrapper">
-        <div class="sticky-menu-icon">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
-    <!-- スマホ＆PC追従時共通のフルスクリーンメニュー -->
+    <!-- スマホ用フルスクリーンメニュー -->
     <nav class="fullscreen-nav" id="fullscreen-nav">
         <ul>
-            <li><a href="https://hontani-hajime.github.io/profile/" class="klee-one-regular">Profile</a></li>
-            <li><a href="https://hontani-hajime.github.io/blog/" class="klee-one-regular">Blog</a></li>
-            <li><a href="https://hontani-hajime.github.io/photos/" class="klee-one-regular">Photos</a></li>
-            <li><a href="https://hontani-hajime.github.io/web-works/" class="klee-one-regular">Web Works</a></li>
+            <li>
+                <a href="#profile" class="klee-one-semibold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Profile
+                </a>
+            </li>
+            <li>
+                <a href="#blog" class="klee-one-semibold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Blog
+                </a>
+            </li>
+            <li>
+                <a href="#photos" class="klee-one-semibold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    Photos
+                </a>
+            </li>
+            <li>
+                <a href="#web-works" class="klee-one-semibold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    Web Works
+                </a>
+            </li>
         </ul>
+        
+        <!-- ▼ スマホメニュー内のSNSアイコンを復活 ▼ -->
+        <div class="sp-sns-list">
+            <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
+                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon"></div>
+            </a>
+            <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon"></div>
+            </a>
+            <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon"></div>
+            </a>
+        </div>
     </nav>
 
 
@@ -172,9 +199,11 @@
     <!-- ▼ プロフィールセクション ▼ -->
     <section class="section-wrapper bg-white profile-section" id="profile">
         <div class="section-inner">
-            <h2 class="section-title klee-one-semibold">- Profile -</h2>
+            <div class="section-title-wrapper">
+                <h2 class="section-title klee-one-semibold">Profile</h2>
+            </div>
 
-            <div class="profile-card">
+            <div class="profile-card modern-card">
                 <div class="profile-img-wrapper">
                     <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
                 </div>
@@ -189,38 +218,36 @@
                     </p>
 
                     <div class="profile-action-area">
-                        <a href="https://hontani-hajime.github.io/profile/" class="profile-btn klee-one-semibold">Profileページへ</a>
+                        <a href="https://hontani-hajime.github.io/profile/" class="modern-btn klee-one-semibold">Profileページへ</a>
 
                         <div class="sns-list">
                             <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon">
-                                </div>
+                                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon"></div>
                             </a>
                             <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon">
-                                </div>
+                                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon"></div>
                             </a>
                             <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                                <div class="sns-circle">
-                                    <img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon">
-                                </div>
+                                <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon"></div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- ヒョコッイラスト (右) -->
+        <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="hyoko-illust hyoko-right">
     </section>
 
     <!-- ▼ ブログセクション ▼ -->
     <section class="section-wrapper bg-gray blog-section" id="blog">
         <div class="section-inner">
-            <h2 class="section-title klee-one-semibold">- Blog -</h2>
+            <div class="section-title-wrapper">
+                <h2 class="section-title klee-one-semibold">Blog</h2>
+            </div>
 
             <div class="blog-grid">
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                <a href="https://hontani-hajime.github.io/blog/" class="blog-card modern-card">
                     <div class="blog-img-wrapper">
                         <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                     </div>
@@ -234,7 +261,7 @@
                     </div>
                 </a>
 
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                <a href="https://hontani-hajime.github.io/blog/" class="blog-card modern-card">
                     <div class="blog-img-wrapper">
                         <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                     </div>
@@ -248,7 +275,7 @@
                     </div>
                 </a>
 
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-card">
+                <a href="https://hontani-hajime.github.io/blog/" class="blog-card modern-card">
                     <div class="blog-img-wrapper">
                         <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="No Image">
                     </div>
@@ -262,59 +289,61 @@
                 </a>
             </div>
 
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/blog/" class="profile-btn klee-one-semibold">Blogページへ</a>
+            <div class="btn-center-wrapper">
+                <a href="https://hontani-hajime.github.io/blog/" class="modern-btn klee-one-semibold">Blogページへ</a>
             </div>
         </div>
+        <!-- ヒョコッイラスト (左) -->
+        <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="hyoko-illust hyoko-left">
     </section>
 
     <!-- ▼ フォトセクション ▼ -->
     <section class="section-wrapper bg-white photos-section" id="photos">
         <div class="section-inner">
-            <h2 class="section-title klee-one-semibold">- Photos -</h2>
+            <div class="section-title-wrapper">
+                <h2 class="section-title klee-one-semibold">Photos</h2>
+            </div>
 
             <div class="photo-collage-container">
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/01.jpg" alt="Photo 1">
                 </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/02.jpg" alt="Photo 2">
                 </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/03.jpg" alt="Photo 3">
                 </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/04.jpg" alt="Photo 4">
                 </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/05.jpg" alt="Photo 5">
                 </a>
-                <a href="https://hontani-hajime.github.io/photos/" class="photo-item">
+                <a href="https://hontani-hajime.github.io/photos/" class="photo-item modern-card">
                     <img src="https://hontani-hajime.github.io/file/06.jpg" alt="Photo 6">
                 </a>
             </div>
 
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/photos/" class="profile-btn klee-one-semibold">Photosページへ</a>
+            <div class="btn-center-wrapper">
+                <a href="https://hontani-hajime.github.io/photos/" class="modern-btn klee-one-semibold">Photosページへ</a>
             </div>
         </div>
+        <!-- ヒョコッイラスト (右) -->
+        <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="hyoko-illust hyoko-right">
     </section>
 
-    <!-- ▼ スクロールアニメーション用イラスト ▼ -->
-    <div class="illustration-container">
-        <div class="illustration-inner">
-            <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="scroll-illustration" id="scroll-illustration">
-        </div>
-    </div>
 
     <!-- ▼ ウェブワークスセクション ▼ -->
     <section class="section-wrapper bg-gray webworks-section" id="web-works">
         <div class="section-inner">
-            <h2 class="section-title klee-one-semibold">- Web Works -</h2>
+            <div class="section-title-wrapper">
+                <h2 class="section-title klee-one-semibold">Web Works</h2>
+            </div>
 
             <div class="webworks-list">
                 <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window modern-card">
                         <div class="window-bar">
                             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                         </div>
@@ -329,12 +358,12 @@
                             <span class="webwork-tag">HTML/CSS</span>
                             <span class="webwork-tag">Design</span>
                         </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                        <a href="https://hontani-hajime.github.io/web-works/" class="modern-btn-small klee-one-semibold">詳しく見る</a>
                     </div>
                 </div>
 
                 <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window modern-card">
                         <div class="window-bar">
                             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                         </div>
@@ -349,12 +378,12 @@
                             <span class="webwork-tag">WordPress</span>
                             <span class="webwork-tag">PHP</span>
                         </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                        <a href="https://hontani-hajime.github.io/web-works/" class="modern-btn-small klee-one-semibold">詳しく見る</a>
                     </div>
                 </div>
 
                 <div class="webwork-item">
-                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window">
+                    <a href="https://hontani-hajime.github.io/web-works/" class="webwork-window modern-card">
                         <div class="window-bar">
                             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                         </div>
@@ -369,15 +398,17 @@
                             <span class="webwork-tag">HTML/CSS/JS</span>
                             <span class="webwork-tag">Portfolio</span>
                         </div>
-                        <a href="https://hontani-hajime.github.io/web-works/" class="webwork-link klee-one-semibold">詳しく見る</a>
+                        <a href="https://hontani-hajime.github.io/web-works/" class="modern-btn-small klee-one-semibold">詳しく見る</a>
                     </div>
                 </div>
             </div>
 
-            <div class="blog-btn-wrapper">
-                <a href="https://hontani-hajime.github.io/web-works/" class="profile-btn klee-one-semibold">Web Works一覧へ</a>
+            <div class="btn-center-wrapper">
+                <a href="https://hontani-hajime.github.io/web-works/" class="modern-btn klee-one-semibold">Web Works一覧へ</a>
             </div>
         </div>
+        <!-- ヒョコッイラスト (左) -->
+        <img src="https://hontani-hajime.github.io/file/small-hajime.png" alt="イラスト" class="hyoko-illust hyoko-left">
     </section>
 
     <!-- ▼ フッター ▼ -->
@@ -389,7 +420,6 @@
             </a>
 
             <ul class="footer-links klee-one-regular">
-                <!-- サイトポリシーとプライバシーポリシーへのリンク -->
                 <li><a href="https://hontani-hajime.github.io/site-policy/">サイトポリシー</a></li>
                 <li><a href="https://hontani-hajime.github.io/privacy-policy/">プライバシーポリシー</a></li>
             </ul>
