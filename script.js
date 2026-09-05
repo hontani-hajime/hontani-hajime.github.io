@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navElement.classList.toggle('is-open');
     });
 
-    // =========================================================
-    // お知らせセクションの高さ自動調整 (PC版のみ)
-    // =========================================================
+    // お知らせセクションの高さ自動調整
     function adjustNewsHeight() {
         const isMobile = window.innerWidth <= 768;
         const newsSection = document.getElementById('news-section');
@@ -77,9 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', adjustNewsHeight);
 
-    // =========================================================
-    // ギャラリー
-    // =========================================================
+    // ギャラリー処理
     const galleryContainer = document.getElementById('hero-gallery');
     const allImages = Array.from({length: 12}, (_, i) => `file/${String(i + 1).padStart(2, '0')}.jpg`);
     const totalItems = 6;
@@ -100,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         while (!isValid) {
             const shuffled = shuffleArray(allImages);
             newImages = shuffled.slice(0, count);
-
             isValid = true;
             for (let i = 0; i < count; i++) {
                 if (currentImages[i] && newImages[i] === currentImages[i]) {
@@ -116,36 +111,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!galleryContainer) return;
 
         galleryContainer.innerHTML = '';
-
         const initialImages = getNextImages([], totalItems);
 
         for (let i = 0; i < totalItems; i++) {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'gallery-item'; 
-
             const img = document.createElement('img');
             img.src = initialImages[i];
             img.alt = "Gallery Photo";
-
             itemDiv.appendChild(img);
             galleryContainer.appendChild(itemDiv);
         }
 
-        setTimeout(() => {
-            adjustNewsHeight();
-        }, 100);
+        setTimeout(() => { adjustNewsHeight(); }, 100);
 
         setInterval(() => {
             const imgs = galleryContainer.querySelectorAll('img');
             if (imgs.length === 0) return;
-
             const currentSrcs = Array.from(imgs).map(img => img.getAttribute('src'));
             const nextSrcs = getNextImages(currentSrcs, imgs.length);
 
-            imgs.forEach(img => {
-                img.style.opacity = '0';
-            });
-
+            imgs.forEach(img => { img.style.opacity = '0'; });
             setTimeout(() => {
                 imgs.forEach((img, index) => {
                     img.src = nextSrcs[index];
@@ -154,12 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500); 
         }, 4000); 
     }
-
     initGallery();
 
-    // =========================================================
-    // スクロール検知イベント (フローティングメニュー、TOPボタン)
-    // =========================================================
+    // スクロール検知
     const topBtn = document.getElementById('page-top-btn');
     const floatingNav = document.getElementById('floating-nav');
     
@@ -167,53 +150,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollY = window.scrollY;
 
         // TOPへ戻るボタン
-        if (scrollY > 300) {
-            topBtn.classList.add('is-show');
-        } else {
-            topBtn.classList.remove('is-show');
-        }
+        if (scrollY > 300) { topBtn.classList.add('is-show'); } 
+        else { topBtn.classList.remove('is-show'); }
 
-        // PC版の右上のフローティングメニュー表示
-        if (window.innerWidth > 768 && scrollY > 200) {
-            floatingNav.classList.add('is-show');
-        } else {
-            floatingNav.classList.remove('is-show');
-        }
+        // PC版右上のフローティングメニュー
+        if (window.innerWidth > 768 && scrollY > 200) { floatingNav.classList.add('is-show'); } 
+        else { floatingNav.classList.remove('is-show'); }
     });
 
-    // クリックで上に戻る
     topBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // =========================================================
-    // 各所のひょっこり画像が画面に入ったらアニメーション
+    // 1回きりの「ひょっこり」アニメーション監視
     // =========================================================
-    const popImages = document.querySelectorAll('.pop-image');
-    
-    // 画像が画面のどの位置に入ったら発火させるかの設定（10%見えたら）
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.1 
+        threshold: 0.3 // 要素が30%見えたら発火
     };
 
-    const popObserver = new IntersectionObserver((entries) => {
+    const popObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // 画面に入ったらクラスをつけてヒョコッと出す
+                // 発火したらクラスをつけてアニメーション開始
                 entry.target.classList.add('is-show');
-            } else {
-                // 画面外に出たら引っ込める（スクロールして戻った時にまた出したい場合）
-                entry.target.classList.remove('is-show');
+                // 一度表示したら監視をやめる（戻ってももう出ない）
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    popImages.forEach(img => {
-        popObserver.observe(img);
+    // .observe-target がついている親要素を全て監視
+    document.querySelectorAll('.observe-target').forEach(el => {
+        popObserver.observe(el);
     });
 });
