@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const textPart2 = "のはじめちゃんサイト";
     const typingTextElement = document.getElementById('typing-text');
     const cursorElement = document.getElementById('cursor');
-    const navElement = document.getElementById('global-nav');
+    const navElementPC = document.getElementById('global-nav-pc');
 
     const typingSpeed = 150; 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -22,16 +22,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         cursorElement.classList.remove('blinking');
         cursorElement.classList.add('done');
-        if (window.innerWidth > 768) navElement.style.opacity = '1';
+        // PC用メニューを表示
+        if (window.innerWidth > 768 && navElementPC) navElementPC.style.opacity = '1';
     }
     startTypingAnimation();
 
-    // ハンバーガーメニュー
+    // =========================================================
+    // メニュー関連 (追従アイコン＆フルスクリーンメニュー)
+    // =========================================================
     const hamburger = document.getElementById('hamburger');
+    const fullscreenNav = document.getElementById('fullscreen-nav');
+    const stickyMenuWrapper = document.getElementById('sticky-menu-wrapper');
+
+    // ハンバーガークリック処理
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
-        navElement.classList.toggle('is-open');
+        fullscreenNav.classList.toggle('is-open');
     });
+
+    // =========================================================
+    // スクロール検知 (追従メニュー表示＆TOPへ戻るボタン＆イラストアニメーション)
+    // =========================================================
+    const topBtn = document.getElementById('page-top-btn');
+    const illustration = document.getElementById('scroll-illustration');
+    const header = document.querySelector('.site-header');
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        // --- 1. 追従メニューアイコンの表示/非表示 (PC版のみ制御) ---
+        if (window.innerWidth > 768) {
+             const headerHeight = header.offsetHeight;
+             // ヘッダーを過ぎたら表示
+             if (scrollY > headerHeight) {
+                 stickyMenuWrapper.classList.add('is-show');
+             } else {
+                 stickyMenuWrapper.classList.remove('is-show');
+                 // ヘッダーに戻ったらフルスクリーンメニューも閉じる
+                 if(fullscreenNav.classList.contains('is-open')) {
+                     hamburger.classList.remove('is-active');
+                     fullscreenNav.classList.remove('is-open');
+                 }
+             }
+        }
+
+        // --- 2. TOPへ戻るボタン ---
+        if (scrollY > 300) {
+            topBtn.classList.add('is-show');
+        } else {
+            topBtn.classList.remove('is-show');
+        }
+
+        // --- 3. イラストのスクロールアニメーション ---
+        if (illustration) {
+            const rect = illustration.getBoundingClientRect();
+            // 要素の上端が画面下部より少し上に来たら表示開始
+            if (rect.top < windowHeight - 100) {
+                illustration.classList.add('is-active');
+            }
+        }
+    });
+
+    // クリックで上に戻る
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
 
     // =========================================================
     // お知らせセクションの高さ自動調整 (PC版のみ)
@@ -156,27 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initGallery();
-
-
-    // =========================================================
-    // トップへ戻るボタン (追加！)
-    // =========================================================
-    const topBtn = document.getElementById('page-top-btn');
-    
-    // スクロール検知でボタンを表示・非表示
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            topBtn.classList.add('is-show');
-        } else {
-            topBtn.classList.remove('is-show');
-        }
-    });
-
-    // クリックで上に戻る
-    topBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 });
