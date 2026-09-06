@@ -126,54 +126,46 @@ a { text-decoration: none; color: inherit; }
 .profile-section { margin-top: 180px; scroll-margin-top: 120px; }
 .blog-section, .photos-section, .webworks-section { scroll-margin-top: 120px; }
 
-
-/* ==================================================
-   波・船・背景アニメーション
-================================================== */
 .wave-scene {
     width: 100vw;
-    height: 80px;
+    height: 120px;
     margin: 100px 0;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
 }
 .scene-sky {
     position: absolute;
-    bottom: 12px;
+    bottom: 10px;
     width: 100%;
     height: 100%;
     z-index: 1;
 }
 .wave-sea {
     width: 100%;
-    height: 15px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 15' preserveAspectRatio='none'%3E%3Cpath d='M0,7.5 Q12.5,15 25,7.5 T50,7.5' fill='none' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+    height: 35px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' preserveAspectRatio='none'%3E%3Cpath d='M0,10 Q12.5,20 25,10 T50,10 L50,20 L0,20 Z' fill='%23ffffff' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
     background-size: 50px 100%;
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     z-index: 3;
 }
 .scene-ship {
     position: absolute;
-    bottom: 3px;
+    bottom: 15px;
     z-index: 2;
 }
 
-/* 右方向への動き */
 .dir-right .wave-sea { animation: moveWaveLeft 2s linear infinite; }
 .dir-right .scene-ship { animation: sailRight 25s linear infinite; }
 .dir-right .ship-inner { animation: rockBoat 3s ease-in-out infinite; }
 
-/* 左方向への動き */
 .dir-left .wave-sea { animation: moveWaveRight 2s linear infinite; }
 .dir-left .scene-ship { animation: sailLeft 25s linear infinite; }
 .dir-left .ship-inner { transform: scaleX(-1); animation: rockBoatLeft 3s ease-in-out infinite; }
 
-/* キーフレーム設定 */
 @keyframes moveWaveLeft {
     0% { background-position: 0 0; }
     100% { background-position: -50px 0; }
@@ -191,15 +183,13 @@ a { text-decoration: none; color: inherit; }
     100% { right: 115%; }
 }
 @keyframes rockBoat {
-    0%, 100% { transform: rotate(-3deg) translateY(0); }
-    50% { transform: rotate(3deg) translateY(-2px); }
+    0%, 100% { transform: rotate(-5deg) translateY(0); }
+    50% { transform: rotate(5deg) translateY(-10px); }
 }
 @keyframes rockBoatLeft {
-    0%, 100% { transform: scaleX(-1) rotate(-3deg) translateY(0); }
-    50% { transform: scaleX(-1) rotate(3deg) translateY(-2px); }
+    0%, 100% { transform: scaleX(-1) rotate(-5deg) translateY(0); }
+    50% { transform: scaleX(-1) rotate(5deg) translateY(-10px); }
 }
-/* ================================================== */
-
 
 .section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
 .section-title::before, .section-title::after { content: ''; display: block; width: 40px; height: 2px; background-color: #333; border-radius: 2px; }
@@ -383,9 +373,8 @@ a { text-decoration: none; color: inherit; }
 
     .profile-section { margin-top: 100px; scroll-margin-top: 40px; }
 
-    /* モバイル用の波の調整 */
-    .wave-scene { height: 60px; margin: 50px 0; }
-    .wave-sea { background-size: 30px 100%; height: 10px; }
+    .wave-scene { height: 90px; margin: 50px 0; }
+    .wave-sea { background-size: 30px 100%; height: 20px; }
     .scene-sky svg { transform: scale(0.7); transform-origin: bottom center; }
     .scene-ship svg { transform: scale(0.8); transform-origin: bottom center; }
 
