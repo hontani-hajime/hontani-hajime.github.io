@@ -524,15 +524,15 @@ a { text-decoration: none; color: inherit; }
     margin-bottom: 30px;
 }
 .creator-message {
-    background-color: #fafafa;
+    background-color: #fff;
     padding: 15px 20px;
+    border: 2px dashed #ccc;
     border-radius: 8px;
-    border-left: 4px solid #333;
     margin: 20px 0;
 }
 .creator-message p {
     margin-bottom: 0;
-    color: #333;
+    color: #444;
 }
 
 @media (max-width: 768px) {
