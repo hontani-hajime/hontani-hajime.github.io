@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ページが見つかりません | 本谷元のサイト</title>
+    <meta name="robots" content="noindex">
+    <title>ページが見つかりません | 本谷元のはじめちゃんサイト</title>
     <link rel="icon" href="https://hontani-hajime.github.io/file/icon.jpg">
     <link rel="stylesheet" href="https://hontani-hajime.github.io/style.css">
 </head>
@@ -12,38 +13,30 @@
     <header class="site-header">
         <div class="header-inner">
             <div class="logo-area">
-                <a href="https://hontani-hajime.github.io/">
-                    <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="site-logo">
-                </a>
-                <div class="site-titles">
-                    <a href="https://hontani-hajime.github.io/" style="text-decoration: none; color: inherit;">
-                        <h1 class="main-title font-bold">本谷元のはじめちゃんサイト</h1>
-                    </a>
-                </div>
+                <a href="https://hontani-hajime.github.io/"><img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="site-logo"></a>
             </div>
         </div>
     </header>
 
-    <main class="main-content" style="text-align: center; padding: 100px 20px;">
-        <h2 class="font-bold" style="font-size: 80px; margin-bottom: 20px; color: #333;">404</h2>
-        <p style="font-size: 18px; margin-bottom: 40px;">お探しのページは波に流されてしまったか、存在しないようです。</p>
-        
-        <div class="scenery-divider dir-right" style="margin: 40px auto;">
-            <div class="mountain-bg"></div>
-            <div class="wave-layer"></div>
-            <div class="ship-layer">
-                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z"></path><path d="M12 18V2l7 7-7 7"></path></svg>
-            </div>
-        </div>
-
-        <a href="https://hontani-hajime.github.io/" class="action-btn">
-            TOPページへ戻る
-            <span class="btn-arrow-circle"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
-        </a>
+    <main class="main-content">
+        <section style="text-align: center; margin: 150px 20px; min-height: 40vh;">
+            <h1 class="font-bold" style="font-size: 80px; color: #333; margin-bottom: 20px; letter-spacing: 0.1em;">404</h1>
+            <p style="font-size: 16px; margin-bottom: 40px; color: #555; line-height: 1.8;">
+                お探しのページは見つかりませんでした。<br>波に流されてしまったかもしれません…
+            </p>
+            <a href="https://hontani-hajime.github.io/" class="action-btn">
+                トップページへ戻る
+                <span class="btn-arrow-circle">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+            </a>
+        </section>
     </main>
 
     <footer class="site-footer">
-        <p class="copyright">&copy; 2026 Hontani Hajime.</p>
+        <div class="footer-inner">
+            <p class="copyright">&copy; 2026 Hontani Hajime.</p>
+        </div>
     </footer>
 </body>
 </html>
