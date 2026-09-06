@@ -180,8 +180,7 @@ function initSite() {
         { title: "春の桜を撮りに行きました", date: "2026.08.31", tags: [{name: "写真", class: "tag-photo"}, {name: "旅行", class: "tag-travel"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
         { title: "新しいサイトのポートフォリオを作成中", date: "2026.08.20", tags: [{name: "WEB・IT", class: "tag-webit"}, {name: "勉強", class: "tag-study"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
         { title: "久しぶりのピアノ発表会に向けて", date: "2026.08.15", tags: [{name: "ピアノ", class: "tag-piano"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-        { title: "日常のスケッチとカフェ巡り", date: "2026.07.10", tags: [{name: "その他", class: "tag-other"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-        { title: "Webデザインのトレンド勉強会", date: "2026.06.25", tags: [{name: "WEB・IT", class: "tag-webit"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" }
+        { title: "日常のスケッチとカフェ巡り", date: "2026.07.10", tags: [{name: "その他", class: "tag-other"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" }
     ];
 
     const mainArea = document.getElementById('blog-main-area');
@@ -208,7 +207,7 @@ function initSite() {
                 </a>
             `;
 
-            listInner.innerHTML = currentArticles.slice(1, 4).map(article => `
+            listInner.innerHTML = currentArticles.slice(1).map(article => `
                 <a href="https://hontani-hajime.github.io/blog/" class="blog-list-item">
                     <div class="blog-list-img-wrapper">
                         ${article.isNew ? '<span class="list-new-badge">NEW</span>' : ''}
@@ -230,6 +229,25 @@ function initSite() {
         setInterval(() => {
             mainArea.classList.add('is-hidden');
             
+            const nextLastArticle = currentArticles[0];
+            const tempItem = document.createElement('a');
+            tempItem.href = "https://hontani-hajime.github.io/blog/";
+            tempItem.className = "blog-list-item";
+            tempItem.innerHTML = `
+                <div class="blog-list-img-wrapper">
+                    ${nextLastArticle.isNew ? '<span class="list-new-badge">NEW</span>' : ''}
+                    <img src="${nextLastArticle.img}" alt="Blog Image">
+                </div>
+                <div class="blog-list-info">
+                    <span class="blog-list-date">${nextLastArticle.date}</span>
+                    <h4 class="blog-list-title font-bold">${nextLastArticle.title}</h4>
+                    <div class="blog-list-tags">
+                        ${nextLastArticle.tags.map(t => `<span class="blog-tag ${t.class}">${t.name}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            listInner.appendChild(tempItem);
+            
             const firstItem = listInner.querySelector('.blog-list-item');
             if (firstItem) {
                 const itemHeight = firstItem.offsetHeight + 15; 
@@ -244,23 +262,7 @@ function initSite() {
                 listInner.style.transition = 'none';
                 listInner.style.transform = 'translateY(0)';
                 
-                const newItems = listInner.querySelectorAll('.blog-list-item');
-                const lastItem = newItems[newItems.length - 1];
-                if(lastItem) {
-                    lastItem.style.opacity = '0';
-                    lastItem.style.transform = 'translateY(20px)';
-                }
-
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        if(lastItem) {
-                            lastItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                            lastItem.style.opacity = '1';
-                            lastItem.style.transform = 'translateY(0)';
-                        }
-                        mainArea.classList.remove('is-hidden');
-                    });
-                });
+                mainArea.classList.remove('is-hidden');
             }, 500); 
 
         }, 4000);
