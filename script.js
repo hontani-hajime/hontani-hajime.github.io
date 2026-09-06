@@ -175,7 +175,6 @@ function initSite() {
         });
     }
 
-    // --- Blog Slider Animation ---
     const blogArticles = [
         { title: "秋の気配を感じて", date: "2026.09.06", tags: [{name: "写真", class: "tag-photo"}], isNew: true, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
         { title: "春の桜を撮りに行きました", date: "2026.08.31", tags: [{name: "写真", class: "tag-photo"}, {name: "旅行", class: "tag-travel"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
@@ -245,9 +244,23 @@ function initSite() {
                 listInner.style.transition = 'none';
                 listInner.style.transform = 'translateY(0)';
                 
-                setTimeout(() => {
-                    mainArea.classList.remove('is-hidden');
-                }, 50);
+                const newItems = listInner.querySelectorAll('.blog-list-item');
+                const lastItem = newItems[newItems.length - 1];
+                if(lastItem) {
+                    lastItem.style.opacity = '0';
+                    lastItem.style.transform = 'translateY(20px)';
+                }
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        if(lastItem) {
+                            lastItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                            lastItem.style.opacity = '1';
+                            lastItem.style.transform = 'translateY(0)';
+                        }
+                        mainArea.classList.remove('is-hidden');
+                    });
+                });
             }, 500); 
 
         }, 4000);
