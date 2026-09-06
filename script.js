@@ -175,56 +175,81 @@ function initSite() {
         });
     }
 
-    /* ーーー ここから新規追加：Blogスライダーの機能 ーーー */
-    const blogSlider = document.getElementById('blog-slider');
-    if (blogSlider) {
-        // ブログのデータ。後で記事を増やすときもここに追加・変更すればOKです。
-        const blogs = [
-            { date: "2026.08.31", title: "春の桜を撮りに行きました", tags: '<span class="blog-tag tag-photo">写真</span><span class="blog-tag tag-travel">旅行</span>', isNew: true },
-            { date: "2026.08.20", title: "新しいサイトのポートフォリオを作成中", tags: '<span class="blog-tag tag-webit">WEB・IT</span><span class="blog-tag tag-study">勉強</span>', isNew: false },
-            { date: "2026.08.15", title: "久しぶりのピアノ発表会に向けて", tags: '<span class="blog-tag tag-piano">ピアノ</span>', isNew: false }
-        ];
+    // --- Blog Slider Animation ---
+    const blogArticles = [
+        { title: "秋の気配を感じて", date: "2026.09.06", tags: [{name: "写真", class: "tag-photo"}], isNew: true, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
+        { title: "春の桜を撮りに行きました", date: "2026.08.31", tags: [{name: "写真", class: "tag-photo"}, {name: "旅行", class: "tag-travel"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
+        { title: "新しいサイトのポートフォリオを作成中", date: "2026.08.20", tags: [{name: "WEB・IT", class: "tag-webit"}, {name: "勉強", class: "tag-study"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
+        { title: "久しぶりのピアノ発表会に向けて", date: "2026.08.15", tags: [{name: "ピアノ", class: "tag-piano"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
+        { title: "日常のスケッチとカフェ巡り", date: "2026.07.10", tags: [{name: "その他", class: "tag-other"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
+        { title: "Webデザインのトレンド勉強会", date: "2026.06.25", tags: [{name: "WEB・IT", class: "tag-webit"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" }
+    ];
 
-        // データを元にHTMLを組み立てて配置
-        blogs.forEach((b, i) => {
-            let card = document.createElement('a');
-            card.href = "https://hontani-hajime.github.io/blog/";
-            // 0番目をメイン、それ以外をリストとしてクラスを付与
-            card.className = `blog-slide-card pos-${i === 0 ? 'main' : 'list-' + i}`;
-            card.setAttribute('data-index', i);
-            
-            let newBadge = b.isNew ? '<span class="new-badge">NEW</span>' : '';
+    const mainArea = document.getElementById('blog-main-area');
+    const listInner = document.getElementById('blog-list-inner');
 
-            card.innerHTML = `
-                <div class="blog-img-wrapper">
-                    <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        ${newBadge}
-                        <span class="blog-date">${b.date}</span>
+    if (mainArea && listInner) {
+        let currentArticles = [...blogArticles];
+
+        function renderBlog() {
+            const main = currentArticles[0];
+            mainArea.innerHTML = `
+                <a href="https://hontani-hajime.github.io/blog/" class="blog-main-link" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit;">
+                    <div class="blog-main-img-wrapper">
+                        ${main.isNew ? '<span class="new-badge">NEW</span>' : ''}
+                        <img src="${main.img}" alt="Blog Image">
                     </div>
-                    <h3 class="blog-title font-bold">${b.title}</h3>
-                    <div class="blog-tags">${b.tags}</div>
-                </div>
+                    <div class="blog-main-info">
+                        <span class="blog-date">${main.date}</span>
+                        <h3 class="blog-title font-bold">${main.title}</h3>
+                        <div class="blog-tags">
+                            ${main.tags.map(t => `<span class="blog-tag ${t.class}">${t.name}</span>`).join('')}
+                        </div>
+                    </div>
+                </a>
             `;
-            blogSlider.appendChild(card);
-        });
 
-        // 4秒ごとのスライド処理
-        let currentOrder = [0, 1, 2]; // 0がmain, 1が上リスト, 2が下リスト
+            listInner.innerHTML = currentArticles.slice(1).map(article => `
+                <a href="https://hontani-hajime.github.io/blog/" class="blog-list-item">
+                    <div class="blog-list-img-wrapper">
+                        ${article.isNew ? '<span class="list-new-badge">NEW</span>' : ''}
+                        <img src="${article.img}" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date">${article.date}</span>
+                        <h4 class="blog-list-title font-bold">${article.title}</h4>
+                        <div class="blog-list-tags">
+                            ${article.tags.map(t => `<span class="blog-tag ${t.class}">${t.name}</span>`).join('')}
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        renderBlog();
+
         setInterval(() => {
-            // 順番をひとつずらす (例: [0, 1, 2] -> [1, 2, 0])
-            let first = currentOrder.shift();
-            currentOrder.push(first);
+            mainArea.classList.add('is-hidden');
+            
+            const firstItem = listInner.querySelector('.blog-list-item');
+            if (firstItem) {
+                const itemHeight = firstItem.offsetHeight + 15; 
+                listInner.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                listInner.style.transform = `translateY(-${itemHeight}px)`;
+            }
 
-            // ズレた順番に合わせてクラスを付け替えると、CSSアニメーションで動く
-            const cards = blogSlider.querySelectorAll('.blog-slide-card');
-            cards.forEach(card => {
-                let index = parseInt(card.getAttribute('data-index'));
-                let posIndex = currentOrder.indexOf(index);
-                card.className = `blog-slide-card pos-${posIndex === 0 ? 'main' : 'list-' + posIndex}`;
-            });
+            setTimeout(() => {
+                currentArticles.push(currentArticles.shift());
+                renderBlog();
+                
+                listInner.style.transition = 'none';
+                listInner.style.transform = 'translateY(0)';
+                
+                setTimeout(() => {
+                    mainArea.classList.remove('is-hidden');
+                }, 50);
+            }, 500); 
+
         }, 4000);
     }
 }
