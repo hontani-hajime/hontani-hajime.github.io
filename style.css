@@ -94,6 +94,7 @@ a { text-decoration: none; color: inherit; }
 .marker-green::after  { background-color: #20c997; }
 .marker-orange::after { background-color: #fd7e14; }
 .marker-purple::after { background-color: #6f42c1; }
+.marker-gray::after   { background-color: #ccc; } 
 
 .main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
 
@@ -480,6 +481,60 @@ a { text-decoration: none; color: inherit; }
 .page-top-btn svg { margin-bottom: 2px; }
 .page-top-btn span { font-size: 11px; letter-spacing: 0.05em; }
 
+.policy-container {
+    border: 2px solid #333;
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 40px;
+    margin: 0 auto 60px;
+    max-width: 900px;
+    box-shadow: 4px 4px 0px #333;
+}
+.policy-container h3 {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 8px;
+    color: #333;
+}
+.policy-container h3:first-child {
+    margin-top: 0;
+}
+.policy-container p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 15px;
+}
+.policy-container ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.8;
+}
+.policy-container li {
+    margin-bottom: 5px;
+}
+.update-date {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+.creator-message {
+    background-color: #fafafa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid #333;
+    margin: 20px 0;
+}
+.creator-message p {
+    margin-bottom: 0;
+    color: #333;
+}
+
 @media (max-width: 768px) {
     .floating-nav { display: none !important; }
 
@@ -583,4 +638,9 @@ a { text-decoration: none; color: inherit; }
     .page-top-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
     .page-top-btn svg { width: 20px; height: 20px; }
     .page-top-btn span { font-size: 9px; }
+
+    .policy-container {
+        padding: 25px;
+        margin: 0 15px 40px;
+    }
 }
