@@ -158,6 +158,12 @@ a { text-decoration: none; color: inherit; }
     bottom: -10px;
     z-index: 2;
 }
+.scene-sky-obj.ufo {
+    position: absolute;
+    top: 10px;
+    z-index: 2;
+    animation: flyUfo 20s linear infinite;
+}
 
 .dir-right .wave-sea { animation: moveWaveLeft 2s linear infinite; }
 .dir-right .scene-ship { animation: sailRight 25s linear infinite; }
@@ -190,6 +196,13 @@ a { text-decoration: none; color: inherit; }
 @keyframes rockBoatLeft {
     0%, 100% { transform: scaleX(-1) rotate(-3deg) translateY(0); }
     50% { transform: scaleX(-1) rotate(3deg) translateY(-5px); }
+}
+@keyframes flyUfo {
+    0% { left: -100px; transform: translateY(0); }
+    25% { transform: translateY(-15px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(15px); }
+    100% { left: 100%; transform: translateY(0); }
 }
 
 .section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
