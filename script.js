@@ -208,7 +208,7 @@ function initSite() {
                 </a>
             `;
 
-            listInner.innerHTML = currentArticles.slice(1, 5).map(article => `
+            listInner.innerHTML = currentArticles.slice(1, 4).map(article => `
                 <a href="https://hontani-hajime.github.io/blog/" class="blog-list-item">
                     <div class="blog-list-img-wrapper">
                         ${article.isNew ? '<span class="list-new-badge">NEW</span>' : ''}
