@@ -46,51 +46,48 @@ a { text-decoration: none; color: inherit; }
 .floating-nav a:hover { color: inherit; }
 .floating-nav svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
+/* ======== 蛍光ペンの修正 ======== */
 @keyframes moveStripe {
     0% { background-position: 0 0; }
-    100% { background-position: 8.49px 0; }
+    100% { background-position: 10px 0; }
+}
+
+.hover-marker::after, .js-marker::after, .marker-static::after {
+    content: ""; position: absolute; left: 0; bottom: 3px; height: 8px; z-index: -1;
+    background-image: linear-gradient(-45deg, 
+        rgba(255, 255, 255, 0.4) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.4) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    background-size: 10px 10px;
 }
 
 .hover-marker { position: relative; z-index: 1; }
-.hover-marker::after {
-    content: ""; position: absolute; left: 0; bottom: 3px;
-    width: 0; height: 8px; z-index: -1;
-    transition: width 0.3s ease;
-    background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
-}
-.hover-marker:hover::after { 
-    width: 100%; 
-    animation: moveStripe 1s linear infinite;
-}
+.hover-marker::after { width: 0; transition: width 0.3s ease; }
+.hover-marker:hover::after { width: 100%; animation: moveStripe 1s linear infinite; }
+
+.js-marker { position: relative; z-index: 1; display: inline-block; }
+.js-marker::after { width: 0; }
+.js-marker.is-active::after { animation: drawMarker 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards, moveStripe 1s linear infinite; }
+@keyframes drawMarker { 100% { width: 100%; } }
+
+.marker-static { position: relative; z-index: 1; display: inline-block; }
+.marker-static::after { width: 100%; animation: moveStripe 1s linear infinite; }
+
 .mark-pink::after   { background-color: #e83e8c; }
 .mark-green::after  { background-color: #20c997; }
 .mark-orange::after { background-color: #fd7e14; }
 .mark-purple::after { background-color: #6f42c1; }
-
-.js-marker { position: relative; z-index: 1; display: inline-block; }
-.js-marker::after {
-    content: ""; position: absolute; left: 0; bottom: 3px; height: 8px; z-index: -1;
-    background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
-    width: 0;
-}
-.js-marker.is-active::after { 
-    animation: drawMarker 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards, moveStripe 1s linear infinite; 
-}
-@keyframes drawMarker { 100% { width: 100%; } }
-
-.marker-static { position: relative; z-index: 1; display: inline-block; }
-.marker-static::after {
-    content: ""; position: absolute; left: 0; bottom: 3px; height: 8px; z-index: -1;
-    background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
-    width: 100%; 
-    animation: moveStripe 1s linear infinite; 
-}
-
 .marker-yellow::after { background-color: #FBC02D; }
 .marker-pink::after   { background-color: #e83e8c; }
 .marker-green::after  { background-color: #20c997; }
 .marker-orange::after { background-color: #fd7e14; }
 .marker-purple::after { background-color: #6f42c1; }
+/* ================================ */
 
 .main-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
 
@@ -140,26 +137,6 @@ a { text-decoration: none; color: inherit; }
     z-index: 1;
 }
 
-.scene-sky-obj {
-    position: absolute;
-    top: 20px;
-    z-index: 1;
-}
-.ufo {
-    animation: flyLeft 20s linear infinite;
-}
-.ufo svg {
-    animation: floatUfo 3.5s ease-in-out infinite;
-}
-@keyframes flyLeft {
-    0% { left: 120%; }
-    100% { left: -20%; }
-}
-@keyframes floatUfo {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
 .wave-sea {
     width: 100%;
     height: 40px;
@@ -176,6 +153,7 @@ a { text-decoration: none; color: inherit; }
     z-index: 2;
 }
 
+/* ======== スマホではみ出さないよう船のアニメーションを修正 ======== */
 .dir-right .wave-sea { animation: moveWaveLeft 2s linear infinite; }
 .dir-right .scene-ship { animation: sailRight 25s linear infinite; }
 .dir-right .ship-inner { animation: rockBoat 3s ease-in-out infinite; }
@@ -193,12 +171,12 @@ a { text-decoration: none; color: inherit; }
     100% { background-position: 50px 0; }
 }
 @keyframes sailRight {
-    0% { left: -15%; }
-    100% { left: 115%; }
+    0% { left: -150px; }
+    100% { left: calc(100vw + 150px); }
 }
 @keyframes sailLeft {
-    0% { right: -15%; }
-    100% { right: 115%; }
+    0% { right: -150px; }
+    100% { right: calc(100vw + 150px); }
 }
 @keyframes rockBoat {
     0%, 100% { transform: rotate(-3deg) translateY(0); }
@@ -208,6 +186,8 @@ a { text-decoration: none; color: inherit; }
     0%, 100% { transform: scaleX(-1) rotate(-3deg) translateY(0); }
     50% { transform: scaleX(-1) rotate(3deg) translateY(-5px); }
 }
+/* ================================ */
+
 
 .section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
 .section-title::before, .section-title::after { content: ''; display: block; width: 40px; height: 2px; background-color: #333; border-radius: 2px; }
@@ -264,25 +244,138 @@ a { text-decoration: none; color: inherit; }
 .profile-text { font-size: 15px; line-height: 1.8; margin-bottom: 20px; color: #444; }
 .profile-action-area { display: flex; align-items: center; gap: 30px; }
 
-.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 0 60px; }
-.blog-card { 
-    border: 2px solid #333; border-radius: 16px; background-color: #fff; padding: 20px; 
-    display: flex; flex-direction: column; gap: 15px; text-decoration: none; color: inherit; 
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
-    position: relative; z-index: 1; 
+
+/* ======== ここから新規：Blogスライダーのデザイン ======== */
+.blog-slider-container {
+    position: relative;
+    height: 480px; 
+    margin: 0 60px;
 }
-.blog-card:hover { 
-    transform: translate(0, 0); 
-    box-shadow: 0px 0px 0px #333; 
-    z-index: 10; 
+.blog-slide-card {
+    position: absolute;
+    /* 位置や大きさが変わる時、ここでスムーズにアニメーションさせます */
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 2px solid #333;
+    border-radius: 16px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    z-index: 1;
+    /* ホバー用のアクションの基準設定 */
+    transform: translate(-4px, -4px);
+    box-shadow: 4px 4px 0px #333;
 }
-.blog-img-wrapper { width: 100%; aspect-ratio: 16 / 9; border: 2px solid #333; border-radius: 12px; background-color: #fff; padding: 6px; box-sizing: border-box; }
-.blog-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
-.blog-content { display: flex; flex-direction: column; flex: 1; }
-.blog-date { font-size: 13px; color: #666; margin-bottom: 8px; font-weight: bold; }
-.blog-title { font-size: 18px; line-height: 1.5; margin-bottom: 15px; }
-.blog-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.blog-slide-card:hover {
+    transform: translate(0, 0);
+    box-shadow: 0px 0px 0px #333;
+    z-index: 10;
+}
+
+/* 【左側】大きく表示されるメイン記事の配置 */
+.blog-slide-card.pos-main {
+    left: 0;
+    top: 0;
+    width: calc(60% - 15px);
+    height: calc(100% - 4px);
+    flex-direction: column;
+    z-index: 2;
+}
+/* 【右側 上】リスト化された記事の配置 */
+.blog-slide-card.pos-list-1 {
+    left: 60%;
+    top: 0;
+    width: calc(40% - 4px);
+    height: calc(50% - 15px - 4px);
+    flex-direction: row;
+}
+/* 【右側 下】リスト化された記事の配置 */
+.blog-slide-card.pos-list-2 {
+    left: 60%;
+    top: calc(50% + 15px);
+    width: calc(40% - 4px);
+    height: calc(50% - 15px - 4px);
+    flex-direction: row;
+}
+
+/* カード内の画像周り */
+.blog-slide-card .blog-img-wrapper {
+    background-color: #fff;
+    padding: 6px;
+    box-sizing: border-box;
+    transition: all 0.6s ease;
+}
+.blog-slide-card .blog-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+/* メイン記事のときの画像サイズ */
+.blog-slide-card.pos-main .blog-img-wrapper {
+    width: 100%;
+    height: 60%;
+    border-right: none;
+    border-bottom: 2px solid #333;
+}
+/* リストのときの画像サイズ */
+.blog-slide-card.pos-list-1 .blog-img-wrapper,
+.blog-slide-card.pos-list-2 .blog-img-wrapper {
+    width: 40%;
+    height: 100%;
+    border-bottom: none;
+    border-right: 2px solid #333;
+}
+
+/* テキスト情報周り */
+.blog-slide-card .blog-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+}
+.blog-slide-card.pos-list-1 .blog-content,
+.blog-slide-card.pos-list-2 .blog-content {
+    padding: 15px;
+}
+.blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.new-badge {
+    background-color: #e83e8c;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.05em;
+}
+.blog-date { font-size: 13px; color: #666; font-weight: bold; }
+.blog-slide-card.pos-main .blog-title {
+    font-size: 22px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+.blog-slide-card.pos-list-1 .blog-title,
+.blog-slide-card.pos-list-2 .blog-title {
+    font-size: 15px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+.blog-slide-card .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+.blog-btn-wrapper { text-align: center; margin-top: 50px; }
+
+/* 共通タグのスタイル */
 .blog-tag { font-size: 11px; padding: 4px 12px; border-radius: 15px; color: #333; font-weight: bold; letter-spacing: 0.05em; border: 1px solid #333; }
 .tag-piano  { background-color: #FF9A9E; } 
 .tag-abacus { background-color: #FFB74D; } 
@@ -291,7 +384,8 @@ a { text-decoration: none; color: inherit; }
 .tag-travel { background-color: #BA68C8; } 
 .tag-study  { background-color: #81C784; } 
 .tag-other  { background-color: #90A4AE; } 
-.blog-btn-wrapper { text-align: center; margin-top: 50px; }
+/* ============================================== */
+
 
 .photo-collage-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
 .photo-item { display: block; background-color: #fff; padding: 12px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease; text-decoration: none; position: relative; }
@@ -346,6 +440,10 @@ a { text-decoration: none; color: inherit; }
 .page-top-btn svg { margin-bottom: 2px; }
 .page-top-btn span { font-size: 11px; letter-spacing: 0.05em; }
 
+
+/* ===========================
+   スマホ向けのレスポンシブ設定
+   =========================== */
 @media (max-width: 768px) {
     .floating-nav { display: none !important; }
 
@@ -406,8 +504,46 @@ a { text-decoration: none; color: inherit; }
     .profile-img-wrapper { width: 160px; }
     .profile-action-area { flex-direction: column; gap: 25px; }
 
-    .blog-grid { grid-template-columns: 1fr; margin: 0 20px; gap: 20px; }
-    .blog-card { padding: 15px; }
+    /* ======== Blogスライダーのスマホレイアウト ======== */
+    .blog-slider-container {
+        height: 600px; 
+        margin: 0 15px;
+    }
+    .blog-slide-card.pos-main {
+        width: calc(100% - 4px);
+        height: calc(50% - 4px);
+        left: 0;
+        top: 0;
+    }
+    .blog-slide-card.pos-list-1 {
+        left: 0;
+        top: calc(50% + 15px);
+        width: calc(100% - 4px);
+        height: calc(25% - 15px - 4px);
+    }
+    .blog-slide-card.pos-list-2 {
+        left: 0;
+        top: calc(75% + 15px);
+        width: calc(100% - 4px);
+        height: calc(25% - 15px - 4px);
+    }
+    .blog-slide-card.pos-list-1 .blog-img-wrapper,
+    .blog-slide-card.pos-list-2 .blog-img-wrapper {
+        width: 35%; 
+    }
+    .blog-slide-card.pos-list-1 .blog-content,
+    .blog-slide-card.pos-list-2 .blog-content {
+        padding: 10px;
+    }
+    .blog-slide-card.pos-list-1 .blog-title,
+    .blog-slide-card.pos-list-2 .blog-title {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    .blog-meta { gap: 5px; }
+    .new-badge { font-size: 9px; padding: 2px 6px; }
+    /* ================================================= */
+
     .photo-collage-container { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; margin: 0 10px; }
     .photo-item { padding: 8px; }
 
