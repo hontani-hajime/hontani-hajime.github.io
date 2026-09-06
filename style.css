@@ -137,15 +137,15 @@ a { text-decoration: none; color: inherit; }
 }
 .scene-sky {
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     width: 100%;
     height: 100%;
     z-index: 1;
 }
 .wave-sea {
     width: 100%;
-    height: 35px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20' preserveAspectRatio='none'%3E%3Cpath d='M0,10 Q12.5,20 25,10 T50,10 L50,20 L0,20 Z' fill='%23ffffff' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+    height: 40px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 40' preserveAspectRatio='none'%3E%3Cpath d='M0,15 Q12.5,5 25,15 T50,15 L50,40 L0,40 Z' fill='%23ffffff'/%3E%3Cpath d='M0,15 Q12.5,5 25,15 T50,15' fill='none' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
     background-size: 50px 100%;
     position: absolute;
     bottom: 0;
@@ -154,7 +154,7 @@ a { text-decoration: none; color: inherit; }
 }
 .scene-ship {
     position: absolute;
-    bottom: 15px;
+    bottom: 12px;
     z-index: 2;
 }
 
@@ -183,12 +183,12 @@ a { text-decoration: none; color: inherit; }
     100% { right: 115%; }
 }
 @keyframes rockBoat {
-    0%, 100% { transform: rotate(-5deg) translateY(0); }
-    50% { transform: rotate(5deg) translateY(-10px); }
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-5px); }
 }
 @keyframes rockBoatLeft {
-    0%, 100% { transform: scaleX(-1) rotate(-5deg) translateY(0); }
-    50% { transform: scaleX(-1) rotate(5deg) translateY(-10px); }
+    0%, 100% { transform: scaleX(-1) rotate(-3deg) translateY(0); }
+    50% { transform: scaleX(-1) rotate(3deg) translateY(-5px); }
 }
 
 .section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
@@ -374,7 +374,7 @@ a { text-decoration: none; color: inherit; }
     .profile-section { margin-top: 100px; scroll-margin-top: 40px; }
 
     .wave-scene { height: 90px; margin: 50px 0; }
-    .wave-sea { background-size: 30px 100%; height: 20px; }
+    .wave-sea { background-size: 30px 100%; height: 30px; }
     .scene-sky svg { transform: scale(0.7); transform-origin: bottom center; }
     .scene-ship svg { transform: scale(0.8); transform-origin: bottom center; }
 
