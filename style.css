@@ -251,6 +251,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     gap: 30px;
     margin: 0 60px;
+    height: 480px;
     align-items: stretch;
 }
 
@@ -261,16 +262,19 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
     padding: 20px;
     box-shadow: 4px 4px 0px #333;
+    transform: translate(-4px, -4px);
     position: relative;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    box-sizing: border-box;
 }
 .blog-main-area:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px #333;
+    transform: translate(0, 0);
+    box-shadow: 0px 0px 0px #333;
 }
 .blog-main-area.is-hidden {
     opacity: 0;
-    transform: scale(0.98);
+    transform: translate(-4px, -4px) scale(0.98);
 }
 .blog-main-img-wrapper {
     width: 100%;
@@ -310,7 +314,7 @@ a { text-decoration: none; color: inherit; }
 .blog-title { 
     font-size: 22px; 
     line-height: 1.4; 
-    margin-bottom: 6px; 
+    margin-bottom: 8px; 
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
@@ -321,6 +325,7 @@ a { text-decoration: none; color: inherit; }
     flex: 1;
     overflow: hidden;
     position: relative;
+    padding: 4px;
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
@@ -333,19 +338,21 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 12px;
+    padding: 10px;
     border: 2px solid #333;
     border-radius: 12px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     text-decoration: none;
     color: inherit;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 3px 3px 0px #333;
+    transform: translate(-3px, -3px);
+    transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
 }
 .blog-list-item:hover { 
-    background-color: #f0f0f0; 
-    transform: translateY(-2px);
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+    background-color: #fff; 
+    transform: translate(0px, 0px);
+    box-shadow: 0px 0px 0px #333;
 }
 .blog-list-img-wrapper {
     width: 130px;
@@ -526,11 +533,12 @@ a { text-decoration: none; color: inherit; }
     }
     .blog-main-area {
         height: auto;
+        min-height: 380px;
     }
     .blog-title { font-size: 18px; }
     .blog-side-list {
         height: auto;
-        max-height: 360px;
+        max-height: 480px;
         margin-top: 15px;
     }
     .blog-list-item {
