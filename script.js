@@ -1,14 +1,38 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const hc = document.getElementById('header-container');
-    const fc = document.getElementById('footer-container');
+    const body = document.body;
+    const main = document.querySelector('.main-content');
 
-    if (hc) {
+    const headerContainer = document.createElement('div');
+    headerContainer.id = 'header-container';
+    body.insertBefore(headerContainer, main || body.firstChild);
+
+    const footerContainer = document.createElement('div');
+    footerContainer.id = 'footer-container';
+    body.appendChild(footerContainer);
+
+    const topBtn = document.createElement('button');
+    topBtn.id = 'page-top-btn';
+    topBtn.className = 'page-top-btn';
+    topBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+        <span class="font-bold">TOP</span>
+    `;
+    body.appendChild(topBtn);
+
+    try {
         const hr = await fetch('https://hontani-hajime.github.io/header.html');
-        hc.innerHTML = await hr.text();
-    }
-    if (fc) {
+        if (hr.ok) {
+            headerContainer.innerHTML = await hr.text();
+        }
+        
         const fr = await fetch('https://hontani-hajime.github.io/footer.html');
-        fc.innerHTML = await fr.text();
+        if (fr.ok) {
+            footerContainer.innerHTML = await fr.text();
+        }
+    } catch (error) {
+        console.error("Failed to load header or footer", error);
     }
 
     initSite();
