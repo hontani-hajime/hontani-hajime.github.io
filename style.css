@@ -143,26 +143,6 @@ a { text-decoration: none; color: inherit; }
     z-index: 1;
 }
 
-.scene-sky-obj {
-    position: absolute;
-    top: 20px;
-    z-index: 1;
-}
-.plane {
-    animation: flyLeft 12s linear infinite;
-}
-.ufo {
-    animation: flyRight 15s linear infinite;
-}
-@keyframes flyLeft {
-    0% { left: 120%; }
-    100% { left: -20%; }
-}
-@keyframes flyRight {
-    0% { left: -20%; }
-    100% { left: 120%; }
-}
-
 .wave-sea {
     width: 100%;
     height: 40px;
@@ -398,7 +378,6 @@ a { text-decoration: none; color: inherit; }
     .wave-sea { background-size: 30px 100%; height: 30px; }
     .scene-sky svg { transform: scale(0.7); transform-origin: bottom center; }
     .scene-ship svg { transform: scale(0.8); transform-origin: bottom center; }
-    .scene-sky-obj svg { transform: scale(0.7); }
 
     .blog-section, .photos-section, .webworks-section { scroll-margin-top: 40px; }
     .section-title { font-size: 22px; margin-bottom: 35px; gap: 12px; }
