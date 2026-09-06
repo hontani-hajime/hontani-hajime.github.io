@@ -174,4 +174,57 @@ function initSite() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    /* ーーー ここから新規追加：Blogスライダーの機能 ーーー */
+    const blogSlider = document.getElementById('blog-slider');
+    if (blogSlider) {
+        // ブログのデータ。後で記事を増やすときもここに追加・変更すればOKです。
+        const blogs = [
+            { date: "2026.08.31", title: "春の桜を撮りに行きました", tags: '<span class="blog-tag tag-photo">写真</span><span class="blog-tag tag-travel">旅行</span>', isNew: true },
+            { date: "2026.08.20", title: "新しいサイトのポートフォリオを作成中", tags: '<span class="blog-tag tag-webit">WEB・IT</span><span class="blog-tag tag-study">勉強</span>', isNew: false },
+            { date: "2026.08.15", title: "久しぶりのピアノ発表会に向けて", tags: '<span class="blog-tag tag-piano">ピアノ</span>', isNew: false }
+        ];
+
+        // データを元にHTMLを組み立てて配置
+        blogs.forEach((b, i) => {
+            let card = document.createElement('a');
+            card.href = "https://hontani-hajime.github.io/blog/";
+            // 0番目をメイン、それ以外をリストとしてクラスを付与
+            card.className = `blog-slide-card pos-${i === 0 ? 'main' : 'list-' + i}`;
+            card.setAttribute('data-index', i);
+            
+            let newBadge = b.isNew ? '<span class="new-badge">NEW</span>' : '';
+
+            card.innerHTML = `
+                <div class="blog-img-wrapper">
+                    <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        ${newBadge}
+                        <span class="blog-date">${b.date}</span>
+                    </div>
+                    <h3 class="blog-title font-bold">${b.title}</h3>
+                    <div class="blog-tags">${b.tags}</div>
+                </div>
+            `;
+            blogSlider.appendChild(card);
+        });
+
+        // 4秒ごとのスライド処理
+        let currentOrder = [0, 1, 2]; // 0がmain, 1が上リスト, 2が下リスト
+        setInterval(() => {
+            // 順番をひとつずらす (例: [0, 1, 2] -> [1, 2, 0])
+            let first = currentOrder.shift();
+            currentOrder.push(first);
+
+            // ズレた順番に合わせてクラスを付け替えると、CSSアニメーションで動く
+            const cards = blogSlider.querySelectorAll('.blog-slide-card');
+            cards.forEach(card => {
+                let index = parseInt(card.getAttribute('data-index'));
+                let posIndex = currentOrder.indexOf(index);
+                card.className = `blog-slide-card pos-${posIndex === 0 ? 'main' : 'list-' + posIndex}`;
+            });
+        }, 4000);
+    }
 }
