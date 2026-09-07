@@ -644,9 +644,7 @@ a { text-decoration: none; color: inherit; }
         margin: 0 15px 40px;
     }
 }
-/* =========================================
-   Profile Image Slider (追加分)
-========================================= */
+
 .profile-slider-container {
     display: flex;
     align-items: center;
@@ -667,7 +665,7 @@ a { text-decoration: none; color: inherit; }
     height: calc(100% - 16px);
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
     border-radius: 6px;
 }
 .profile-img-wrapper.slider-wrapper img.slider-img.active {
