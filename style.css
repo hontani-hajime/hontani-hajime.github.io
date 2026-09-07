@@ -644,3 +644,46 @@ a { text-decoration: none; color: inherit; }
         margin: 0 15px 40px;
     }
 }
+/* =========================================
+   Profile Image Slider (追加分)
+========================================= */
+.profile-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+}
+.profile-img-wrapper.slider-wrapper {
+    position: relative;
+    width: 200px; 
+    margin: 0;
+}
+.profile-img-wrapper.slider-wrapper img.slider-img {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 6px;
+}
+.profile-img-wrapper.slider-wrapper img.slider-img.active {
+    opacity: 1;
+    z-index: 1;
+}
+.slider-prev-btn, .slider-next-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+    outline: none;
+}
+.slider-prev-btn:hover, .slider-next-btn:hover {
+    color: #333;
+}
