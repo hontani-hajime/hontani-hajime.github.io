@@ -1,13 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const siteName = "本谷元のサイト";
-    const currentTitle = document.title;
-    
-    if (currentTitle.includes("【公式】")) {
-        document.title = `【公式】${siteName}`;
-    } else if (currentTitle && !currentTitle.includes(siteName)) {
-        document.title = `${currentTitle} | ${siteName}`;
-    }
-
     const body = document.body;
     const main = document.querySelector('.main-content');
 
@@ -25,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span id="typing-text"></span><span id="cursor" class="blinking">｜</span>
                             </h1>
                         </a>
-                        <p class="sub-title">Hajime Hontani's Site</p>
+                        <p class="sub-title">Hajime Hontani's Hajime-chan Site</p>
                     </div>
                 </div>
                 <div class="hamburger" id="hamburger">
@@ -100,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="footer-inner">
                 <a href="https://hontani-hajime.github.io/" class="footer-logo-link">
                     <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="footer-logo">
-                    <span class="font-bold">本谷元のサイト</span>
+                    <span class="font-bold">本谷元のはじめちゃんサイト</span>
                 </a>
                 <ul class="footer-links">
                     <li><a href="https://hontani-hajime.github.io/site-policy/">サイトポリシー</a></li>
@@ -137,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initSite() {
     const t1 = "本谷元";
-    const t2 = "のサイト";
+    const t2 = "のはじめちゃんサイト";
     const tgt = document.getElementById('typing-text');
     const cur = document.getElementById('cursor');
     const nav = document.getElementById('global-nav');
