@@ -3,81 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | 本谷元のはじめちゃんサイト</title>
-    <meta property="og:site_name" content="本谷元">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "本谷元",
-      "alternateName": "【公式】本谷元のはじめちゃんサイト",
-      "url": "https://hontani-hajime.github.io/blog/index.html"
-    }
-    </script>
-    <meta name="apple-mobile-web-app-title" content="本谷元">
-    <meta name="application-name" content="本谷元">
-    
+    <title>Blog</title>
+    <meta name="description" content="本谷元のブログ記事一覧です。">
     <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/file/icon.jpg">
     <link rel="icon" href="https://hontani-hajime.github.io/file/icon.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://hontani-hajime.github.io/style.css">
 </head>
 <body>
-    <div class="top-line"></div>
-
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="logo-area">
-                <a href="https://hontani-hajime.github.io/index.html">
-                    <img src="https://hontani-hajime.github.io/file/icon.jpg" alt="アイコン" class="site-logo">
-                </a>
-                <div class="site-titles">
-                    <a href="https://hontani-hajime.github.io/index.html" style="text-decoration: none; color: inherit;">
-                        <h1 class="main-title klee-one-semibold">
-                            <span id="typing-text"></span><span id="cursor" class="blinking">｜</span>
-                        </h1>
-                    </a>
-                    <p class="sub-title klee-one-regular">Hajime Hontani's Hajime-chan Site</p>
-                </div>
-            </div>
-
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-            </div>
-
-            <nav class="global-nav" id="global-nav">
-                <ul>
-                    <li><a href="https://hontani-hajime.github.io/profile/index.html" class="klee-one-regular">Profile</a></li>
-                    <li><a href="https://hontani-hajime.github.io/photos/index.html" class="klee-one-regular">Photos</a></li>
-                    <li><a href="https://hontani-hajime.github.io/web-works/index.html" class="klee-one-regular">Web Works</a></li>
-                    <li><a href="https://hontani-hajime.github.io/blog/index.html" class="klee-one-regular">Blog</a></li>
-                    
-                    <li class="sns-list">
-                        <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon"></div>
-                        </a>
-                        <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon"></div>
-                        </a>
-                        <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
-                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon"></div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
     <main class="main-content">
-        <h2 class="klee-one-semibold" style="text-align:center; font-size: 32px; margin-top: 40px;">Blog</h2>
-        <p class="klee-one-regular" style="text-align:center; margin-top: 30px;">ただいま準備中です...</p>
-    </main>
+        <section class="blog-section" style="margin-top: 60px;">
+            <h2 class="section-title"><span class="marker-static marker-green">Blog</span></h2>
+            
+            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+                
+                <a href="#" class="blog-list-item" style="padding: 15px; border-radius: 16px;">
+                    <div class="blog-list-img-wrapper" style="width: 200px;">
+                        <span class="list-new-badge" style="font-size: 12px; padding: 4px 10px;">NEW</span>
+                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date" style="font-size: 14px;">2026.09.06</span>
+                        <h3 class="blog-list-title font-bold" style="font-size: 20px; margin-bottom: 10px;">秋の気配を感じて</h3>
+                        <p style="font-size: 14px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">朝晩の風が少しずつ冷たくなってきましたね。カメラを持って近所の公園を散歩していると、早くも秋の気配を感じる風景に出会いました。</p>
+                        <div class="blog-list-tags">
+                            <span class="blog-tag tag-photo">写真</span>
+                        </div>
+                    </div>
+                </a>
 
-    <!-- JSエラー回避用の隠し要素（削除しないでください） -->
-    <div style="display: none;"><div id="hero-gallery"></div></div>
+                <a href="#" class="blog-list-item" style="padding: 15px; border-radius: 16px;">
+                    <div class="blog-list-img-wrapper" style="width: 200px;">
+                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date" style="font-size: 14px;">2026.08.31</span>
+                        <h3 class="blog-list-title font-bold" style="font-size: 20px; margin-bottom: 10px;">春の桜を撮りに行きました</h3>
+                        <p style="font-size: 14px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">少し時期外れになってしまいましたが、今年の春に撮り溜めた桜の写真を整理しています。旅行先で見つけた穴場のスポットの風景をお届けします。</p>
+                        <div class="blog-list-tags">
+                            <span class="blog-tag tag-photo">写真</span>
+                            <span class="blog-tag tag-travel">旅行</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="blog-list-item" style="padding: 15px; border-radius: 16px;">
+                    <div class="blog-list-img-wrapper" style="width: 200px;">
+                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date" style="font-size: 14px;">2026.08.20</span>
+                        <h3 class="blog-list-title font-bold" style="font-size: 20px; margin-bottom: 10px;">新しいサイトのポートフォリオを作成中</h3>
+                        <p style="font-size: 14px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">現在、自分のWeb作品をまとめるための新しいポートフォリオサイトを制作しています。今回はモダンなJavaScriptの書き方を取り入れてみています。</p>
+                        <div class="blog-list-tags">
+                            <span class="blog-tag tag-webit">WEB・IT</span>
+                            <span class="blog-tag tag-study">勉強</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="blog-list-item" style="padding: 15px; border-radius: 16px;">
+                    <div class="blog-list-img-wrapper" style="width: 200px;">
+                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date" style="font-size: 14px;">2026.08.15</span>
+                        <h3 class="blog-list-title font-bold" style="font-size: 20px; margin-bottom: 10px;">久しぶりのピアノ発表会に向けて</h3>
+                        <p style="font-size: 14px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">来月、数年ぶりとなる大人のピアノ発表会に参加することになりました。選曲の理由と、日々の練習の記録について書いてみます。</p>
+                        <div class="blog-list-tags">
+                            <span class="blog-tag tag-piano">ピアノ</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="blog-list-item" style="padding: 15px; border-radius: 16px;">
+                    <div class="blog-list-img-wrapper" style="width: 200px;">
+                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-list-info">
+                        <span class="blog-list-date" style="font-size: 14px;">2026.07.10</span>
+                        <h3 class="blog-list-title font-bold" style="font-size: 20px; margin-bottom: 10px;">日常のスケッチとカフェ巡り</h3>
+                        <p style="font-size: 14px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">休日はお気に入りのノートとペンを持って、気になるカフェを開拓しています。美味しいコーヒーと、そこで描いた小さなスケッチたち。</p>
+                        <div class="blog-list-tags">
+                            <span class="blog-tag tag-other">その他</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="blog-btn-wrapper" style="margin-top: 50px;">
+                <a href="https://hontani-hajime.github.io/" class="action-btn">
+                    トップページへ戻る
+                    <span class="btn-arrow-circle">
+                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+    </main>
     <script src="https://hontani-hajime.github.io/script.js"></script>
 </body>
 </html>
