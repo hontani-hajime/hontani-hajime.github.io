@@ -62,8 +62,22 @@
         <section class="profile-section" id="profile">
             <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
             <div class="profile-card">
-                <div class="profile-img-wrapper">
-                    <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
+                <div class="profile-slider-container">
+                    <button class="slider-prev-btn" aria-label="前の写真">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="profile-img-wrapper slider-wrapper">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元 1" class="slider-img active">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime2.jpg" alt="本谷元 2" class="slider-img">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime3.jpg" alt="本谷元 3" class="slider-img">
+                    </div>
+                    <button class="slider-next-btn" aria-label="次の写真">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
                 </div>
                 <div class="profile-info">
                     <div class="profile-name-area">
