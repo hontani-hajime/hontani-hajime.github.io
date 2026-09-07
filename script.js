@@ -124,6 +124,54 @@ document.addEventListener('DOMContentLoaded', () => {
     body.appendChild(topBtn);
 
     initSite();
+
+    const sliderImgs = document.querySelectorAll('.slider-img');
+    const prevBtn = document.querySelector('.slider-prev-btn');
+    const nextBtn = document.querySelector('.slider-next-btn');
+    
+    if (sliderImgs.length > 0) {
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            sliderImgs[currentSlide].classList.remove('active');
+            currentSlide = (index + sliderImgs.length) % sliderImgs.length;
+            sliderImgs[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetSlider() {
+            clearInterval(slideInterval);
+            startSlider();
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetSlider();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetSlider();
+            });
+        }
+
+        startSlider();
+    }
 });
 
 function initSite() {
@@ -380,63 +428,3 @@ function initSite() {
         }, 4000);
     }
 }
-// =========================================
-// Profile Image Slider の動作 (追加分)
-// =========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const sliderImgs = document.querySelectorAll('.slider-img');
-    const prevBtn = document.querySelector('.slider-prev-btn');
-    const nextBtn = document.querySelector('.slider-next-btn');
-    
-    if (sliderImgs.length > 0) {
-        let currentSlide = 0;
-        let slideInterval;
-
-        // 指定したインデックスの写真を表示する関数
-        function showSlide(index) {
-            sliderImgs[currentSlide].classList.remove('active');
-            // インデックスがマイナスになったり最大数を超えたりしてもループするように計算
-            currentSlide = (index + sliderImgs.length) % sliderImgs.length;
-            sliderImgs[currentSlide].classList.add('active');
-        }
-
-        // 次の写真へ
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        // 前の写真へ
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        // 5秒ごとに自動再生
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        // ボタンが押されたらタイマーをリセットして再スタート
-        function resetSlider() {
-            clearInterval(slideInterval);
-            startSlider();
-        }
-
-        // 矢印ボタンのクリックイベント
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                resetSlider();
-            });
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                resetSlider();
-            });
-        }
-
-        // 最初のタイマースタート
-        startSlider();
-    }
-});
