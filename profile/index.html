@@ -3,25 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | 本谷元のサイト</title>
-    <meta name="description" content="本谷元のプロフィールページです。（現在準備中）">
+    <title>Profile</title>
+    <meta name="description" content="本谷元のプロフィールページです。">
     <link rel="apple-touch-icon" href="https://hontani-hajime.github.io/file/icon.jpg">
     <link rel="icon" href="https://hontani-hajime.github.io/file/icon.jpg">
     <link rel="stylesheet" href="https://hontani-hajime.github.io/style.css">
 </head>
 <body>
-    <main class="main-content" style="display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
-        <section style="text-align: center; margin: 60px 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <main class="main-content">
+        <section class="profile-section" style="margin-top: 60px;">
             <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
-            <p style="font-size: 16px; margin-bottom: 40px; color: #555; line-height: 1.8;">
-                このページは現在準備中です。<br>公開までもうしばらくお待ちください。
-            </p>
-            <a href="https://hontani-hajime.github.io/" class="action-btn">
-                トップページへ戻る
-                <span class="btn-arrow-circle">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </span>
-            </a>
+            <div class="profile-card" style="flex-direction: column; text-align: center; gap: 30px;">
+                <div class="profile-img-wrapper" style="width: 200px; margin: 0 auto;">
+                    <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name-area" style="justify-content: center; margin-bottom: 25px;">
+                        <h2 class="profile-name font-bold">本谷 元</h2>
+                        <span class="profile-name-en">Hontani Hajime</span>
+                    </div>
+                    <p class="profile-text" style="max-width: 700px; margin: 0 auto 30px; text-align: left;">
+                        カメラとWeb制作をこよなく愛するクリエイターです。<br>
+                        日常の何気ない風景を切り取ったり、使いやすくて少し面白いサイトを作ったりするのが得意です。このサイトでは、これまでに撮影したお気に入りの写真や、制作に携わったWebサイトのポートフォリオをゆるく紹介していきます。<br><br>
+                        趣味はピアノと旅行。週末はよくカメラを持って出かけています。新しい技術を学ぶのも好きで、最近はフロントエンドの技術を中心にキャッチアップしています。
+                    </p>
+                    <div class="sns-list" style="justify-content: center; margin-bottom: 40px;">
+                        <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon"></div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/hontani-hajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/linkedIn.jpg" alt="LinkedIn" class="sns-icon"></div>
+                        </a>
+                        <a href="https://jp.pinterest.com/hontanihajime/" target="_blank" rel="noopener noreferrer" class="sns-link">
+                            <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon"></div>
+                        </a>
+                    </div>
+                    
+                    <h3 class="font-bold" style="font-size: 20px; border-bottom: 2px dashed #ccc; padding-bottom: 8px; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; text-align: left; color: #333;">Skills</h3>
+                    <ul style="max-width: 700px; margin: 0 auto; text-align: left; list-style-type: none; display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 40px;">
+                        <li class="webwork-tag">HTML</li>
+                        <li class="webwork-tag">CSS</li>
+                        <li class="webwork-tag">JavaScript</li>
+                        <li class="webwork-tag">React</li>
+                        <li class="webwork-tag">WordPress</li>
+                        <li class="webwork-tag">Photoshop</li>
+                        <li class="webwork-tag">Lightroom</li>
+                        <li class="webwork-tag">Figma</li>
+                    </ul>
+
+                    <a href="https://hontani-hajime.github.io/" class="action-btn" style="margin-top: 20px;">
+                        トップページへ戻る
+                        <span class="btn-arrow-circle">
+                            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
         </section>
     </main>
     <script src="https://hontani-hajime.github.io/script.js"></script>
