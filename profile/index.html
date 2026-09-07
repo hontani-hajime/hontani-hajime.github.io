@@ -14,9 +14,19 @@
         <section class="profile-section" style="margin-top: 60px;">
             <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
             <div class="profile-card" style="flex-direction: column; text-align: center; gap: 30px;">
-                <div class="profile-img-wrapper" style="width: 200px; margin: 0 auto;">
-                    <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元">
+                
+                <!-- ▼▼ 写真スライダー部分 ▼▼ -->
+                <div class="profile-slider-container">
+                    <button class="slider-prev-btn" aria-label="前の写真">〈</button>
+                    <div class="profile-img-wrapper slider-wrapper">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime.jpg" alt="本谷元 1" class="slider-img active">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime2.jpg" alt="本谷元 2" class="slider-img">
+                        <img src="https://hontani-hajime.github.io/file/hontani-hajime3.jpg" alt="本谷元 3" class="slider-img">
+                    </div>
+                    <button class="slider-next-btn" aria-label="次の写真">〉</button>
                 </div>
+                <!-- ▲▲ 写真スライダー部分 ▲▲ -->
+
                 <div class="profile-info">
                     <div class="profile-name-area" style="justify-content: center; margin-bottom: 25px;">
                         <h2 class="profile-name font-bold">本谷 元</h2>
