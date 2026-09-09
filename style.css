@@ -215,7 +215,7 @@ a { text-decoration: none; color: inherit; }
     padding: 10px 16px 10px 32px; font-size: 15px; font-family: inherit; font-weight: bold; 
     letter-spacing: 0.1em; text-decoration: none; cursor: pointer; 
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px); 
+    box-shadow: 4px 4px 0px #333; 
     position: relative; 
     overflow: hidden; 
     z-index: 1; 
@@ -232,7 +232,7 @@ a { text-decoration: none; color: inherit; }
 }
 .action-btn:hover { 
     box-shadow: 0px 0px 0px #333; 
-    transform: translate(0, 0); 
+    transform: translate(4px, 4px); 
     color: #fff; 
 }
 .action-btn:hover::before {
@@ -297,19 +297,18 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
     padding: 20px;
     box-shadow: 4px 4px 0px #333;
-    transform: translate(-4px, -4px);
     position: relative;
     transition: opacity 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
     height: 100%;
     box-sizing: border-box;
 }
 .blog-main-area:hover {
-    transform: translate(0, 0);
+    transform: translate(4px, 4px);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-main-area.is-hidden {
     opacity: 0;
-    transform: translate(-4px, -4px) scale(0.98);
+    transform: scale(0.98);
 }
 .blog-main-link {
     display: flex; 
@@ -379,13 +378,12 @@ a { text-decoration: none; color: inherit; }
     text-decoration: none;
     color: inherit;
     box-shadow: 3px 3px 0px #333;
-    transform: translate(-3px, -3px);
     transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
 }
 .blog-list-item:hover { 
     background-color: #fff; 
-    transform: translate(0px, 0px);
+    transform: translate(3px, 3px);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-list-img-wrapper {
@@ -424,7 +422,6 @@ a { text-decoration: none; color: inherit; }
 }
 .blog-list-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-
 /* --- タグデザイン --- */
 .tag-webit    { --tag-color: #20c997; }
 .tag-photo    { --tag-color: #fd7e14; }
@@ -434,17 +431,14 @@ a { text-decoration: none; color: inherit; }
 .tag-volunteer{ --tag-color: #007bff; }
 .tag-other    { --tag-color: #888888; }
 
-/* 共通タグ（記事カード内等）：白背景・押せないデザイン */
 .blog-tag { 
     font-size: 11px; padding: 4px 12px; border-radius: 15px; font-weight: bold; letter-spacing: 0.05em; 
     border: 2px solid #333; background-color: #fff; color: #333; 
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); box-sizing: border-box;
     box-shadow: 2px 2px 0px var(--tag-color, #333);
-    transform: translate(-2px, -2px);
     display: inline-block;
 }
 
-/* 検索フィルター用タグ（ボタン）：ホバーや選択時のみ塗りつぶしで凹む */
 button.filter-tag {
     cursor: pointer;
 }
@@ -454,9 +448,8 @@ button.filter-tag.is-active {
     border-color: #333; 
     color: #fff; 
     box-shadow: 0px 0px 0px transparent;
-    transform: translate(0px, 0px);
+    transform: translate(2px, 2px);
 }
-
 
 .blog-btn-wrapper { text-align: center; margin-top: 50px; }
 
@@ -512,13 +505,12 @@ button.filter-tag.is-active {
     text-decoration: none;
     color: inherit;
     box-shadow: 4px 4px 0px #333;
-    transform: translate(-4px, -4px);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding: 15px;
     box-sizing: border-box;
 }
 .blog-grid-item:hover {
-    transform: translate(0, 0);
+    transform: translate(4px, 4px);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-grid-img-wrapper {
@@ -581,10 +573,10 @@ button.filter-tag.is-active {
 .webwork-window { 
     flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; 
     transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; 
-    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
+    box-shadow: 4px 4px 0px #333;
 }
 .webwork-window:hover { 
-    transform: translate(0, 0); 
+    transform: translate(4px, 4px); 
     box-shadow: 0px 0px 0px #333; 
     z-index: 10; 
 }
@@ -693,6 +685,11 @@ button.filter-tag.is-active {
     .blog-grid-container {
         grid-template-columns: repeat(2, 1fr);
     }
+    .profile-card,
+    .blog-showcase,
+    .webworks-list {
+        margin: 0 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -761,7 +758,12 @@ button.filter-tag.is-active {
     }
     .blog-main-area {
         height: auto;
-        min-height: 380px;
+        min-height: auto;
+    }
+    .blog-main-img-wrapper {
+        flex: none;
+        aspect-ratio: 16 / 9;
+        width: 100%;
     }
     .blog-title { font-size: 18px; }
     .blog-side-list {
