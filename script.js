@@ -437,13 +437,23 @@ function initBlogPage() {
     
     if (!listArea || !tagsArea || !searchInput) return;
 
-    const allTags = [];
+    const tagOrder = ["WEB・IT", "写真", "ピアノ", "勉強", "旅行", "その他"];
+
+    let allTags = [];
     blogArticles.forEach(article => {
         article.tags.forEach(t => {
             if (!allTags.find(x => x.name === t.name)) {
                 allTags.push(t);
             }
         });
+    });
+
+    allTags.sort((a, b) => {
+        let indexA = tagOrder.indexOf(a.name);
+        let indexB = tagOrder.indexOf(b.name);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        return indexA - indexB;
     });
 
     let activeTags = allTags.map(t => t.name);
