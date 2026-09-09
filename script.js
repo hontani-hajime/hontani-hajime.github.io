@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
-                    <span></span>
                 </div>
                 <nav class="global-nav" id="global-nav">
                     <ul>
