@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
+                    <span></span>
                 </div>
                 <nav class="global-nav" id="global-nav">
                     <ul>
@@ -124,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     body.appendChild(topBtn);
 
     initSite();
+    initBlogFilter();
 
     const sliderImgs = document.querySelectorAll('.slider-img');
     const prevBtn = document.querySelector('.slider-prev-btn');
@@ -427,4 +429,38 @@ function initSite() {
 
         }, 4000);
     }
+}
+
+function initBlogFilter() {
+    const searchInput = document.getElementById('blog-search');
+    const checkboxes = document.querySelectorAll('.topic-checkbox');
+    const items = document.querySelectorAll('.blog-grid-item');
+
+    if (!searchInput || items.length === 0) return;
+
+    function filterBlogs() {
+        const keyword = searchInput.value.toLowerCase();
+        const checkedTopics = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        items.forEach(item => {
+            const title = (item.getAttribute('data-title') || '').toLowerCase();
+            const tags = (item.getAttribute('data-tags') || '').split(',');
+
+            const matchKeyword = title.includes(keyword);
+            
+            let matchTopic = true;
+            if (checkedTopics.length > 0) {
+                matchTopic = checkedTopics.some(topic => tags.includes(topic));
+            }
+
+            if (matchKeyword && matchTopic) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterBlogs);
+    checkboxes.forEach(cb => cb.addEventListener('change', filterBlogs));
 }
