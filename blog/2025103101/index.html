@@ -18,50 +18,11 @@
             border-radius: 16px;
             box-shadow: 4px 4px 0px #333;
         }
-        .article-header {
-            border-bottom: 2px dashed #ccc;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .article-title {
-            font-size: 28px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        .article-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #666;
-            font-weight: bold;
-        }
-        .article-body {
-            font-size: 16px;
-            line-height: 2;
-            color: #333;
-        }
         .article-body h3 {
             margin: 40px 0 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #333;
             font-size: 20px;
-        }
-        .article-body p {
-            margin-bottom: 20px;
-        }
-        .article-info-box {
-            background-color: #f9f9f9;
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px 0;
-        }
-        .article-info-box p {
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .article-info-box p:last-child {
-            margin-bottom: 0;
         }
         .map-container {
             position: relative;
@@ -81,7 +42,6 @@
         }
         @media (max-width: 768px) {
             .article-container { padding: 25px; margin: 40px 20px 0; }
-            .article-title { font-size: 22px; }
         }
     </style>
 </head>
@@ -90,7 +50,7 @@
         <article class="article-container">
             <header class="article-header">
                 <h1 class="article-title font-bold">神戸文化祭のお知らせ</h1>
-                <div class="article-meta">
+                <div class="article-meta" style="display: flex; justify-content: center; gap: 15px; align-items: center;">
                     <span class="article-date">2025.10.31</span>
                     <span class="blog-tag tag-volunteer">ボランティア</span>
                 </div>
@@ -105,26 +65,26 @@
                     <p>【場】神戸市立王子動物園</p>
                     <p>【参】入園料600円のみ必要 （市内の高校生以下、65歳以上は無料）</p>
                     <p>【問】dficu505@kcc.zaq.ne.jp</p>
-                    <p>【アシスタント】本谷はじめ（高校生）</p>
+                    <p>【アシスタント】本谷元（高校生）</p>
                 </div>
                 
                 <p>お近くまでお越しの際はぜひご参加ください！</p>
                 
                 <h3>関連リンク</h3>
-                <p><a href="https://inooka-satoko.github.io/" target="_blank" rel="noopener noreferrer" style="color: #5B8CFF; text-decoration: underline; font-weight: bold;">井ノ岡里子先生のホームページはこちら</a></p>
-                <p><a href="https://www.kobe-ojizoo.jp/" target="_blank" rel="noopener noreferrer" style="color: #5B8CFF; text-decoration: underline; font-weight: bold;">神戸市立王子動物園 公式サイト</a></p>
+                <p><a href="https://inooka-satoko.github.io/" target="_blank" rel="noopener noreferrer" style="color: #007bff; font-weight: bold;">井ノ岡里子先生のホームページはこちら</a></p>
+                <p><a href="https://kobebunkasai.club/2025/2025/09/30/22/" target="_blank" rel="noopener noreferrer" style="color: #007bff; font-weight: bold;">神戸文化祭 公式サイト</a></p>
 
                 <h3>アクセスマップ</h3>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.791530650965!2d135.21199341147575!3d34.71043328221844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60008ea6cdeee91b%3A0x6b801a6132bb8254!2z56We5oi45biC56uL546L5a2Q5YuV54mp5ZyS!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.805210967069!2d135.2119934!3d34.7104333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60008ea6cdeee91b%3A0x6b801a6132bb8254!2z56We5oi45biC56uL546L5a2Q5YuV54mp5ZyS!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
-                <div class="blog-btn-wrapper">
+                <div class="article-btn-area">
                     <a href="https://hontani-hajime.github.io/blog/" class="action-btn">
-                        ブログ一覧へ戻る
-                        <span class="btn-arrow-circle">
-                            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <span class="btn-arrow-circle" style="margin-right: 12px; margin-left: 0;">
+                            <svg viewBox="0 0 24 24" style="margin-left: -2px; margin-right: 0;"><polyline points="15 18 9 12 15 6"></polyline></svg>
                         </span>
+                        ブログ一覧へ戻る
                     </a>
                 </div>
             </div>
