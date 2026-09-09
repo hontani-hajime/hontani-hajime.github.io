@@ -1,5 +1,3 @@
-// js/blog-data.js (またはルート直下に blog-data.js)
-
 const blogArticles = [
     { 
         title: "神戸文化祭のお知らせ", 
@@ -7,7 +5,7 @@ const blogArticles = [
         tags: [{name: "ボランティア", class: "tag-volunteer"}], 
         isNew: true, 
         img: "https://hontani-hajime.github.io/file/noimage.jpg", 
-        url: "https://hontani-hajime.github.io/blog/kobe-bunkasai.html" 
+        url: "https://hontani-hajime.github.io/blog/2025103101/" 
     },
     { 
         title: "秋の気配を感じて", 
