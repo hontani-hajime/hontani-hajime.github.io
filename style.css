@@ -424,7 +424,8 @@ a { text-decoration: none; color: inherit; }
 }
 .blog-list-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-/* 共通タグデザイン */
+
+/* --- タグデザイン --- */
 .tag-webit    { --tag-color: #20c997; }
 .tag-photo    { --tag-color: #fd7e14; }
 .tag-piano    { --tag-color: #e83e8c; }
@@ -433,37 +434,29 @@ a { text-decoration: none; color: inherit; }
 .tag-volunteer{ --tag-color: #007bff; }
 .tag-other    { --tag-color: #888888; }
 
+/* 共通タグ（記事カード内等）：白背景・押せないデザイン */
 .blog-tag { 
     font-size: 11px; padding: 4px 12px; border-radius: 15px; font-weight: bold; letter-spacing: 0.05em; 
-    background-color: var(--tag-color, #333); color: #fff;
-    border: 2px solid var(--tag-color, #333);
-    box-sizing: border-box; display: inline-block;
-}
-
-/* 検索フィルター用タグデザイン（ボタン機能あり） */
-button.filter-tag {
-    background-color: #fff;
-    color: #333;
-    border-color: #333;
-    cursor: pointer;
+    border: 2px solid #333; background-color: #fff; color: #333; 
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); box-sizing: border-box;
     box-shadow: 2px 2px 0px var(--tag-color, #333);
     transform: translate(-2px, -2px);
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-block;
 }
-button.filter-tag:hover, button.filter-tag.is-active { 
+
+/* 検索フィルター用タグ（ボタン）：ホバーや選択時のみ塗りつぶしで凹む */
+button.filter-tag {
+    cursor: pointer;
+}
+button.filter-tag:hover, 
+button.filter-tag.is-active { 
     background-color: var(--tag-color, #333); 
     border-color: #333; 
     color: #fff; 
     box-shadow: 0px 0px 0px transparent;
     transform: translate(0px, 0px);
 }
-button.filter-tag.is-inactive {
-    background-color: #fff !important;
-    border-color: #333 !important;
-    color: #333 !important;
-    box-shadow: 2px 2px 0px var(--tag-color, #333) !important;
-    transform: translate(-2px, -2px) !important;
-}
+
 
 .blog-btn-wrapper { text-align: center; margin-top: 50px; }
 
