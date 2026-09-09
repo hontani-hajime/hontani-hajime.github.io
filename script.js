@@ -1,4 +1,3 @@
-/* script.js */
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const main = document.querySelector('.main-content');
