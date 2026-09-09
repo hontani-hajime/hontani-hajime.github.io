@@ -14,92 +14,17 @@
         <section class="blog-section" style="margin-top: 60px;">
             <h2 class="section-title"><span class="marker-static marker-green">Blog</span></h2>
             
-            <div class="blog-filter-container">
-                <input type="text" id="blog-search" class="blog-search-box" placeholder="記事のタイトルで検索...">
-                <div class="blog-topic-filters">
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="写真"> 写真</label>
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="旅行"> 旅行</label>
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="WEB・IT"> WEB・IT</label>
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="勉強"> 勉強</label>
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="ピアノ"> ピアノ</label>
-                    <label class="topic-label"><input type="checkbox" class="topic-checkbox" value="その他"> その他</label>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <div class="blog-filter-wrapper">
+                    <div class="blog-filter-tags" id="blog-filter-tags">
+                    </div>
+                    <div class="blog-search-box">
+                        <input type="text" id="blog-search-input" placeholder="タイトルで検索...">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="blog-page-grid" id="blog-page-grid">
-                
-                <a href="#" class="blog-grid-item" data-title="秋の気配を感じて" data-tags="写真">
-                    <div style="position: relative;">
-                        <span class="list-new-badge" style="font-size: 12px; padding: 4px 10px;">NEW</span>
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="blog-grid-img" alt="Blog Image">
-                    </div>
-                    <div class="blog-grid-info">
-                        <span class="blog-grid-date">2026.09.06</span>
-                        <h3 class="blog-grid-title font-bold">秋の気配を感じて</h3>
-                        <p class="blog-grid-desc">朝晩の風が少しずつ冷たくなってきましたね。カメラを持って近所の公園を散歩していると、早くも秋の気配を感じる風景に出会いました。</p>
-                        <div class="blog-grid-tags">
-                            <span class="blog-tag tag-photo">写真</span>
-                        </div>
-                    </div>
-                </a>
 
-                <a href="#" class="blog-grid-item" data-title="春の桜を撮りに行きました" data-tags="写真,旅行">
-                    <div style="position: relative;">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="blog-grid-img" alt="Blog Image">
-                    </div>
-                    <div class="blog-grid-info">
-                        <span class="blog-grid-date">2026.08.31</span>
-                        <h3 class="blog-grid-title font-bold">春の桜を撮りに行きました</h3>
-                        <p class="blog-grid-desc">少し時期外れになってしまいましたが、今年の春に撮り溜めた桜の写真を整理しています。旅行先で見つけた穴場のスポットの風景をお届けします。</p>
-                        <div class="blog-grid-tags">
-                            <span class="blog-tag tag-photo">写真</span>
-                            <span class="blog-tag tag-travel">旅行</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog-grid-item" data-title="新しいサイトのポートフォリオを作成中" data-tags="WEB・IT,勉強">
-                    <div style="position: relative;">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="blog-grid-img" alt="Blog Image">
-                    </div>
-                    <div class="blog-grid-info">
-                        <span class="blog-grid-date">2026.08.20</span>
-                        <h3 class="blog-grid-title font-bold">新しいサイトのポートフォリオを作成中</h3>
-                        <p class="blog-grid-desc">現在、自分のWeb作品をまとめるための新しいポートフォリオサイトを制作しています。今回はモダンなJavaScriptの書き方を取り入れてみています。</p>
-                        <div class="blog-grid-tags">
-                            <span class="blog-tag tag-webit">WEB・IT</span>
-                            <span class="blog-tag tag-study">勉強</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog-grid-item" data-title="久しぶりのピアノ発表会に向けて" data-tags="ピアノ">
-                    <div style="position: relative;">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="blog-grid-img" alt="Blog Image">
-                    </div>
-                    <div class="blog-grid-info">
-                        <span class="blog-grid-date">2026.08.15</span>
-                        <h3 class="blog-grid-title font-bold">久しぶりのピアノ発表会に向けて</h3>
-                        <p class="blog-grid-desc">来月、数年ぶりとなる大人のピアノ発表会に参加することになりました。選曲の理由と、日々の練習の記録について書いてみます。</p>
-                        <div class="blog-grid-tags">
-                            <span class="blog-tag tag-piano">ピアノ</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog-grid-item" data-title="日常のスケッチとカフェ巡り" data-tags="その他">
-                    <div style="position: relative;">
-                        <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="blog-grid-img" alt="Blog Image">
-                    </div>
-                    <div class="blog-grid-info">
-                        <span class="blog-grid-date">2026.07.10</span>
-                        <h3 class="blog-grid-title font-bold">日常のスケッチとカフェ巡り</h3>
-                        <p class="blog-grid-desc">休日はお気に入りのノートとペンを持って、気になるカフェを開拓しています。美味しいコーヒーと、そこで描いた小さなスケッチたち。</p>
-                        <div class="blog-grid-tags">
-                            <span class="blog-tag tag-other">その他</span>
-                        </div>
-                    </div>
-                </a>
+                <div class="blog-grid-container" id="blog-page-list">
+                </div>
             </div>
 
             <div class="blog-btn-wrapper" style="margin-top: 50px;">
