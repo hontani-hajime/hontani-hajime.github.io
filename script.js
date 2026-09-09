@@ -1,3 +1,5 @@
+// script.js (またはルート直下に script.js)
+
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const main = document.querySelector('.main-content');
@@ -175,14 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-const blogArticles = [
-    { title: "秋の気配を感じて", date: "2026.09.06", tags: [{name: "写真", class: "tag-photo"}], isNew: true, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-    { title: "春の桜を撮りに行きました", date: "2026.08.31", tags: [{name: "写真", class: "tag-photo"}, {name: "旅行", class: "tag-travel"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-    { title: "新しいサイトのポートフォリオを作成中", date: "2026.08.20", tags: [{name: "WEB・IT", class: "tag-webit"}, {name: "勉強", class: "tag-study"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-    { title: "久しぶりのピアノ発表会に向けて", date: "2026.08.15", tags: [{name: "ピアノ", class: "tag-piano"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" },
-    { title: "日常のスケッチとカフェ巡り", date: "2026.07.10", tags: [{name: "その他", class: "tag-other"}], isNew: false, img: "https://hontani-hajime.github.io/file/noimage.jpg" }
-];
-
 function initSite() {
     const t1 = "本谷元";
     const t2 = "のはじめちゃんサイト";
@@ -347,13 +341,13 @@ function initSite() {
     const mainArea = document.getElementById('blog-main-area');
     const listInner = document.getElementById('blog-list-inner');
 
-    if (mainArea && listInner) {
-        let currentArticles = [...blogArticles];
+    if (mainArea && listInner && typeof blogArticles !== 'undefined') {
+        let currentArticles = blogArticles.slice(0, 5);
 
         function renderBlog() {
             const main = currentArticles[0];
             mainArea.innerHTML = `
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-main-link">
+                <a href="${main.url}" class="blog-main-link">
                     <div class="blog-main-img-wrapper">
                         ${main.isNew ? '<span class="new-badge">NEW</span>' : ''}
                         <img src="${main.img}" alt="Blog Image">
@@ -369,7 +363,7 @@ function initSite() {
             `;
 
             listInner.innerHTML = currentArticles.slice(1).map(article => `
-                <a href="https://hontani-hajime.github.io/blog/" class="blog-list-item">
+                <a href="${article.url}" class="blog-list-item">
                     <div class="blog-list-img-wrapper">
                         ${article.isNew ? '<span class="new-badge">NEW</span>' : ''}
                         <img src="${article.img}" alt="Blog Image">
@@ -392,7 +386,7 @@ function initSite() {
             
             const nextLastArticle = currentArticles[0];
             const tempItem = document.createElement('a');
-            tempItem.href = "https://hontani-hajime.github.io/blog/";
+            tempItem.href = nextLastArticle.url;
             tempItem.className = "blog-list-item";
             tempItem.innerHTML = `
                 <div class="blog-list-img-wrapper">
@@ -435,9 +429,9 @@ function initBlogPage() {
     const tagsArea = document.getElementById('blog-filter-tags');
     const searchInput = document.getElementById('blog-search-input');
     
-    if (!listArea || !tagsArea || !searchInput) return;
+    if (!listArea || !tagsArea || !searchInput || typeof blogArticles === 'undefined') return;
 
-    const tagOrder = ["WEB・IT", "写真", "ピアノ", "勉強", "旅行", "その他"];
+    const tagOrder = ["ボランティア", "WEB・IT", "写真", "ピアノ", "勉強", "旅行", "その他"];
 
     let allTags = [];
     blogArticles.forEach(article => {
@@ -456,7 +450,7 @@ function initBlogPage() {
         return indexA - indexB;
     });
 
-    let activeTags = allTags.map(t => t.name);
+    let activeTags = [];
 
     function renderFilter() {
         tagsArea.innerHTML = allTags.map(t => {
@@ -469,7 +463,7 @@ function initBlogPage() {
     function renderGrid(query = '') {
         const lowerQuery = query.toLowerCase();
         const filtered = blogArticles.filter(article => {
-            const matchTag = article.tags.some(t => activeTags.includes(t.name));
+            const matchTag = activeTags.length === 0 || article.tags.some(t => activeTags.includes(t.name));
             const matchText = article.title.toLowerCase().includes(lowerQuery);
             return matchTag && matchText;
         });
@@ -480,7 +474,7 @@ function initBlogPage() {
         }
 
         listArea.innerHTML = filtered.map(article => `
-            <a href="https://hontani-hajime.github.io/blog/" class="blog-grid-item">
+            <a href="${article.url}" class="blog-grid-item">
                 <div class="blog-grid-img-wrapper">
                     ${article.isNew ? '<span class="new-badge">NEW</span>' : ''}
                     <img src="${article.img}" alt="Blog Image">
