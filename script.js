@@ -450,10 +450,11 @@ function initBlogPage() {
 
     let activeTags = [];
 
+    // フィルターのボタンを生成する（選択中ならis-activeクラスをつける）
     function renderFilter() {
         tagsArea.innerHTML = allTags.map(t => {
-            const isActive = activeTags.length === 0 || activeTags.includes(t.name);
-            const activeClass = isActive ? '' : 'is-inactive';
+            const isActive = activeTags.includes(t.name);
+            const activeClass = isActive ? 'is-active' : '';
             return `<button class="blog-tag filter-tag ${t.class} ${activeClass}" data-name="${t.name}">${t.name}</button>`;
         }).join('');
     }
