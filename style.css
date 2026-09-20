@@ -288,6 +288,8 @@ a { text-decoration: none; color: inherit; }
     margin: 0 60px;
     height: 480px;
     align-items: stretch;
+    padding-top: 4px;  /* ここで左上ハミ出し防止の余白を設定 */
+    padding-left: 4px; /* ここで左上ハミ出し防止の余白を設定 */
 }
 
 .blog-main-area {
@@ -297,8 +299,8 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
     padding: 20px;
     box-shadow: 4px 4px 0px #333;
-    transform: translate(-4px, -4px); /* ここを元に戻しました */
-    margin: 4px 0 0 4px; /* 【重要】ここで左上の切れを防止！親へのpaddingは追加しません */
+    transform: translate(-4px, -4px); 
+    /* margin 指定を削除しました */
     position: relative;
     transition: opacity 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
     height: 100%;
@@ -360,7 +362,7 @@ a { text-decoration: none; color: inherit; }
     flex: 1;
     overflow: hidden;
     position: relative;
-    padding: 4px; /* ←これがあるおかげで右側のリストは元から切れていませんでした */
+    padding: 4px;
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
@@ -446,13 +448,25 @@ a { text-decoration: none; color: inherit; }
 button.filter-tag {
     cursor: pointer;
 }
-button.filter-tag:hover, 
+
+/* 選択されているときの設定 */
 button.filter-tag.is-active { 
     background-color: var(--tag-color, #333); 
     border-color: #333; 
     color: #fff; 
     box-shadow: 0px 0px 0px transparent;
     transform: translate(0px, 0px);
+}
+
+/* 端末がマウスなどを使用できる時のみホバー効果を適用する (タッチパネルでの凹み残りを防ぐ) */
+@media (hover: hover) and (pointer: fine) {
+    button.filter-tag:hover { 
+        background-color: var(--tag-color, #333); 
+        border-color: #333; 
+        color: #fff; 
+        box-shadow: 0px 0px 0px transparent;
+        transform: translate(0px, 0px);
+    }
 }
 
 .blog-btn-wrapper { text-align: center; margin-top: 50px; }
@@ -499,6 +513,8 @@ button.filter-tag.is-active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    padding-top: 4px;  /* ここで左上ハミ出し防止の余白を設定 */
+    padding-left: 4px; /* ここで左上ハミ出し防止の余白を設定 */
 }
 .blog-grid-item {
     display: flex;
@@ -510,7 +526,7 @@ button.filter-tag.is-active {
     color: inherit;
     box-shadow: 4px 4px 0px #333;
     transform: translate(-4px, -4px);
-    margin: 4px 0 0 4px; /* ここにも追加 */
+    /* margin 指定を削除しました */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding: 15px;
     box-sizing: border-box;
@@ -572,7 +588,7 @@ button.filter-tag.is-active {
 .photo-item:nth-child(6) { transform: rotate(1deg); }
 .photo-item:hover { transform: scale(1.05) rotate(0deg) !important; box-shadow: 0 12px 25px rgba(0,0,0,0.2); z-index: 10; }
 
-.webworks-list { display: flex; flex-direction: column; margin: 0 60px; }
+.webworks-list { display: flex; flex-direction: column; margin: 0 60px; padding-top: 4px; padding-left: 4px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; padding-bottom: 60px; margin-bottom: 60px; border-bottom: 2px dashed #ccc; }
 .webwork-item:nth-child(even) { flex-direction: row-reverse; }
 .webwork-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
@@ -580,7 +596,7 @@ button.filter-tag.is-active {
     flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; 
     transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; 
     box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
-    margin: 4px 0 0 4px; /* ここにも追加 */
+    /* margin 指定を削除しました */
 }
 .webwork-window:hover { 
     transform: translate(0, 0); 
@@ -757,12 +773,13 @@ button.filter-tag.is-active {
         flex-direction: column;
         margin: 0 20px;
         height: auto;
+        padding-top: 4px;
+        padding-left: 4px;
     }
     .blog-main-area {
         height: auto;
         min-height: 380px;
     }
-    /* 【重要】ここでスマホの時の画像が見えない問題を解決！余白等には一切影響しません */
     .blog-main-img-wrapper {
         flex: none;
         aspect-ratio: 16 / 9;
@@ -803,7 +820,7 @@ button.filter-tag.is-active {
     .photo-collage-container { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; margin: 0 10px; }
     .photo-item { padding: 8px; }
 
-    .webworks-list { margin: 0 20px; }
+    .webworks-list { margin: 0 20px; padding-top: 4px; padding-left: 4px; }
     .webwork-item, .webwork-item:nth-child(even) { flex-direction: column; gap: 20px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 2px dashed #ccc; }
     .webwork-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
     .webwork-window { width: 100%; }
