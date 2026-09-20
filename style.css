@@ -151,7 +151,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .wave-sea {
-    width: calc(100% + 100px); /* 動きを持たせるための余白 */
+    width: calc(100% + 100px); 
     height: 40px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 40' preserveAspectRatio='none'%3E%3Cpath d='M0,15 Q12.5,5 25,15 T50,15 L50,40 L0,40 Z' fill='%23ffffff'/%3E%3Cpath d='M0,15 Q12.5,5 25,15 T50,15' fill='none' stroke='%23cccccc' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
     background-size: 50px 100%;
@@ -219,8 +219,7 @@ a { text-decoration: none; color: inherit; }
 .section-title::before, .section-title::after { content: ''; display: block; width: 40px; height: 2px; background-color: #333; border-radius: 2px; }
 
 /* -------------------------------------
-   影と押し込みのアニメーション修正
-   （左上のはみ出しを防止）
+   影とボタンのアニメーション（左上・下のハミ出し防止版）
 ------------------------------------- */
 .action-btn { 
     display: inline-flex; align-items: center; justify-content: center; gap: 12px; 
@@ -229,7 +228,7 @@ a { text-decoration: none; color: inherit; }
     letter-spacing: 0.1em; text-decoration: none; cursor: pointer; 
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
     box-shadow: 4px 4px 0px #333; 
-    transform: translate(0, 0); 
+    transform: translate(-4px, -4px); /* 元の設定 */
     position: relative; 
     overflow: hidden; 
     z-index: 1; 
@@ -246,7 +245,7 @@ a { text-decoration: none; color: inherit; }
 }
 .action-btn:hover { 
     box-shadow: 0px 0px 0px #333; 
-    transform: translate(4px, 4px); 
+    transform: translate(0, 0); 
     color: #fff; 
 }
 .action-btn:hover::before {
@@ -296,12 +295,14 @@ a { text-decoration: none; color: inherit; }
     top: 10px; left: 10px; font-size: 12px; padding: 4px 10px;
 }
 
+/* 親要素に padding を設けることで、中の影のハミ出しを吸収します */
 .blog-showcase {
     display: flex;
     gap: 30px;
     margin: 0 60px;
     height: 480px;
     align-items: stretch;
+    padding: 6px; 
 }
 
 .blog-main-area {
@@ -311,19 +312,20 @@ a { text-decoration: none; color: inherit; }
     background-color: #fff;
     padding: 20px;
     box-shadow: 4px 4px 0px #333;
-    transform: translate(0, 0); 
+    transform: translate(-4px, -4px); 
     position: relative;
     transition: opacity 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
     height: 100%;
     box-sizing: border-box;
+    min-width: 0;
 }
 .blog-main-area:hover {
-    transform: translate(4px, 4px);
+    transform: translate(0, 0);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-main-area.is-hidden {
     opacity: 0;
-    transform: scale(0.98);
+    transform: translate(-4px, -4px) scale(0.98);
 }
 .blog-main-link {
     display: flex; 
@@ -356,6 +358,7 @@ a { text-decoration: none; color: inherit; }
     display: flex; 
     flex-direction: column; 
     overflow: hidden; 
+    min-width: 0; /* タイトルの長さに負けないための設定 */
 }
 .blog-date { font-size: 14px; color: #666; margin-bottom: 4px; font-weight: bold; line-height: 1; }
 .blog-title { 
@@ -373,9 +376,10 @@ a { text-decoration: none; color: inherit; }
     flex: 1;
     overflow: hidden;
     position: relative;
-    padding: 4px;
+    padding: 6px; /* ハミ出し吸収 */
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    min-width: 0; 
 }
 .blog-list-inner {
     display: flex;
@@ -393,13 +397,14 @@ a { text-decoration: none; color: inherit; }
     text-decoration: none;
     color: inherit;
     box-shadow: 3px 3px 0px #333;
-    transform: translate(0, 0);
+    transform: translate(-3px, -3px);
     transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
+    min-width: 0; 
 }
 .blog-list-item:hover { 
     background-color: #fff; 
-    transform: translate(3px, 3px);
+    transform: translate(0, 0);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-list-img-wrapper {
@@ -426,6 +431,7 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
     overflow: hidden;
     width: 100%;
+    min-width: 0; /* タイトルの長さに負けないための設定 */
 }
 .blog-list-date { font-size: 12px; color: #666; margin-bottom: 2px; font-weight: bold; line-height: 1;}
 .blog-list-title { 
@@ -453,31 +459,27 @@ a { text-decoration: none; color: inherit; }
     border: 2px solid #333; background-color: #fff; color: #333; 
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); box-sizing: border-box;
     box-shadow: 2px 2px 0px var(--tag-color, #333);
-    transform: translate(0, 0);
+    transform: translate(-2px, -2px);
     display: inline-block;
 }
 
 button.filter-tag {
     cursor: pointer;
 }
-
-/* 選択されているときの設定 */
 button.filter-tag.is-active { 
     background-color: var(--tag-color, #333); 
     border-color: #333; 
     color: #fff; 
     box-shadow: 0px 0px 0px transparent;
-    transform: translate(2px, 2px);
+    transform: translate(0px, 0px);
 }
-
-/* 端末がマウスなどを使用できる時のみホバー効果を適用する (タッチパネルでの凹み残りを防ぐ) */
 @media (hover: hover) and (pointer: fine) {
     button.filter-tag:hover { 
         background-color: var(--tag-color, #333); 
         border-color: #333; 
         color: #fff; 
         box-shadow: 0px 0px 0px transparent;
-        transform: translate(2px, 2px);
+        transform: translate(0px, 0px);
     }
 }
 
@@ -525,6 +527,7 @@ button.filter-tag.is-active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    padding: 6px; /* ハミ出し吸収 */
 }
 .blog-grid-item {
     display: flex;
@@ -535,13 +538,14 @@ button.filter-tag.is-active {
     text-decoration: none;
     color: inherit;
     box-shadow: 4px 4px 0px #333;
-    transform: translate(0, 0);
+    transform: translate(-4px, -4px);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding: 15px;
     box-sizing: border-box;
+    min-width: 0; /* これが右端巨大化問題の完全な解決策です */
 }
 .blog-grid-item:hover {
-    transform: translate(4px, 4px);
+    transform: translate(0, 0);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-grid-img-wrapper {
@@ -566,6 +570,7 @@ button.filter-tag.is-active {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0; /* 右端巨大化問題の解決策 */
 }
 .blog-grid-date {
     font-size: 13px; color: #666; margin-bottom: 4px; font-weight: bold; line-height: 1;
@@ -597,17 +602,17 @@ button.filter-tag.is-active {
 .photo-item:nth-child(6) { transform: rotate(1deg); }
 .photo-item:hover { transform: scale(1.05) rotate(0deg) !important; box-shadow: 0 12px 25px rgba(0,0,0,0.2); z-index: 10; }
 
-.webworks-list { display: flex; flex-direction: column; margin: 0 60px; }
+.webworks-list { display: flex; flex-direction: column; margin: 0 60px; padding: 6px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; padding-bottom: 60px; margin-bottom: 60px; border-bottom: 2px dashed #ccc; }
 .webwork-item:nth-child(even) { flex-direction: row-reverse; }
 .webwork-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
 .webwork-window { 
     flex: 1; display: block; border: 2px solid #333; border-radius: 12px; background-color: #fff; overflow: hidden; 
     transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; position: relative; z-index: 1; 
-    box-shadow: 4px 4px 0px #333; transform: translate(0, 0);
+    box-shadow: 4px 4px 0px #333; transform: translate(-4px, -4px);
 }
 .webwork-window:hover { 
-    transform: translate(4px, 4px); 
+    transform: translate(0, 0); 
     box-shadow: 0px 0px 0px #333; 
     z-index: 10; 
 }
@@ -781,6 +786,7 @@ button.filter-tag.is-active {
         flex-direction: column;
         margin: 0 20px;
         height: auto;
+        padding: 6px;
     }
     .blog-main-area {
         height: auto;
@@ -796,6 +802,7 @@ button.filter-tag.is-active {
         height: auto;
         max-height: 480px;
         margin-top: 15px;
+        padding: 6px;
     }
     .blog-list-item {
         padding: 12px;
@@ -820,12 +827,13 @@ button.filter-tag.is-active {
     }
     .blog-grid-container {
         grid-template-columns: 1fr;
+        padding: 6px;
     }
 
     .photo-collage-container { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; margin: 0 10px; }
     .photo-item { padding: 8px; }
 
-    .webworks-list { margin: 0 20px; }
+    .webworks-list { margin: 0 20px; padding: 6px; }
     .webwork-item, .webwork-item:nth-child(even) { flex-direction: column; gap: 20px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 2px dashed #ccc; }
     .webwork-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
     .webwork-window { width: 100%; }
