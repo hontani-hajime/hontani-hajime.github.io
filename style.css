@@ -131,7 +131,7 @@ a { text-decoration: none; color: inherit; }
 .blog-section, .photos-section, .webworks-section { scroll-margin-top: 120px; }
 
 /* -------------------------------------
-   波と船のアニメーション（滑らかに修正）
+   波と船のアニメーション
 ------------------------------------- */
 .wave-scene {
     width: 100vw;
@@ -215,11 +215,11 @@ a { text-decoration: none; color: inherit; }
     100% { transform: translateX(100vw) translateY(0); }
 }
 
-.section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; }
+.section-title { width: fit-content; margin: 0 auto 50px; font-size: 28px; color: #333; font-weight: bold; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 20px; text-shadow: 2px 2px 0px #ccc; }
 .section-title::before, .section-title::after { content: ''; display: block; width: 40px; height: 2px; background-color: #333; border-radius: 2px; }
 
 /* -------------------------------------
-   影とボタンのアニメーション（左上・下のハミ出し防止版）
+   影とボタンのアニメーション
 ------------------------------------- */
 .action-btn { 
     display: inline-flex; align-items: center; justify-content: center; gap: 12px; 
@@ -228,7 +228,7 @@ a { text-decoration: none; color: inherit; }
     letter-spacing: 0.1em; text-decoration: none; cursor: pointer; 
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
     box-shadow: 4px 4px 0px #333; 
-    transform: translate(-4px, -4px); /* 元の設定 */
+    transform: translate(-4px, -4px);
     position: relative; 
     overflow: hidden; 
     z-index: 1; 
@@ -295,7 +295,6 @@ a { text-decoration: none; color: inherit; }
     top: 10px; left: 10px; font-size: 12px; padding: 4px 10px;
 }
 
-/* 親要素に padding を設けることで、中の影のハミ出しを吸収します */
 .blog-showcase {
     display: flex;
     gap: 30px;
@@ -308,24 +307,37 @@ a { text-decoration: none; color: inherit; }
 .blog-main-area {
     flex: 1.3;
     border: 2px solid #333;
-    border-radius: 16px;
+    border-radius: 12px;
     background-color: #fff;
     padding: 20px;
-    box-shadow: 4px 4px 0px #333;
-    transform: translate(-4px, -4px); 
+    box-shadow: 6px 6px 0px #333;
     position: relative;
-    transition: opacity 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transform: rotate(-2deg);
+    transition: opacity 0.5s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
     height: 100%;
     box-sizing: border-box;
     min-width: 0;
 }
+.blog-main-area::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(4deg);
+    width: 80px;
+    height: 25px;
+    background-color: rgba(32, 201, 151, 0.7);
+    border: 1px dashed #333;
+    box-shadow: 2px 2px 0px #333;
+    z-index: 10;
+}
 .blog-main-area:hover {
-    transform: translate(0, 0);
+    transform: rotate(0deg) translate(4px, 4px);
     box-shadow: 0px 0px 0px #333;
 }
 .blog-main-area.is-hidden {
     opacity: 0;
-    transform: translate(-4px, -4px) scale(0.98);
+    transform: rotate(-2deg) translate(-4px, -4px) scale(0.98);
 }
 .blog-main-link {
     display: flex; 
@@ -358,7 +370,7 @@ a { text-decoration: none; color: inherit; }
     display: flex; 
     flex-direction: column; 
     overflow: hidden; 
-    min-width: 0; /* タイトルの長さに負けないための設定 */
+    min-width: 0; 
 }
 .blog-date { font-size: 14px; color: #666; margin-bottom: 4px; font-weight: bold; line-height: 1; }
 .blog-title { 
@@ -376,7 +388,7 @@ a { text-decoration: none; color: inherit; }
     flex: 1;
     overflow: hidden;
     position: relative;
-    padding: 6px; /* ハミ出し吸収 */
+    padding: 6px;
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     min-width: 0; 
@@ -390,17 +402,34 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 10px;
+    padding: 15px;
     border: 2px solid #333;
-    border-radius: 12px;
+    border-radius: 0;
     background-color: #fff;
     text-decoration: none;
     color: inherit;
-    box-shadow: 3px 3px 0px #333;
-    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0px #333;
+    transform: translate(-2px, -2px);
     transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
     min-width: 0; 
+    position: relative;
+}
+.blog-list-item::before {
+    content: ""; position: absolute; left: -2px; top: 50%; transform: translateY(-50%);
+    width: 12px; height: 24px;
+    background-color: #ffffff;
+    border: 2px solid #333;
+    border-left: none;
+    border-radius: 0 24px 24px 0;
+}
+.blog-list-item::after {
+    content: ""; position: absolute; right: -2px; top: 50%; transform: translateY(-50%);
+    width: 12px; height: 24px;
+    background-color: #ffffff;
+    border: 2px solid #333;
+    border-right: none;
+    border-radius: 24px 0 0 24px;
 }
 .blog-list-item:hover { 
     background-color: #fff; 
@@ -431,7 +460,7 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
     overflow: hidden;
     width: 100%;
-    min-width: 0; /* タイトルの長さに負けないための設定 */
+    min-width: 0; 
 }
 .blog-list-date { font-size: 12px; color: #666; margin-bottom: 2px; font-weight: bold; line-height: 1;}
 .blog-list-title { 
@@ -527,7 +556,7 @@ button.filter-tag.is-active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    padding: 6px; /* ハミ出し吸収 */
+    padding: 6px; 
 }
 .blog-grid-item {
     display: flex;
@@ -542,7 +571,7 @@ button.filter-tag.is-active {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding: 15px;
     box-sizing: border-box;
-    min-width: 0; /* これが右端巨大化問題の完全な解決策です */
+    min-width: 0;
 }
 .blog-grid-item:hover {
     transform: translate(0, 0);
@@ -570,7 +599,7 @@ button.filter-tag.is-active {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 0; /* 右端巨大化問題の解決策 */
+    min-width: 0; 
 }
 .blog-grid-date {
     font-size: 13px; color: #666; margin-bottom: 4px; font-weight: bold; line-height: 1;
@@ -592,15 +621,66 @@ button.filter-tag.is-active {
 }
 
 .photo-collage-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-.photo-item { display: block; background-color: #fff; padding: 12px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease; text-decoration: none; position: relative; }
-.photo-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; }
+.photo-item { 
+    display: block; 
+    background-color: #fff; 
+    padding: 12px 12px 35px 12px; 
+    border: 2px solid #333; 
+    border-radius: 4px; 
+    box-shadow: 6px 6px 0px #333; 
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, z-index 0.3s ease; 
+    text-decoration: none; 
+    position: relative; 
+    transform-origin: top center; 
+}
+.photo-item::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px; height: 14px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    box-shadow: 2px 2px 0px #333;
+    z-index: 10;
+}
+.photo-item:nth-child(6n+1)::before { background-color: #FF9A9E; }
+.photo-item:nth-child(6n+2)::before { background-color: #81C784; }
+.photo-item:nth-child(6n+3)::before { background-color: #64B5F6; }
+.photo-item:nth-child(6n+4)::before { background-color: #FFB74D; }
+.photo-item:nth-child(6n+5)::before { background-color: #BA68C8; }
+.photo-item:nth-child(6n+6)::before { background-color: #FFF176; }
+
+.photo-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; border: 2px solid #333; }
 .photo-item:nth-child(1) { transform: rotate(-3deg); }
 .photo-item:nth-child(2) { transform: rotate(2deg); }
 .photo-item:nth-child(3) { transform: rotate(-2deg); }
 .photo-item:nth-child(4) { transform: rotate(3deg); }
 .photo-item:nth-child(5) { transform: rotate(-4deg); }
 .photo-item:nth-child(6) { transform: rotate(1deg); }
-.photo-item:hover { transform: scale(1.05) rotate(0deg) !important; box-shadow: 0 12px 25px rgba(0,0,0,0.2); z-index: 10; }
+
+.photo-item:hover { 
+    transform: none !important; 
+    animation: swing 0.6s ease-in-out infinite alternate; 
+    box-shadow: 8px 12px 0px rgba(0,0,0,0.2); 
+    z-index: 10; 
+}
+.photo-caption {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+@keyframes swing {
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
+}
 
 .webworks-list { display: flex; flex-direction: column; margin: 0 60px; padding: 6px; }
 .webwork-item { display: flex; align-items: center; gap: 50px; padding-bottom: 60px; margin-bottom: 60px; border-bottom: 2px dashed #ccc; }
@@ -831,7 +911,7 @@ button.filter-tag.is-active {
     }
 
     .photo-collage-container { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; margin: 0 10px; }
-    .photo-item { padding: 8px; }
+    .photo-item { padding: 8px 8px 30px 8px; }
 
     .webworks-list { margin: 0 20px; padding: 6px; }
     .webwork-item, .webwork-item:nth-child(even) { flex-direction: column; gap: 20px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 2px dashed #ccc; }
