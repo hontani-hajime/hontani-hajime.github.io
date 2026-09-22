@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Photos デザインパターン集</title>
+    <style>
+        /* ========================================
+           ベーススタイル（元のサイトに合わせる）
+        ======================================== */
+        body {
+            background-color: #fafafa;
+            color: #333;
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        h2 { text-align: center; margin-top: 80px; margin-bottom: 40px; font-size: 28px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* ========================================
+           【Blog パターンA】 クリーン・モダン
+           黒枠をなくし、柔らかい影で浮き上がらせる王道カード
+        ======================================== */
+        .blog-pattern-a {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .b-card-a {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .b-card-a:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        .b-card-a-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+        .b-card-a-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .b-card-a-date { font-size: 13px; color: #888; font-weight: bold; margin-bottom: 8px; }
+        .b-card-a-title { font-size: 18px; font-weight: bold; line-height: 1.5; margin: 0 0 16px 0; }
+        .b-card-a-tags { margin-top: auto; display: flex; gap: 8px; }
+        .b-card-a-tag { font-size: 11px; padding: 4px 12px; background: #f0f0f0; border-radius: 20px; color: #555; font-weight: bold; }
+
+        /* ========================================
+           【Blog パターンB】 マガジン・エディトリアル
+           元の構成（左メイン、右リスト）を雑誌風に洗練
+        ======================================== */
+        .blog-pattern-b { display: flex; gap: 30px; }
+        .b-mag-main {
+            flex: 1.3;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .b-mag-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .b-mag-main:hover img { transform: scale(1.05); }
+        .b-mag-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 60px 30px 30px;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.85));
+            color: #fff;
+            pointer-events: none;
+        }
+        .b-mag-date { font-size: 14px; font-weight: bold; color: #20c997; margin-bottom: 8px; display: block; }
+        .b-mag-title { font-size: 24px; font-weight: bold; margin: 0; line-height: 1.4; }
+        
+        .b-mag-list { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .b-mag-item { display: flex; gap: 16px; align-items: center; transition: opacity 0.3s; }
+        .b-mag-item:hover { opacity: 0.7; }
+        .b-mag-item-img { width: 120px; aspect-ratio: 4 / 3; border-radius: 12px; object-fit: cover; }
+        .b-mag-item-info { flex: 1; }
+        .b-mag-item-date { font-size: 12px; color: #888; font-weight: bold; margin-bottom: 4px; display: block; }
+        .b-mag-item-title { font-size: 16px; font-weight: bold; margin: 0; line-height: 1.4; }
+
+        /* ========================================
+           【Photos パターンA】 メイソンリー（タイル張り）
+           画像を敷き詰めてPinterestのように見せる
+        ======================================== */
+        .photos-pattern-a {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        .p-masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        .p-masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .p-masonry-item:hover img { transform: scale(1.05); }
+
+        /* ========================================
+           【Photos パターンB】 ポラロイド進化版
+           元の傾きアイデアを活かし、リアルな写真風に
+        ======================================== */
+        .photos-pattern-b {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+        .p-polaroid-item {
+            background: #ffffff;
+            /* 下部の余白を大きくしてポラロイド風に */
+            padding: 12px 12px 45px 12px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        .p-polaroid-item img {
+            width: 220px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+        }
+        /* 交互に傾ける */
+        .p-polaroid-item:nth-child(even) { transform: rotate(3deg); }
+        .p-polaroid-item:nth-child(odd) { transform: rotate(-3deg); }
+        .p-polaroid-item:nth-child(3n) { transform: rotate(1deg); }
+        
+        .p-polaroid-item:hover {
+            transform: scale(1.08) rotate(0deg) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .blog-pattern-b { flex-direction: column; }
+            .b-mag-main { aspect-ratio: 4 / 3; }
+            .photos-pattern-a { column-count: 2; }
+        }
+        @media (max-width: 480px) {
+            .photos-pattern-a { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==========================================
+         Blog デザインパターン
+    =========================================== -->
+
+    <h2>【Blog A】 クリーン・モダン（王道）</h2>
+    <div class="blog-pattern-a">
+        <a href="#" class="b-card-a">
+            <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-card-a-img" alt="サムネイル">
+            <div class="b-card-a-content">
+                <span class="b-card-a-date">2026.08.31</span>
+                <h3 class="b-card-a-title">春の桜を撮りに行きました</h3>
+                <div class="b-card-a-tags">
+                    <span class="b-card-a-tag">写真</span>
+                    <span class="b-card-a-tag">旅行</span>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="b-card-a">
+            <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-card-a-img" alt="サムネイル">
+            <div class="b-card-a-content">
+                <span class="b-card-a-date">2026.08.20</span>
+                <h3 class="b-card-a-title">新しいサイトのポートフォリオを作成中</h3>
+                <div class="b-card-a-tags">
+                    <span class="b-card-a-tag">WEB・IT</span>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="b-card-a">
+            <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-card-a-img" alt="サムネイル">
+            <div class="b-card-a-content">
+                <span class="b-card-a-date">2026.08.15</span>
+                <h3 class="b-card-a-title">久しぶりのピアノ発表会に向けて</h3>
+                <div class="b-card-a-tags">
+                    <span class="b-card-a-tag">ピアノ</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <h2>【Blog B】 マガジン・エディトリアル</h2>
+    <div class="blog-pattern-b">
+        <a href="#" class="b-mag-main">
+            <img src="https://hontani-hajime.github.io/file/noimage.jpg" alt="メイン記事">
+            <div class="b-mag-overlay">
+                <span class="b-mag-date">2026.09.06</span>
+                <h3 class="b-mag-title">秋の気配を感じて、カメラを持って散歩に出かけた日の記録</h3>
+            </div>
+        </a>
+        <div class="b-mag-list">
+            <a href="#" class="b-mag-item">
+                <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-mag-item-img" alt="リスト記事">
+                <div class="b-mag-item-info">
+                    <span class="b-mag-item-date">2026.08.31</span>
+                    <h4 class="b-mag-item-title">春の桜を撮りに行きました</h4>
+                </div>
+            </a>
+            <a href="#" class="b-mag-item">
+                <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-mag-item-img" alt="リスト記事">
+                <div class="b-mag-item-info">
+                    <span class="b-mag-item-date">2026.08.20</span>
+                    <h4 class="b-mag-item-title">新しいサイトのポートフォリオを作成中</h4>
+                </div>
+            </a>
+            <a href="#" class="b-mag-item">
+                <img src="https://hontani-hajime.github.io/file/noimage.jpg" class="b-mag-item-img" alt="リスト記事">
+                <div class="b-mag-item-info">
+                    <span class="b-mag-item-date">2026.08.15</span>
+                    <h4 class="b-mag-item-title">久しぶりのピアノ発表会に向けて</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <hr style="margin: 80px 0; border: none; border-top: 1px solid #ddd;">
+
+
+    <!-- ==========================================
+         Photos デザインパターン
+    =========================================== -->
+
+    <h2>【Photos A】 メイソンリー（タイル張り）</h2>
+    <div class="photos-pattern-a">
+        <!-- 縦横比が違う写真があるとおしゃれに見えます -->
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/01.jpg" alt="写真"></a>
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/02.jpg" alt="写真"></a>
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/03.jpg" alt="写真"></a>
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/04.jpg" alt="写真"></a>
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/05.jpg" alt="写真"></a>
+        <a href="#" class="p-masonry-item"><img src="https://hontani-hajime.github.io/file/06.jpg" alt="写真"></a>
+    </div>
+
+    <h2>【Photos B】 ポラロイド進化版</h2>
+    <div class="photos-pattern-b">
+        <a href="#" class="p-polaroid-item"><img src="https://hontani-hajime.github.io/file/01.jpg" alt="写真"></a>
+        <a href="#" class="p-polaroid-item"><img src="https://hontani-hajime.github.io/file/02.jpg" alt="写真"></a>
+        <a href="#" class="p-polaroid-item"><img src="https://hontani-hajime.github.io/file/03.jpg" alt="写真"></a>
+        <a href="#" class="p-polaroid-item"><img src="https://hontani-hajime.github.io/file/04.jpg" alt="写真"></a>
+        <a href="#" class="p-polaroid-item"><img src="https://hontani-hajime.github.io/file/05.jpg" alt="写真"></a>
+    </div>
+
+</div>
+
+</body>
+</html>
