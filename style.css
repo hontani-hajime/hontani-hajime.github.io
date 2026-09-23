@@ -479,7 +479,7 @@ a { text-decoration: none; color: inherit; }
 }
 .blog-list-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-/* --- タグデザイン --- */
+/* --- Blog タグデザイン --- */
 .tag-webit    { --tag-color: #20c997; }
 .tag-photo    { --tag-color: #fd7e14; }
 .tag-piano    { --tag-color: #e83e8c; }
@@ -726,8 +726,24 @@ button.filter-tag.is-active {
 .webwork-desc { font-size: 15px; line-height: 1.8; color: #444; }
 .webwork-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* ★ Web Worksのタグ：角を少し四角くし、Web Worksのテーマカラー（紫）を基調とした落ち着いた色に変更 */
-.webwork-tag { font-size: 11px; padding: 4px 12px; border-radius: 6px; color: #6f42c1; font-weight: bold; letter-spacing: 0.05em; border: 1px solid #d8c8f0; background-color: #f5f0fa; }
+/* --- Web Works タグデザイン（少し丸みのあるボタン風） --- */
+.webwork-tag {
+    font-size: 11px; 
+    padding: 4px 10px; 
+    border-radius: 6px; 
+    color: #333; 
+    font-weight: bold; 
+    letter-spacing: 0.05em; 
+    background-color: var(--tech-color, #fff);
+    border: 2px solid #333; 
+    border-bottom: 4px solid #333; /* 立体感を出すための少し太い下線 */
+    display: inline-block;
+}
+.tech-html    { --tech-color: #90CAF9; } /* 青 */
+.tech-css     { --tech-color: #FFF59D; } /* 黄 */
+.tech-js      { --tech-color: #A5D6A7; } /* 緑 */
+.tech-backend { --tech-color: #CE93D8; } /* 紫 */
+.tech-design  { --tech-color: #F48FB1; } /* ピンク */
 
 .site-footer { margin-top: 100px; border-top: 2px solid #333; background-color: #fafafa; padding: 60px 20px; text-align: center; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
