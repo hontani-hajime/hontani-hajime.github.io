@@ -13,6 +13,7 @@
     <main class="main-content">
         <section class="profile-section" style="margin-top: 60px;">
             <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
+            
             <div class="profile-card" style="flex-direction: column; text-align: center; gap: 30px;">
                 <div class="profile-slider-container">
                     <button class="slider-prev-btn" aria-label="前の写真">
@@ -31,6 +32,7 @@
                         </svg>
                     </button>
                 </div>
+                
                 <div class="profile-info">
                     <div class="profile-name-area" style="justify-content: center; margin-bottom: 25px;">
                         <h2 class="profile-name font-bold">本谷 元</h2>
@@ -53,8 +55,9 @@
                         </a>
                     </div>
                     
-                    <h3 class="font-bold" style="font-size: 20px; border-bottom: 2px dashed #ccc; padding-bottom: 8px; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; text-align: left; color: #333;">Skills</h3>
-                    <ul style="max-width: 700px; margin: 0 auto; text-align: left; list-style-type: none; display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 40px;">
+                    <!-- スキルセクション -->
+                    <h3 class="profile-sub-title font-bold">Skills</h3>
+                    <ul class="profile-skills-list">
                         <li class="webwork-tag">HTML</li>
                         <li class="webwork-tag">CSS</li>
                         <li class="webwork-tag">JavaScript</li>
@@ -64,6 +67,50 @@
                         <li class="webwork-tag">Lightroom</li>
                         <li class="webwork-tag">Figma</li>
                     </ul>
+
+                    <!-- 経歴・活動セクション（追加分） -->
+                    <h3 class="profile-sub-title font-bold">Activities & Other Skills</h3>
+                    <div class="profile-extra-list">
+                        <!-- ピアノ -->
+                        <div class="extra-item">
+                            <div class="extra-icon-wrapper piano-icon">
+                                <div class="piano-keys"></div>
+                            </div>
+                            <div class="extra-text">
+                                <h4 class="font-bold">ピアノ</h4>
+                                <p>ヤマハ音楽教室 幼児科を経て、ジュニア専門コースへ進級</p>
+                            </div>
+                        </div>
+                        
+                        <!-- そろばん -->
+                        <div class="extra-item">
+                            <div class="extra-icon-wrapper abacus-icon">
+                                <div class="abacus-beads">
+                                    <div class="abacus-rod"></div>
+                                    <div class="abacus-rod"></div>
+                                    <div class="abacus-rod"></div>
+                                </div>
+                            </div>
+                            <div class="extra-text">
+                                <h4 class="font-bold">そろばん</h4>
+                                <p>珠算一級、暗算準四段</p>
+                            </div>
+                        </div>
+                        
+                        <!-- ボランティア -->
+                        <div class="extra-item">
+                            <div class="extra-icon-wrapper volunteer-icon">
+                                <div class="volunteer-shape"></div>
+                            </div>
+                            <div class="extra-text">
+                                <h4 class="font-bold">ボランティア</h4>
+                                <p>
+                                    こべっこらんど 中高生ボランティア（2025年〜）<br>
+                                    玉津児童館 学生ボランティア（2025年度）
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     <a href="https://hontani-hajime.github.io/" class="action-btn" style="margin-top: 20px;">
                         トップページへ戻る
