@@ -725,7 +725,9 @@ button.filter-tag.is-active {
 .webwork-title { font-size: 24px; line-height: 1.4; color: #333; }
 .webwork-desc { font-size: 15px; line-height: 1.8; color: #444; }
 .webwork-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.webwork-tag { font-size: 11px; padding: 4px 12px; border-radius: 15px; color: #333; font-weight: bold; letter-spacing: 0.05em; border: 1px solid #333; background-color: #fff; }
+
+/* ★ Web Worksのタグ：角を少し四角くし、Web Worksのテーマカラー（紫）を基調とした落ち着いた色に変更 */
+.webwork-tag { font-size: 11px; padding: 4px 12px; border-radius: 6px; color: #6f42c1; font-weight: bold; letter-spacing: 0.05em; border: 1px solid #d8c8f0; background-color: #f5f0fa; }
 
 .site-footer { margin-top: 100px; border-top: 2px solid #333; background-color: #fafafa; padding: 60px 20px; text-align: center; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
