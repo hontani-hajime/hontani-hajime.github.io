@@ -11,10 +11,10 @@
 </head>
 <body>
     <main class="main-content">
-        <section class="profile-section" style="margin-top: 60px;">
-            <h2 class="section-title"><span class="marker-static marker-pink">Profile</span></h2>
-            
-            <div class="profile-card" style="flex-direction: column; text-align: center; gap: 30px;">
+        
+        <!-- プロフィールトップ -->
+        <section class="profile-hero-section">
+            <div class="profile-hero-inner">
                 <div class="profile-slider-container">
                     <button class="slider-prev-btn" aria-label="前の写真">
                         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -33,17 +33,14 @@
                     </button>
                 </div>
                 
-                <div class="profile-info">
-                    <div class="profile-name-area" style="justify-content: center; margin-bottom: 25px;">
-                        <h2 class="profile-name font-bold">本谷 元</h2>
-                        <span class="profile-name-en">Hontani Hajime</span>
-                    </div>
-                    <p class="profile-text" style="max-width: 700px; margin: 0 auto 30px; text-align: left;">
+                <div class="profile-hero-text">
+                    <h2 class="profile-name-large font-bold">本谷 元 <span class="profile-name-en">Hontani Hajime</span></h2>
+                    <p class="profile-desc">
                         カメラとWeb制作をこよなく愛するクリエイターです。<br>
                         日常の何気ない風景を切り取ったり、使いやすくて少し面白いサイトを作ったりするのが得意です。このサイトでは、これまでに撮影したお気に入りの写真や、制作に携わったWebサイトのポートフォリオをゆるく紹介していきます。<br><br>
                         趣味はピアノと旅行。週末はよくカメラを持って出かけています。新しい技術を学ぶのも好きで、最近はフロントエンドの技術を中心にキャッチアップしています。
                     </p>
-                    <div class="sns-list" style="justify-content: center; margin-bottom: 40px;">
+                    <div class="sns-list">
                         <a href="https://www.instagram.com/hajimechandayon" target="_blank" rel="noopener noreferrer" class="sns-link">
                             <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/instagram.jpg" alt="Instagram" class="sns-icon"></div>
                         </a>
@@ -54,71 +51,131 @@
                             <div class="sns-circle"><img src="https://hontani-hajime.github.io/file/pinterest.jpg" alt="Pinterest" class="sns-icon"></div>
                         </a>
                     </div>
-                    
-                    <!-- スキルセクション -->
-                    <h3 class="profile-sub-title font-bold">Skills</h3>
-                    <ul class="profile-skills-list">
-                        <li class="webwork-tag">HTML</li>
-                        <li class="webwork-tag">CSS</li>
-                        <li class="webwork-tag">JavaScript</li>
-                        <li class="webwork-tag">React</li>
-                        <li class="webwork-tag">WordPress</li>
-                        <li class="webwork-tag">Photoshop</li>
-                        <li class="webwork-tag">Lightroom</li>
-                        <li class="webwork-tag">Figma</li>
-                    </ul>
+                </div>
+            </div>
+        </section>
 
-                    <!-- 経歴・活動セクション（追加分） -->
-                    <h3 class="profile-sub-title font-bold">Activities & Other Skills</h3>
-                    <div class="profile-extra-list">
-                        <!-- ピアノ -->
-                        <div class="extra-item">
-                            <div class="extra-icon-wrapper piano-icon">
-                                <div class="piano-keys"></div>
+        <!-- 経歴・スキルセクション -->
+        <section class="profile-details-section">
+            <h2 class="section-title"><span class="marker-static marker-yellow">Experiences & Skills</span></h2>
+            
+            <div class="feature-grid">
+                
+                <!-- そろばん -->
+                <div class="feature-card">
+                    <div class="css-art-container">
+                        <div class="art-abacus">
+                            <div class="abacus-rod">
+                                <div class="abacus-bead b5"></div>
+                                <div class="abacus-bead b1-1 b1-up"></div><div class="abacus-bead b1-2 b1-up"></div><div class="abacus-bead b1-3"></div><div class="abacus-bead b1-4"></div>
                             </div>
-                            <div class="extra-text">
-                                <h4 class="font-bold">ピアノ</h4>
-                                <p>ヤマハ音楽教室 幼児科を経て、ジュニア専門コースへ進級</p>
+                            <div class="abacus-rod">
+                                <div class="abacus-bead b5 b5-down"></div>
+                                <div class="abacus-bead b1-1 b1-up"></div><div class="abacus-bead b1-2"></div><div class="abacus-bead b1-3"></div><div class="abacus-bead b1-4"></div>
                             </div>
-                        </div>
-                        
-                        <!-- そろばん -->
-                        <div class="extra-item">
-                            <div class="extra-icon-wrapper abacus-icon">
-                                <div class="abacus-beads">
-                                    <div class="abacus-rod"></div>
-                                    <div class="abacus-rod"></div>
-                                    <div class="abacus-rod"></div>
-                                </div>
+                            <div class="abacus-rod">
+                                <div class="abacus-bead b5"></div>
+                                <div class="abacus-bead b1-1"></div><div class="abacus-bead b1-2"></div><div class="abacus-bead b1-3"></div><div class="abacus-bead b1-4"></div>
                             </div>
-                            <div class="extra-text">
-                                <h4 class="font-bold">そろばん</h4>
-                                <p>珠算一級、暗算準四段</p>
-                            </div>
-                        </div>
-                        
-                        <!-- ボランティア -->
-                        <div class="extra-item">
-                            <div class="extra-icon-wrapper volunteer-icon">
-                                <div class="volunteer-shape"></div>
-                            </div>
-                            <div class="extra-text">
-                                <h4 class="font-bold">ボランティア</h4>
-                                <p>
-                                    こべっこらんど 中高生ボランティア（2025年〜）<br>
-                                    玉津児童館 学生ボランティア（2025年度）
-                                </p>
+                            <div class="abacus-rod">
+                                <div class="abacus-bead b5 b5-down"></div>
+                                <div class="abacus-bead b1-1 b1-up"></div><div class="abacus-bead b1-2 b1-up"></div><div class="abacus-bead b1-3 b1-up"></div><div class="abacus-bead b1-4"></div>
                             </div>
                         </div>
                     </div>
-
-                    <a href="https://hontani-hajime.github.io/" class="action-btn" style="margin-top: 20px;">
-                        トップページへ戻る
-                        <span class="btn-arrow-circle">
-                            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
-                    </a>
+                    <h3 class="feature-title">Abacus <span class="feature-title-ja">そろばん</span></h3>
+                    <div class="feature-content">
+                        <h4>暗算</h4>
+                        <ul>
+                            <li>全珠連 準四段</li>
+                            <li>計算技能検定 三段</li>
+                            <li>日珠連 一級</li>
+                        </ul>
+                        <h4>珠算</h4>
+                        <ul>
+                            <li>計算技能検定 一級</li>
+                            <li>日珠連 二級</li>
+                        </ul>
+                    </div>
                 </div>
+
+                <!-- ピアノ -->
+                <div class="feature-card">
+                    <div class="css-art-container">
+                        <div class="art-piano">
+                            <div class="piano-key"></div>
+                            <div class="piano-key black"></div>
+                            <div class="piano-key black"></div>
+                            <div class="piano-key"></div>
+                            <div class="piano-key black"></div>
+                            <div class="piano-key black"></div>
+                            <div class="piano-key black"></div>
+                            <div class="piano-key"></div>
+                        </div>
+                    </div>
+                    <h3 class="feature-title">Piano <span class="feature-title-ja">ピアノ</span></h3>
+                    <div class="feature-content">
+                        <ul>
+                            <li>ヤマハ音楽教室 幼児科 修了</li>
+                            <li>ヤマハ音楽教室 ジュニア専門コース 進級</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ボランティア -->
+                <div class="feature-card">
+                    <div class="css-art-container">
+                        <div class="art-volunteer">
+                            <div class="vol-medal"></div>
+                            <div class="vol-ribbon left"></div>
+                            <div class="vol-ribbon right"></div>
+                        </div>
+                    </div>
+                    <h3 class="feature-title">Volunteer <span class="feature-title-ja">ボランティア</span></h3>
+                    <div class="feature-content">
+                        <ul>
+                            <li>こべっこらんど 中高生ボランティア<br><span class="feature-date">2025年〜</span></li>
+                            <li>玉津児童館 学生ボランティア<br><span class="feature-date">2025年度</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Web Skills -->
+                <div class="feature-card">
+                    <div class="css-art-container">
+                        <div class="art-web">
+                            <div class="art-web-head">
+                                <div class="art-web-dot"></div><div class="art-web-dot"></div><div class="art-web-dot"></div>
+                            </div>
+                            <div class="art-web-body">
+                                <div class="art-web-line"></div>
+                                <div class="art-web-line short"></div>
+                                <div class="art-web-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="feature-title">Web Skills <span class="feature-title-ja">Web・ツール</span></h3>
+                    <div class="feature-content" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-content: flex-start; padding-top: 10px;">
+                        <span class="webwork-tag">HTML</span>
+                        <span class="webwork-tag">CSS</span>
+                        <span class="webwork-tag">JavaScript</span>
+                        <span class="webwork-tag">React</span>
+                        <span class="webwork-tag">WordPress</span>
+                        <span class="webwork-tag">Photoshop</span>
+                        <span class="webwork-tag">Lightroom</span>
+                        <span class="webwork-tag">Figma</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="https://hontani-hajime.github.io/" class="action-btn">
+                    トップページへ戻る
+                    <span class="btn-arrow-circle">
+                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </span>
+                </a>
             </div>
         </section>
     </main>
