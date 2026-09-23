@@ -638,6 +638,7 @@ button.filter-tag.is-active {
     text-decoration: none; 
     position: relative; 
     transform-origin: top center; 
+    /* 初期状態はまっすぐ均等に並びます */
 }
 
 /* 押しピンの形 */
@@ -663,30 +664,21 @@ button.filter-tag.is-active {
 
 .photo-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 2px; border: 2px solid #333; }
 
-/* 元の傾きを CSS変数(--base-rot) に記憶させる（カクつき防止） */
-.photo-item:nth-child(1) { --base-rot: -3deg; transform: rotate(var(--base-rot)); }
-.photo-item:nth-child(2) { --base-rot: 2deg;  transform: rotate(var(--base-rot)); }
-.photo-item:nth-child(3) { --base-rot: -2deg; transform: rotate(var(--base-rot)); }
-.photo-item:nth-child(4) { --base-rot: 3deg;  transform: rotate(var(--base-rot)); }
-.photo-item:nth-child(5) { --base-rot: -4deg; transform: rotate(var(--base-rot)); }
-.photo-item:nth-child(6) { --base-rot: 1deg;  transform: rotate(var(--base-rot)); }
-
 /* ホバー時のフワッとした動き */
 .photo-item:hover { 
-    /* 1. まずスムーズに少し拡大して手前に出す（transitionで処理） */
-    transform: rotate(var(--base-rot)) scale(1.03); 
+    /* まずスムーズに拡大し、0.3秒後から揺れアニメーションを開始 */
+    transform: scale(1.03); 
     box-shadow: 8px 14px 12px rgba(0,0,0,0.15); 
     z-index: 10; 
-    /* 2. 拡大し終わった直後（0.3秒後）に、ゆらゆらアニメーションを開始する */
-    animation: gentle-swing 3s ease-in-out 0.3s infinite;
+    animation: gentle-swing 2.5s ease-in-out 0.3s infinite;
 }
 
-/* 記憶した元の傾き(--base-rot)を中心に揺らすので、カクつかない */
+/* 左右にゆらゆら揺れるアニメーション */
 @keyframes gentle-swing {
-    0%   { transform: rotate(var(--base-rot)) scale(1.03); }
-    25%  { transform: rotate(calc(var(--base-rot) + 2deg)) scale(1.03); }
-    75%  { transform: rotate(calc(var(--base-rot) - 2deg)) scale(1.03); }
-    100% { transform: rotate(var(--base-rot)) scale(1.03); }
+    0%   { transform: scale(1.03) rotate(0deg); }
+    25%  { transform: scale(1.03) rotate(3deg); }
+    75%  { transform: scale(1.03) rotate(-3deg); }
+    100% { transform: scale(1.03) rotate(0deg); }
 }
 
 /* 写真下の説明文のスタイル */
@@ -722,8 +714,6 @@ button.filter-tag.is-active {
 .window-bar .dot:nth-child(2) { background-color: #FFB74D; }
 .window-bar .dot:nth-child(3) { background-color: #81C784; }
 .window-content { width: 100%; aspect-ratio: 16 / 9; }
-
-/* ▼ ここを変更しました！ object-position: top; を追加 */
 .window-content img { 
     width: 100%; 
     height: 100%; 
@@ -731,7 +721,6 @@ button.filter-tag.is-active {
     object-position: top; 
     display: block; 
 }
-
 .webwork-text { flex: 1; display: flex; flex-direction: column; gap: 15px; }
 .webwork-title { font-size: 24px; line-height: 1.4; color: #333; }
 .webwork-desc { font-size: 15px; line-height: 1.8; color: #444; }
